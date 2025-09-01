@@ -1,5 +1,11 @@
+import os
+
+from dotenv import load_dotenv
 import markdown
 import csv
+
+import sendgrid
+
 from jcvb._consts import JCVB_ROOT
 
 _NEWSLETTERS_DIR = JCVB_ROOT / "newsletters"
@@ -29,5 +35,14 @@ class JCVBNewsletter:
 
 
 if __name__ == "__main__":
-    dist_list = _read_distribution_list_csv()
-    print(dist_list)
+    load_dotenv()
+    sg = sendgrid.SendGridAPIClient(api_key=os.environ.get("TK_SG_API_KEY"))
+    newsletter = JCVBNewsletter("2025-08-31")
+    message = sendgrid.Mail(
+        from_email=sendgrid.Email("jcvb@tkutcher.com"),
+        to_emails=sendgrid.To("tkutcher@outlook.com"),
+        subject="🏐 JCVB Newsletter",
+        html_content=newsletter.get_as_html(),
+    )
+    response = sg.client.mail.send.post(request_body=message.get())
+    print(response.body)
