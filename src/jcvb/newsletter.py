@@ -1,7 +1,15 @@
 import markdown
+import csv
 from jcvb._consts import JCVB_ROOT
 
 _NEWSLETTERS_DIR = JCVB_ROOT / "newsletters"
+_DISTRIBUTION_LIST_CSV = _NEWSLETTERS_DIR / "distribution-list.csv"
+
+
+def _read_distribution_list_csv():
+    with open(_DISTRIBUTION_LIST_CSV, "r") as f:
+        reader = csv.reader(f)
+        return list(reader)[1:]
 
 
 class JCVBNewsletter:
@@ -21,6 +29,5 @@ class JCVBNewsletter:
 
 
 if __name__ == "__main__":
-    newsletter = JCVBNewsletter("2025-08-31")
-    html = newsletter.get_as_html()
-    print(html)
+    dist_list = _read_distribution_list_csv()
+    print(dist_list)
