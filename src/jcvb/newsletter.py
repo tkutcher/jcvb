@@ -1,15 +1,24 @@
+import csv
+import datetime
+import logging
 import os
 
-from dotenv import load_dotenv
 import markdown
-import csv
-
 import sendgrid
+from dotenv import load_dotenv
 
+from jcvb._consts import JCVB_PUBLIC
 from jcvb._consts import JCVB_ROOT
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+
 _NEWSLETTERS_DIR = JCVB_ROOT / "newsletters"
+_SENT_NEWSLETTERS_DIR = JCVB_PUBLIC / "newsletters"
 _DISTRIBUTION_LIST_CSV = _NEWSLETTERS_DIR / "distribution-list.csv"
+_NEXT_NEWSLETTER_PATH = _NEWSLETTERS_DIR / "Next-Newsletter.md"
 
 
 def _read_distribution_list_csv():
@@ -18,31 +27,52 @@ def _read_distribution_list_csv():
         return list(reader)[1:]
 
 
-class JCVBNewsletter:
-    def __init__(self, iso_date: str):
-        self._iso_date = iso_date
-        self._filepath = _NEWSLETTERS_DIR / f"{iso_date}-JCVB-Newsletter.md"
-        self._md_content: str = ""
-        self.read_md_content()
+def _read_next_newsletter_md() -> str:
+    with open(_NEXT_NEWSLETTER_PATH, "r") as f:
+        return f.read()
 
-    def read_md_content(self) -> None:
-        """Read in the markdown content to the"""
-        with open(self._filepath, "r", encoding="utf-8") as f:
-            self._md_content = f.read()
 
-    def get_as_html(self) -> str:
-        return markdown.markdown(self._md_content)
+def _read_next_newsletter_html() -> str:
+    return markdown.markdown(_read_next_newsletter_md())
+
+
+def _file_newsletter_as_sent(date: datetime.date) -> None:
+    filename = f"{date.isoformat()}-JCVB-Newsletter.md"
+    with open(_SENT_NEWSLETTERS_DIR / filename, "w") as f:
+        f.write(_read_next_newsletter_md())
+
+
+def _send_newsletter_to_emails(sg: sendgrid.SendGridAPIClient, to_emails) -> None:
+    today = datetime.date.today()
+    message = sendgrid.Mail(
+        from_email=sendgrid.Email("jcvb@tkutcher.com"),
+        to_emails=to_emails,
+        subject=f"🏐JC Volleyball {today.strftime('%m/%d')} Newsletter",
+        html_content=_read_next_newsletter_html(),
+    )
+    response = sg.client.mail.send.post(request_body=message.get())
+    logging.info(f"Sent newsletter - SendGrid Response {response.status_code}")
+
+
+class NewsletterDistributor:
+    def __init__(self, sg: sendgrid.SendGridAPIClient, dry_run_email: str) -> None:
+        self._sg = sg
+        self._dry_run_email = dry_run_email
+        self._distribution = _read_distribution_list_csv()
+
+    def dry_run(self):
+        _send_newsletter_to_emails(self._sg, self._dry_run_email)
+
+    # noinspection PyMethodMayBeStatic
+    def file_as_sent(self):
+        _file_newsletter_as_sent(datetime.date.today())
 
 
 if __name__ == "__main__":
     load_dotenv()
-    sg = sendgrid.SendGridAPIClient(api_key=os.environ.get("TK_SG_API_KEY"))
-    newsletter = JCVBNewsletter("2025-08-31")
-    message = sendgrid.Mail(
-        from_email=sendgrid.Email("jcvb@tkutcher.com"),
-        to_emails=sendgrid.To("tkutcher@outlook.com"),
-        subject="🏐 JCVB Newsletter",
-        html_content=newsletter.get_as_html(),
+    distributor = NewsletterDistributor(
+        sg=sendgrid.SendGridAPIClient(api_key=os.environ.get("TK_SG_API_KEY")),
+        dry_run_email="tkutcher@outlook.com",
     )
-    response = sg.client.mail.send.post(request_body=message.get())
-    print(response.body)
+    distributor.dry_run()
+    distributor.file_as_sent()

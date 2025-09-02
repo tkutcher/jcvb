@@ -7,3 +7,4 @@ TK_GDRIVE_ROOT = pathlib.Path(
 
 HQ = TK_GDRIVE_ROOT / "hq"
 JCVB_ROOT = HQ / "60-Athletics" / "62-JCVB"
+JCVB_PUBLIC = JCVB_ROOT / "jcvb-public"
