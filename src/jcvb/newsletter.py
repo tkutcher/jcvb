@@ -18,8 +18,16 @@ logging.basicConfig(
 
 _NEWSLETTERS_DIR = JCVB_ROOT / "newsletters"
 _SENT_NEWSLETTERS_DIR = JCVB_PUBLIC / "newsletters"
-_DISTRIBUTION_LIST_CSV = _NEWSLETTERS_DIR / "distribution-list.csv"
 _NEXT_NEWSLETTER_PATH = _NEWSLETTERS_DIR / "Next-Newsletter.md"
+_DISTRIBUTION_TO_EMAIL = "tkutcher@johncarroll.org"
+
+_MAIN_DISTRIBUTION_LIST_CSV = _NEWSLETTERS_DIR / "distribution-list.csv"
+_TEST_DISTRIBUTION_LIST_CSV = _NEWSLETTERS_DIR / "distribution-list-test.csv"
+
+_TKUTCHER_COM_EMAIL_FROM = "jcvb@tkutcher.com"
+_ANVILOR_COM_EMAIL_FROM = "jcvb@anvilor.com"
+
+_EMAIL_FROM = _ANVILOR_COM_EMAIL_FROM  # TEMP
 
 
 def _read_next_newsletter_md() -> str:
@@ -37,17 +45,24 @@ def _file_newsletter_as_sent(date: datetime.date) -> None:
         f.write(_read_next_newsletter_md())
 
 
+def _newsletter_subject(date: datetime.date, suffix="") -> str:
+    suffix = f" - {suffix}" if suffix else ""
+    return f"🏐 JC Volleyball {date.strftime('%m/%d')} Newsletter{suffix}"
+
+
 def _send_newsletter_to_emails(
     sg: sendgrid.SendGridAPIClient,
     to_email: str,
     recipients: list[tuple[str, str]],
+    subject: str = None,
     file_as_sent=False,
 ) -> None:
     today = datetime.date.today()
+    subject = _newsletter_subject(today) if subject is None else subject
     message = sendgrid.Mail(
-        from_email=sendgrid.Email("jcvb@tkutcher.com"),
+        from_email=sendgrid.Email(_EMAIL_FROM),
         to_emails=[sendgrid.To(email=to_email)],
-        subject=f"🏐JC Volleyball {today.strftime('%m/%d')} Newsletter",
+        subject=subject,
         html_content=_read_next_newsletter_html(),
     )
     for recipient in recipients:
@@ -63,17 +78,18 @@ class NewsletterDistributor:
         self,
         sg: sendgrid.SendGridAPIClient,
         to_email: str,
-        distribution_list_path: pathlib.Path = _DISTRIBUTION_LIST_CSV,
+        distribution_list_path: pathlib.Path = _MAIN_DISTRIBUTION_LIST_CSV,
     ) -> None:
         self._sg = sg
         self._to_email = to_email
         self._distribution_list_path = distribution_list_path
 
-    def distribute_newsletter(self, file_as_sent=True):
+    def distribute_newsletter(self, file_as_sent=True, subject=None) -> None:
         _send_newsletter_to_emails(
             self._sg,
             to_email=self._to_email,
             recipients=self._read_distribution_list(),
+            subject=subject,
             file_as_sent=file_as_sent,
         )
 
@@ -89,9 +105,13 @@ class NewsletterDistributor:
 
 if __name__ == "__main__":
     load_dotenv()
+    SG_API_KEY = os.environ.get("TK_SG_API_KEY")
+    ANVILOR_SG_API_KEY = os.environ.get("ANVILOR_SG_API_KEY")
+    API_KEY = ANVILOR_SG_API_KEY
+    _DISTRIBUTION_LIST_CSV = _MAIN_DISTRIBUTION_LIST_CSV
     distributor = NewsletterDistributor(
-        sg=sendgrid.SendGridAPIClient(api_key=os.environ.get("TK_SG_API_KEY")),
-        to_email="tkutcher@johncarroll.org",
+        sg=sendgrid.SendGridAPIClient(api_key=API_KEY),
+        to_email=_DISTRIBUTION_TO_EMAIL,
         distribution_list_path=_DISTRIBUTION_LIST_CSV,
     )
     distributor.distribute_newsletter(
