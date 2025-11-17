@@ -5,6 +5,7 @@ TK_GDRIVE_ROOT = pathlib.Path(
     "/Users/tkutcher/Library/CloudStorage/GoogleDrive-tkutcher@outlook.com/My Drive"
 )
 
+
 HQ = TK_GDRIVE_ROOT / "hq"
-JCVB_ROOT = HQ / "60-Athletics" / "62-JCVB"
+JCVB_ROOT = HQ / "60-Sport" / "62-Volleyball" / "JCVB"
 JCVB_PUBLIC = JCVB_ROOT / "jcvb-public"

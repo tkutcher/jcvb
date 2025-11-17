@@ -16,8 +16,8 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
-_NEWSLETTERS_DIR = JCVB_ROOT / "newsletters"
-_SENT_NEWSLETTERS_DIR = JCVB_PUBLIC / "newsletters"
+_NEWSLETTERS_DIR = JCVB_ROOT / "newsletter"
+_SENT_NEWSLETTERS_DIR = JCVB_PUBLIC / "newsletter"
 _NEXT_NEWSLETTER_PATH = _NEWSLETTERS_DIR / "Next-Newsletter.md"
 _DISTRIBUTION_TO_EMAIL = "tkutcher@johncarroll.org"
 
@@ -65,6 +65,10 @@ def _send_newsletter_to_emails(
         subject=subject,
         html_content=_read_next_newsletter_html(),
     )
+    tracking_settings = sendgrid.TrackingSettings(
+        click_tracking=sendgrid.ClickTracking(enable=False, enable_text=False)
+    )
+    message.tracking_settings = tracking_settings
     for recipient in recipients:
         message.add_bcc(sendgrid.Bcc(email=recipient[1], name=recipient[0]))
     response = sg.client.mail.send.post(request_body=message.get())
@@ -109,6 +113,7 @@ if __name__ == "__main__":
     ANVILOR_SG_API_KEY = os.environ.get("ANVILOR_SG_API_KEY")
     API_KEY = ANVILOR_SG_API_KEY
     _DISTRIBUTION_LIST_CSV = _MAIN_DISTRIBUTION_LIST_CSV
+    # _DISTRIBUTION_LIST_CSV = _TEST_DISTRIBUTION_LIST_CSV
     distributor = NewsletterDistributor(
         sg=sendgrid.SendGridAPIClient(api_key=API_KEY),
         to_email=_DISTRIBUTION_TO_EMAIL,
