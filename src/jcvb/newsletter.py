@@ -3,6 +3,8 @@ import datetime
 import logging
 import os
 import pathlib
+from abc import ABC, abstractmethod
+from typing import List, Tuple
 
 import markdown
 import sendgrid
@@ -17,7 +19,7 @@ logging.basicConfig(
 )
 
 _NEWSLETTERS_DIR = JCVB_ROOT / "newsletter"
-_SENT_NEWSLETTERS_DIR = JCVB_PUBLIC / "newsletter"
+_SENT_NEWSLETTERS_DIR = JCVB_PUBLIC / "newsletters"
 _NEXT_NEWSLETTER_PATH = _NEWSLETTERS_DIR / "Next-Newsletter.md"
 _DISTRIBUTION_TO_EMAIL = "tkutcher@johncarroll.org"
 
@@ -77,34 +79,80 @@ def _send_newsletter_to_emails(
         _file_newsletter_as_sent(today)
 
 
+class DistributionList(ABC):
+    """Abstract base class for distribution lists."""
+
+    @abstractmethod
+    def get_recipients(self) -> List[Tuple[str, str]]:
+        """Returns a list of (name, email) tuples."""
+        pass
+
+
+class FileDistributionList(DistributionList):
+    """Distribution list that reads from a CSV file."""
+
+    def __init__(self, file_path: pathlib.Path) -> None:
+        self._file_path = file_path
+
+    def get_recipients(self) -> List[Tuple[str, str]]:
+        recipients: List[Tuple[str, str]] = []
+        with open(self._file_path, "r") as f:
+            reader = csv.reader(f)
+            next(reader)  # Skip header
+            for name, email in reader:
+                recipients.append((name, email))
+        return recipients
+
+
+class CustomDistributionList(DistributionList):
+    """Distribution list with manually provided recipients."""
+
+    def __init__(self, recipients: List[Tuple[str, str]]) -> None:
+        self._recipients = recipients
+
+    def get_recipients(self) -> List[Tuple[str, str]]:
+        return self._recipients.copy()
+
+
+class CombinedDistributionList(DistributionList):
+    """Distribution list that combines multiple distribution lists."""
+
+    def __init__(self, *distribution_lists: DistributionList) -> None:
+        self._distribution_lists = distribution_lists
+
+    def get_recipients(self) -> List[Tuple[str, str]]:
+        all_recipients = []
+        seen_emails = set()
+
+        for dist_list in self._distribution_lists:
+            for name, email in dist_list.get_recipients():
+                # Avoid duplicates based on email address
+                if email not in seen_emails:
+                    all_recipients.append((name, email))
+                    seen_emails.add(email)
+
+        return all_recipients
+
+
 class NewsletterDistributor:
     def __init__(
         self,
         sg: sendgrid.SendGridAPIClient,
         to_email: str,
-        distribution_list_path: pathlib.Path = _MAIN_DISTRIBUTION_LIST_CSV,
+        distribution_list: DistributionList,
     ) -> None:
         self._sg = sg
         self._to_email = to_email
-        self._distribution_list_path = distribution_list_path
+        self._distribution_list = distribution_list
 
     def distribute_newsletter(self, file_as_sent=True, subject=None) -> None:
         _send_newsletter_to_emails(
             self._sg,
             to_email=self._to_email,
-            recipients=self._read_distribution_list(),
+            recipients=self._distribution_list.get_recipients(),
             subject=subject,
             file_as_sent=file_as_sent,
         )
-
-    def _read_distribution_list(self) -> list[tuple[str, str]]:
-        to_emails: list[tuple[str, str]] = []
-        with open(self._distribution_list_path, "r") as f:
-            reader = csv.reader(f)
-            next(reader)
-            for name, email in reader:
-                to_emails.append((name, email))
-        return to_emails
 
 
 if __name__ == "__main__":
@@ -113,11 +161,17 @@ if __name__ == "__main__":
     ANVILOR_SG_API_KEY = os.environ.get("ANVILOR_SG_API_KEY")
     API_KEY = ANVILOR_SG_API_KEY
     _DISTRIBUTION_LIST_CSV = _MAIN_DISTRIBUTION_LIST_CSV
-    # _DISTRIBUTION_LIST_CSV = _TEST_DISTRIBUTION_LIST_CSV
+
+    file_distribution = FileDistributionList(_DISTRIBUTION_LIST_CSV)
+    distribution_list = CombinedDistributionList(
+        file_distribution,
+        CustomDistributionList([]),
+    )
+
     distributor = NewsletterDistributor(
         sg=sendgrid.SendGridAPIClient(api_key=API_KEY),
         to_email=_DISTRIBUTION_TO_EMAIL,
-        distribution_list_path=_DISTRIBUTION_LIST_CSV,
+        distribution_list=distribution_list,
     )
     distributor.distribute_newsletter(
         file_as_sent=True,
