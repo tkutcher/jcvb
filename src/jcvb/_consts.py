@@ -6,6 +6,6 @@ TK_GDRIVE_ROOT = pathlib.Path(
 )
 
 
-HQ = TK_GDRIVE_ROOT / "hq"
-JCVB_ROOT = HQ / "60-Sport" / "62-Volleyball" / "JCVB"
+TK_VAULT_ROOT = TK_GDRIVE_ROOT / "tk-vault"
+JCVB_ROOT = TK_VAULT_ROOT / "orgs" / "JCVB"
 JCVB_PUBLIC = JCVB_ROOT / "public"

@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 
 from jcvb._consts import JCVB_PUBLIC
 from jcvb._consts import JCVB_ROOT
+from jcvb._consts import TK_GDRIVE_ROOT
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -23,7 +24,10 @@ _SENT_NEWSLETTERS_DIR = JCVB_PUBLIC / "newsletters"
 _NEXT_NEWSLETTER_PATH = _NEWSLETTERS_DIR / "Next-Newsletter.md"
 _DISTRIBUTION_TO_EMAIL = "tkutcher@johncarroll.org"
 
-_MAIN_DISTRIBUTION_LIST_CSV = _NEWSLETTERS_DIR / "distribution-list.csv"
+_MAIN_DISTRIBUTION_LIST_CSV = (
+    TK_GDRIVE_ROOT / "tk-vault.attachments" / "distribution-list.csv"
+)
+
 _TEST_DISTRIBUTION_LIST_CSV = _NEWSLETTERS_DIR / "distribution-list-test.csv"
 
 _TKUTCHER_COM_EMAIL_FROM = "jcvb@tkutcher.com"
@@ -166,6 +170,12 @@ if __name__ == "__main__":
     distribution_list = CombinedDistributionList(
         file_distribution,
         CustomDistributionList([]),
+    )
+
+    _test_distribution_list = CustomDistributionList(
+        [
+            ("Tim", "tkutcher@outlook.com"),
+        ]
     )
 
     distributor = NewsletterDistributor(
