@@ -100,7 +100,7 @@ class FileDistributionList(DistributionList):
         with open(self._file_path, "r") as f:
             reader = csv.reader(f)
             next(reader)  # Skip header
-            for name, email in reader:
+            for name, email, _ in reader:
                 recipients.append((name, email))
         return recipients
 
