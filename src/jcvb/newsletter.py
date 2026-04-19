@@ -10,9 +10,8 @@ import markdown
 import sendgrid
 from dotenv import load_dotenv
 
-from jcvb._consts import JCVB_PUBLIC
+from jcvb._consts import JCVB_PUBLIC, REPO_ROOT
 from jcvb._consts import JCVB_ROOT
-from jcvb._consts import TK_GDRIVE_ROOT
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -24,9 +23,7 @@ _SENT_NEWSLETTERS_DIR = JCVB_PUBLIC / "newsletters"
 _NEXT_NEWSLETTER_PATH = _NEWSLETTERS_DIR / "Next-Newsletter.md"
 _DISTRIBUTION_TO_EMAIL = "tkutcher@johncarroll.org"
 
-_MAIN_DISTRIBUTION_LIST_CSV = (
-    TK_GDRIVE_ROOT / "tk-vault.attachments" / "distribution-list.csv"
-)
+_MAIN_DISTRIBUTION_LIST_CSV = REPO_ROOT / "distribution-list.csv"
 
 _TEST_DISTRIBUTION_LIST_CSV = _NEWSLETTERS_DIR / "distribution-list-test.csv"
 
@@ -182,6 +179,7 @@ if __name__ == "__main__":
         sg=sendgrid.SendGridAPIClient(api_key=API_KEY),
         to_email=_DISTRIBUTION_TO_EMAIL,
         distribution_list=distribution_list,
+        # distribution_list=_test_distribution_list,
     )
     distributor.distribute_newsletter(
         file_as_sent=True,
