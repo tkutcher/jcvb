@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+  <meta name="theme-color" content="#0a0203">
+  <meta property="og:title" content="{{ self.title() }}">
+  <meta property="og:description" content="{{ self.description() }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.name }}">
+  {% if site.canonical_url %}
+  <meta property="og:url" content="{{ site.canonical_url }}/">
+  <meta property="og:image" content="{{ site.canonical_url }}/assets/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ site.canonical_url }}/assets/img/og.png">
+  {% endif %}
+  <link rel="icon" href="{{ base }}/assets/brand/jcvb-icon.png">
+  <link rel="apple-touch-icon" href="{{ base }}/assets/brand/jcvb-icon.png">
+  <link rel="stylesheet" href="{{ base }}/assets/css/brand.css?v={{ ver }}">
+  <link rel="stylesheet" href="{{ base }}/assets/css/site.css?v={{ ver }}">
+</head>
+<body class="page--{{ page }}">
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% include "partials/nav.j2" %}
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+  {% include "partials/footer.j2" %}
+  <script src="{{ base }}/assets/js/motion.js?v={{ ver }}" defer></script>
+</body>
+</html>

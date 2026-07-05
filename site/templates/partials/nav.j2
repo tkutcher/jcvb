@@ -1,0 +1,20 @@
+<header class="site-header">
+  <div class="container">
+    <a class="brand-lockup" href="{{ base }}/" aria-label="{{ site.name }} — home">
+      <img class="brand-wordmark" src="{{ base }}/assets/brand/jcvb-wordmark-on-dark.png" alt="{{ site.name }}" width="691" height="252">
+    </a>
+
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+      <span></span>
+    </button>
+
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="{{ base }}/" class="{{ 'is-active' if page == 'home' }}">Home</a>
+      <a href="{{ base }}/schedule/" class="{{ 'is-active' if page == 'schedule' }}">Schedule</a>
+      <a href="{{ base }}/newsletters/" class="{{ 'is-active' if page == 'newsletters' }}">Newsletters</a>
+      <a href="{{ links.roster }}" target="_blank" rel="noopener">Roster ↗</a>
+      <a href="{{ base }}/brand/" class="{{ 'is-active' if page == 'brand' }}">Brand</a>
+      <a href="{{ links.store }}" class="nav-cta" target="_blank" rel="noopener">Team Store ↗</a>
+    </nav>
+  </div>
+</header>

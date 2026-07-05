@@ -1,0 +1,74 @@
+# Global site configuration for the JCVB static site.
+# Read by src/jcvb/site_build.py at build time (stdlib tomllib).
+
+[site]
+# Base path the site is served under (deployed at sites.anvilor.com/jcvb).
+# Set to "" to serve from a domain root. No trailing slash.
+base_path = "/jcvb"
+# Absolute base URL — used for social (og/twitter) image + url tags.
+canonical_url = "https://sites.anvilor.com/jcvb"
+name = "John Carroll Boys Volleyball"
+short_name = "JCVB"
+tagline = "One Program. One Standard. Patriots Volleyball."
+description = "Official home of John Carroll Boys Volleyball — newsletters, the 2026 season schedule, brand, and more."
+school = "The John Carroll School"
+location = "Bel Air, Maryland"
+league = "MIAA"
+season = 2026
+
+[links]
+# External destinations surfaced across the site.
+store = "https://jc-boys-volleyball.printify.me/"
+league = "https://miaasports.net/sports/mvball/index"
+give = "https://www.johncarroll.org/1964boysvolleyball"
+roster = "https://www.johncarroll.org/athletics/teams/boys-volleyball"
+instagram = "https://www.instagram.com/jcboysvball/"
+
+[[highlights]]
+value = "2x"
+label = "Championship appearances in 3 years"
+
+[[highlights]]
+value = "400"
+label = "Varsity kills (2025)"
+
+[[highlights]]
+value = "128"
+label = "Varsity aces (2025)"
+
+[[highlights]]
+value = "66"
+label = "Varsity blocks (2025)"
+
+[program]
+blurb = """
+John Carroll Boys Volleyball is a program built on leadership, character, and relentless \
+competition. Fielding both JV and Varsity squads in the MIAA, our Patriots develop players \
+on and off the court — chasing championships while building the kind of culture that lasts. \
+In 2025 both teams reached the MIAA championship, capping a season of 400 kills, 128 aces, \
+and 66 blocks."""
+
+# Coaching staff — sourced from coach/admin/gov/JCVB-Coaching-Roles.md
+# `photo` = web filename under /assets/pics/coaches/; `pos` = CSS object-position for framing.
+[[coaches]]
+name = "Timothy Kutcher"
+role = "Head Coach"
+photo = "tim.jpg"
+pos = "54% 12%"
+
+[[coaches]]
+name = "Tony Pietro"
+role = "Associate Coach & JV Head Coach"
+# no usable headshot yet — falls back to a monogram
+
+[[coaches]]
+name = "Trent Shaw"
+role = "Associate Coach"
+photo = "trent.jpg"
+pos = "50% 14%"
+
+[[coaches]]
+name = "Steven Kutcher"
+role = "JV Assistant Coach"
+photo = "steven.jpg"
+pos = "50% 12%"

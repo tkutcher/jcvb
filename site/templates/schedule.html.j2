@@ -1,0 +1,97 @@
+{% extends "base.html.j2" %}
+{% import "partials/macros.j2" as brand %}
+{% block title %}2026 Season Schedule · {{ site.short_name }}{% endblock %}
+{% block description %}The 2026 John Carroll Boys Volleyball schedule — JV & Varsity match times, home and away.{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero--photo">
+  <img class="page-hero__photo" src="{{ base }}/assets/pics/action-set.jpg" alt="" aria-hidden="true">
+  <div class="container">
+    <div class="page-hero__watermark">{{ brand.swirl('schwm') }}</div>
+    <span class="eyebrow">Season 2026 · {{ meta.status }}</span>
+    <h1>The Road to the Championship</h1>
+    <p>Every match on the 2026 slate — JV and Varsity times, home and away. Home games are played in the {{ meta.home_venue }}.</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="sched-bar">
+      <div class="filters" data-filters role="group" aria-label="Filter games">
+        <button data-filter="all" class="is-active">All Games</button>
+        <button data-filter="conference">Conference</button>
+        <button data-filter="home">Home</button>
+      </div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+        <a class="btn btn--ghost" href="{{ base }}/assets/img/2026-JCVB-schedule.svg" download>Download graphic <span class="arrow">↓</span></a>
+        <a class="btn btn--ghost" href="{{ links.league }}" target="_blank" rel="noopener">MIAA standings ↗</a>
+      </div>
+    </div>
+
+    <!-- Desktop table -->
+    <table class="sched-table">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Matchup</th>
+          <th scope="col">Site</th>
+          <th scope="col">JV</th>
+          <th scope="col">Varsity</th>
+          <th scope="col">Venue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for g in games %}
+        <tr data-game="{{ g.filter_tokens }}">
+          <td class="sched-date"><span class="dow">{{ g.weekday }}</span><br><span class="dnum">{{ g.date_display }}</span></td>
+          <td class="sched-opp">{{ g.opponent }}<span class="desc">{{ g.designation_label }}{% if g.note %} · {{ g.note }}{% endif %}</span></td>
+          <td><span class="chip chip--{{ g.home_away }}">{{ g.ha_label }}</span></td>
+          <td class="sched-time">{% if g.jv %}{{ g.jv }}{% else %}<span class="na">—</span>{% endif %}</td>
+          <td class="sched-time">{% if g.varsity %}{{ g.varsity }}{% else %}<span class="na">—</span>{% endif %}</td>
+          <td class="sched-time">{{ g.venue }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Mobile cards -->
+    <div class="sched-cards">
+      {% for g in games %}
+      <div class="sched-card" data-game="{{ g.filter_tokens }}">
+        <div class="cal">
+          <div class="m">{{ g.month[:3] }}</div>
+          <div class="d">{{ g.date.day }}</div>
+          <div class="dow">{{ g.weekday }}</div>
+        </div>
+        <div class="mid">
+          <div class="opp">{{ g.opponent }}</div>
+          <div class="times">
+            <span class="chip chip--{{ g.home_away }}" style="margin-right:.4rem">{{ g.ha_label }}</span>
+            {% if g.jv %}JV <b>{{ g.jv }}</b> · {% endif %}V <b>{{ g.varsity }}</b>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Postseason</span>
+      <h2>MIAA Playoffs</h2>
+      <p>Dates are set; matchups, times, and sites are confirmed as the bracket takes shape.</p>
+    </div>
+    <div class="playoffs">
+      {% for g in playoffs %}
+      <div class="playoff-card" data-reveal data-reveal-delay="{{ loop.index0 }}">
+        <div class="m">{{ g.weekday }}, {{ g.date_display }}</div>
+        <h3>{{ g.opponent }}</h3>
+        <div class="when">{{ g.venue }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

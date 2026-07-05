@@ -1,0 +1,195 @@
+{% extends "base.html.j2" %}
+{% import "partials/macros.j2" as brand %}
+{% block title %}John Carroll Patriots Boys Volleyball{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero__emblem">
+    <div class="hero__swirl">{{ brand.swirl('heroGrad', 'swirl-spin') }}</div>
+    <img class="hero__logo" src="{{ base }}/assets/brand/parts/patriot-head.png" alt="John Carroll Patriots logo" width="340" height="262">
+  </div>
+  <div class="container">
+    <div class="hero__content">
+      <span class="eyebrow hero__eyebrow">The John Carroll School · MIAA</span>
+      <h1>
+        <span class="line"><span class="word">Patriots</span></span>
+        <span class="line"><span class="word gold-text">Volleyball</span></span>
+      </h1>
+      <p class="hero__sub">Welcome to the home of John Carroll Boys Volleyball.</p>
+      <div class="hero__actions">
+        <a class="btn" href="{{ base }}/schedule/">View 2026 Schedule <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="{{ base }}/newsletters/">Read Newsletters</a>
+      </div>
+    </div>
+  </div>
+  <span class="hero__scroll">Scroll</span>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <ul class="stats" data-reveal>
+      {% for h in cfg.highlights %}
+      <li class="stat">
+        <div class="stat__value">{{ h.value }}</div>
+        <div class="stat__label">{{ h.label }}</div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="hub">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">The Hub</span>
+      <h2>Everything Patriots Volleyball</h2>
+      <p>Your one stop for the season ahead, weekly communication, team gear, and the program's visual identity.</p>
+    </div>
+
+    <div class="hub">
+      <a class="hub-card hub-card--wide" href="{{ base }}/schedule/" data-reveal>
+        <div class="hub-card__watermark">{{ brand.swirl('hcw1') }}</div>
+        <span class="hub-card__num">01</span>
+        <div>
+          <h3>2026 Schedule</h3>
+          <p>Every JV & Varsity match, home and away, plus the road to the MIAA playoffs.</p>
+        </div>
+        <span class="go">See the schedule <span class="arrow">→</span></span>
+      </a>
+
+      <a class="hub-card hub-card--wide" href="{{ base }}/newsletters/" data-reveal data-reveal-delay="1">
+        <div class="hub-card__watermark">{{ brand.swirl('hcw2') }}</div>
+        <span class="hub-card__num">02</span>
+        <div>
+          <h3>Newsletters</h3>
+          <p>Weekly updates, game recaps, and program news for players and families.</p>
+        </div>
+        <span class="go">Browse the archive <span class="arrow">→</span></span>
+      </a>
+
+      <a class="hub-card" href="{{ base }}/brand/" data-reveal>
+        <span class="hub-card__num">03</span>
+        <div>
+          <h3>Brand</h3>
+          <p>Colors & logos — the Patriots identity kit.</p>
+        </div>
+        <span class="go">View guidelines <span class="arrow">→</span></span>
+      </a>
+
+      <a class="hub-card hub-card--ext" href="{{ links.roster }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="1">
+        <span class="hub-card__num">04</span>
+        <div>
+          <h3>Roster & Team</h3>
+          <p>Meet the squad and full team info on JC Athletics.</p>
+        </div>
+        <span class="go">View roster </span>
+      </a>
+
+      <a class="hub-card hub-card--ext" href="{{ links.store }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="2">
+        <span class="hub-card__num">05</span>
+        <div>
+          <h3>Team Store</h3>
+          <p>Rep the program. Official gear & spirit wear.</p>
+        </div>
+        <span class="go">Shop now </span>
+      </a>
+
+      <a class="hub-card hub-card--wide hub-card--ext" href="{{ links.instagram }}" target="_blank" rel="noopener" data-reveal>
+        <div class="hub-card__watermark">{{ brand.swirl('hcw3') }}</div>
+        <span class="hub-card__num">06</span>
+        <div>
+          <h3>Instagram</h3>
+          <p>@jcboysvball — highlights, results, and behind the scenes.</p>
+        </div>
+        <span class="go">Follow the Patriots </span>
+      </a>
+
+      <a class="hub-card hub-card--wide hub-card--ext" href="{{ links.league }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="1">
+        <div class="hub-card__watermark">{{ brand.swirl('hcw4') }}</div>
+        <span class="hub-card__num">07</span>
+        <div>
+          <h3>MIAA League</h3>
+          <p>Standings, brackets & conference info.</p>
+        </div>
+        <span class="go">Visit MIAA </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="program">
+  <div class="container">
+    <div class="split">
+      <div data-reveal>
+        <span class="eyebrow">The Program</span>
+        <h2 style="font-size:var(--fs-h2);margin:.9rem 0 1.2rem;">One program. One standard.</h2>
+        <p class="lead">{{ cfg.program.blurb }}</p>
+        <div class="coach-grid">
+          {% for c in cfg.coaches %}
+          <div class="coach coach--photo">
+            {% if c.photo %}
+            <span class="coach__pic"><img src="{{ base }}/assets/pics/coaches/{{ c.photo }}" alt="{{ c.name }}" style="object-position:{{ c.pos }}" loading="lazy"></span>
+            {% else %}
+            <span class="coach__pic coach__pic--mono">{{ c.name.split()[0][0] }}{{ c.name.split()[-1][0] }}</span>
+            {% endif %}
+            <div>
+              <div class="role">{{ c.role }}</div>
+              <div class="name">{{ c.name }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="split__media split__media--photo" data-reveal data-reveal-delay="1">
+        <img src="{{ base }}/assets/pics/huddle.jpg" alt="John Carroll Patriots volleyball team huddle">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="moment" aria-label="Patriots volleyball">
+  <img class="moment__bg" src="{{ base }}/assets/pics/celebration.jpg" alt="John Carroll Patriots celebrating a win with the student section" loading="lazy">
+  <div class="container moment__inner" data-reveal>
+    <span class="eyebrow">Patriots Nation</span>
+    <h2>Come be part of it.</h2>
+    <p>Loud crowds, big swings, and a program on the rise. Rep the Patriots and follow along all season.</p>
+    <div class="hero__actions">
+      <a class="btn" href="{{ links.store }}" target="_blank" rel="noopener">Team Store <span class="arrow">→</span></a>
+      <a class="btn btn--ghost" href="{{ links.roster }}" target="_blank" rel="noopener">Roster & Team</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="gallery" data-reveal>
+      <figure class="gallery__item"><img src="{{ base }}/assets/pics/action-set.jpg" alt="Patriots setter in action at the net" loading="lazy"></figure>
+      <figure class="gallery__item"><img src="{{ base }}/assets/pics/celebrate-point.jpg" alt="Patriots players celebrating a point" loading="lazy"></figure>
+      <figure class="gallery__item"><img src="{{ base }}/assets/pics/net-attack.jpg" alt="Patriots attack at the net" loading="lazy"></figure>
+      <figure class="gallery__item"><img src="{{ base }}/assets/pics/team-line.jpg" alt="Patriots team lined up before a match" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sched-bar">
+      <div class="section-head" style="margin-bottom:0" data-reveal>
+        <span class="eyebrow">Latest</span>
+        <h2>From the Newsletter</h2>
+      </div>
+      <a class="btn btn--ghost" href="{{ base }}/newsletters/">All newsletters <span class="arrow">→</span></a>
+    </div>
+    <div class="news-grid">
+      {% for n in latest %}
+      <a class="news-card" href="{{ base }}/newsletters/{{ n.slug }}/" data-reveal data-reveal-delay="{{ loop.index0 }}">
+        <span class="date">{{ n.weekday }} · Newsletter</span>
+        <h3>{{ n.date_long }}</h3>
+        <p>{{ n.summary }}</p>
+        <span class="go">Read update <span class="arrow">→</span></span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -74,3 +74,5 @@ coverage/
 .tox
 .outputs/
 .tools
+
+# Static site build output → /build/ (already ignored above)

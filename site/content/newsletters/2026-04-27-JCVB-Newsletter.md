@@ -1,0 +1,22 @@
+
+1. **💪 Offseason Workouts & Lifts** - We will hold workouts this week Monday & Wednesday with a slightly modified schedule. We will meet outside the upper gym at 5:30, and wrap-up around 7/7:15. These are voluntary but a great chance to get some extra work in this offseason! We have workouts this week on 5/27 & 5/29 - then are scheduled to pick back up in June. I will send another communication ahead of June workouts.
+
+2.  🥍🥎  **Support JC Lax & Softball Tomorrow 4/28 @ 4pm** - Let's go show our support for our fellow Patriot teams tomorrow. Boys Lacrosse is taking on BL, and the Softball team will be playing Catholic. The spring teams did a great job supporting us during our season, let's return the favor and watch our teammates and classmates competing in their spring sports. We will meet at the lacrosse game at 4pm, then head up to the softball game! If you have another conflict or are playing a spring sport let the coches know, but otherwise I hope we can take a couple hours tomorrow to have some fun and support our classmates!
+
+3. **🏐 2026 Tryouts Save the Date: 8/12-8/14** - our tryouts are scheduled to begin **8/12 at 3:30pm**! We will hold three days of tryouts, Wednesday 8/12, Thursday 8/13, and Friday 8/14, all from 3:30-5:30pm at John Carroll in the Upper Gym. The following week we will begin with regular practices - weekdays from 3:30-5:30pm. Please try to plan vacations accordingly! If there are any conflicts for the first weeks of tryouts and practices please communicate them. 
+
+4. 🏐 **Club & Summer Volleyball Camp Opportunities** - Some coaches provided me some info to pass along if you are looking for more volleyball opportunities:
+	1. [Yorktowne Boys Volleyball](https://yorktownevb.com/tryouts) - Yorktowne Club Volleyball (out of York, PA) is hosting a couple of open gyms and some tryouts throughout July. 
+	2. [Gwynedd Mercy Summer Camps](https://gwyneddathletics.com/news/2026/3/11/mens-volleyball-coach-medycki-announces-open-registration-for-griffin-boys-and-girls-volleyball-summer-camps.aspx) - The coaches at Gwynedd Mercy University will be hosting a summer camp 7/27-7/29, this could be a good opportunity to build skills and learn about the college volleyball recruitment process.
+
+5. **📅 2026 Schedule** - I have loaded the tentative schedule for the 2026 season into the JCVB iCalendar (link below). We are still in the process of adding scrimmages, I will keep this calendar up to date with what information I have. Right now, it includes all MIAA regular season games and our standard practice slots (several of which will get replaced by scrimmages).
+	- JV and Varsity share the same schedule - JV game times are typically 4:00 with varsity to follow. 
+	- St. Paul's is hopeful to field a JV team this year, so games vs. Friends would be the only Varsity-only matchups right now.
+	-  Schedule Link: webcal://p151-caldav.icloud.com/published/2/ODMxNjYzNjI4NDgzMTY2MyxB8khPlofh0YA_rN2EVTq8GMTyQiDOG3U4v7z2Fqv4NLOo3IFmEnaaa29kPbhcdakGcbsd7cNJJRIYuWVo7pw
+
+6. **😎 Summer Camp - July 13-17** - JC Volleyball summer camp will run July 13-17, with two sessions each day (a Beginner and an Intermediate). 
+	- For middle schoolers and rising freshman, this is a great chance to learn some volleyball fundamentals and prepare for joining your high school teams!
+	- For current JC players - this is a great opportunity to volunteer, earn service hours, and enhance your own mastery of volleyball by coaching and teaching others. 
+	- All paperwork for volunteers needs to be submitted a full month in advance of camp, so the earlier we get rolling with the administrative stuff for volunteering the better. Email me at tkutcher@johncarroll.org to indicate your interest in volunteering and I can provide more details. If you have already emailed me, you should have received my email with instructions for forms.
+
+7. **🗞️ Newsletter Status** - All newsletters can be found [here](https://drive.google.com/open?id=1miSkNg6bh9swA7m6j9gSECpyjp2-HfSV&usp=drive_fs). If you would like to be taken off the email list, please email me at tkutcher@johncarroll.org the request to do so - no offense will be taken! I'll get an automated unsubscribe button on here soon. During the season there will typically be 1 weekly newsletter communication, with more of a monthly cadence in the offseason.

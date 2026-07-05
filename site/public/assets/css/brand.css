@@ -1,0 +1,93 @@
+/* ==========================================================================
+   JCVB Brand System — design tokens + self-hosted brand fonts
+   Colors: JC Black #0a0203 · JC Gold #C4B781 (source: brand kit swatches)
+   Fonts:  Crete Round (display) · ITC Franklin Gothic (UI/body) · Quaint Gothic (accent)
+   ========================================================================== */
+
+/* ---- Fonts (self-hosted, no external calls) ---- */
+@font-face {
+  font-family: "Crete Round";
+  src: url("/assets/fonts/crete-round.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Franklin Gothic";
+  src: url("/assets/fonts/franklin-book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Franklin Gothic";
+  src: url("/assets/fonts/franklin-med.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Franklin Gothic";
+  src: url("/assets/fonts/franklin-demi.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Quaint Gothic";
+  src: url("/assets/fonts/quaint-gothic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Core palette ---- */
+  --jc-black: #0a0203;
+  --jc-ink: #0a0203;
+  --jc-surface: #14100b;
+  --jc-surface-2: #1d1811;
+  --jc-elevate: #241d13;
+
+  --jc-gold: #c4b781;
+  --jc-gold-deep: #b9975b;
+  --jc-gold-bright: #e6dcb4;
+
+  --jc-cream: #f5f1e6;
+  --jc-white: #ffffff;
+
+  --jc-text: #f2ede1;
+  --jc-muted: rgba(242, 237, 225, 0.64);
+  --jc-faint: rgba(242, 237, 225, 0.42);
+  --jc-line: rgba(196, 183, 129, 0.22);
+  --jc-line-strong: rgba(196, 183, 129, 0.45);
+
+  /* ---- Gradients / effects ---- */
+  --grad-gold: linear-gradient(135deg, #e6dcb4 0%, #c4b781 45%, #b9975b 100%);
+  --grad-gold-soft: linear-gradient(135deg, #c4b781, #b9975b);
+  --glow-gold: 0 0 0 1px var(--jc-line-strong), 0 18px 50px -20px rgba(196, 183, 129, 0.55);
+  --shadow-lg: 0 30px 80px -40px rgba(0, 0, 0, 0.9);
+
+  /* ---- Type ---- */
+  --font-display: "Crete Round", "Georgia", serif;
+  --font-body: "Franklin Gothic", "Franklin Gothic Medium", "Arial", sans-serif;
+  --font-accent: "Quaint Gothic", var(--font-display);
+
+  --fs-hero: clamp(2.9rem, 8vw, 6.5rem);
+  --fs-display: clamp(2.1rem, 5vw, 4rem);
+  --fs-h2: clamp(1.65rem, 3.4vw, 2.7rem);
+  --fs-h3: clamp(1.2rem, 2vw, 1.5rem);
+  --fs-body: clamp(1rem, 1.05vw, 1.12rem);
+  --fs-small: 0.86rem;
+  --fs-eyebrow: 0.78rem;
+
+  /* ---- Layout ---- */
+  --maxw: 1180px;
+  --gutter: clamp(1.15rem, 4vw, 3rem);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-lg: 26px;
+  --header-h: 72px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}

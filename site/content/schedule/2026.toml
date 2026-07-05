@@ -1,0 +1,184 @@
+# 2026 JCVB season schedule.
+# Ported from internal/2026 JCVB Season Schedule/2026-JCVB-game-schedule.md (status: draft-review).
+# Dates are ISO; the generator derives weekday + display formatting.
+
+[meta]
+season = 2026
+status = "Draft — subject to change"
+home_venue = "Upper Gym"
+
+[[games]]
+date = "2026-08-26"
+opponent = "Harford Tech"
+designation = "scrimmage"
+home_away = "home"
+varsity = "5:00 PM"
+jv = "3:30 PM"
+venue = "Upper Gym"
+
+[[games]]
+date = "2026-09-09"
+opponent = "Spalding"
+designation = "conference"
+home_away = "away"
+varsity = "6:00 PM"
+jv = "4:30 PM"
+venue = "Away"
+
+[[games]]
+date = "2026-09-15"
+opponent = "St. Paul's"
+designation = "conference"
+home_away = "away"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Away"
+
+[[games]]
+date = "2026-09-18"
+opponent = "Boys Latin"
+designation = "conference"
+home_away = "home"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Upper Gym"
+
+[[games]]
+date = "2026-09-21"
+opponent = "C. Milton Wright"
+designation = "non-conference"
+home_away = "home"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Upper Gym"
+
+[[games]]
+date = "2026-09-22"
+opponent = "Mt. St. Joe"
+designation = "conference"
+home_away = "away"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Away"
+
+[[games]]
+date = "2026-09-25"
+opponent = "Curley"
+designation = "conference"
+home_away = "away"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Away"
+
+[[games]]
+date = "2026-09-30"
+opponent = "Landon"
+designation = "non-conference"
+home_away = "home"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Upper Gym"
+
+[[games]]
+date = "2026-10-02"
+opponent = "Gilman"
+designation = "conference"
+home_away = "away"
+varsity = "5:30 PM"
+jv = "4:15 PM"
+venue = "Away"
+
+[[games]]
+date = "2026-10-07"
+opponent = "Friends"
+designation = "conference"
+home_away = "home"
+varsity = "4:30 PM"
+jv = ""
+venue = "Upper Gym"
+note = "Varsity only"
+
+[[games]]
+date = "2026-10-09"
+opponent = "St. Paul's"
+designation = "conference"
+home_away = "home"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Upper Gym"
+
+[[games]]
+date = "2026-10-14"
+opponent = "Loyola Blakefield"
+designation = "conference"
+home_away = "home"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Upper Gym"
+
+[[games]]
+date = "2026-10-16"
+opponent = "Boys Latin"
+designation = "conference"
+home_away = "away"
+varsity = "5:45 PM"
+jv = "4:15 PM"
+venue = "Away"
+
+[[games]]
+date = "2026-10-21"
+opponent = "Curley"
+designation = "conference"
+home_away = "home"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Upper Gym"
+
+[[games]]
+date = "2026-10-23"
+opponent = "Calvert Hall"
+designation = "conference"
+home_away = "home"
+varsity = "5:30 PM"
+jv = "4:00 PM"
+venue = "Upper Gym"
+
+[[games]]
+date = "2026-10-30"
+opponent = "Friends"
+designation = "conference"
+home_away = "away"
+varsity = "4:30 PM"
+jv = ""
+venue = "Away"
+note = "Varsity only"
+
+[[games]]
+date = "2026-11-03"
+opponent = "JV Championship"
+designation = "playoffs"
+home_away = "tbd"
+varsity = ""
+jv = "TBD"
+venue = "TBD"
+note = "JV only"
+
+[[games]]
+date = "2026-11-04"
+opponent = "Varsity Semi-Finals"
+designation = "playoffs"
+home_away = "tbd"
+varsity = "TBD"
+jv = ""
+venue = "TBD"
+note = "Varsity only"
+
+[[games]]
+date = "2026-11-06"
+opponent = "Varsity Championship"
+designation = "playoffs"
+home_away = "tbd"
+varsity = "TBD"
+jv = ""
+venue = "TBD"
+note = "Varsity only"

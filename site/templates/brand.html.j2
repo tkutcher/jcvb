@@ -1,0 +1,143 @@
+{% extends "base.html.j2" %}
+{% import "partials/macros.j2" as brand %}
+{% block title %}Brand Guidelines · {{ site.short_name }}{% endblock %}
+{% block description %}The John Carroll Boys Volleyball brand — logos, colors, and John Carroll Athletics identity.{% endblock %}
+
+{% set colors = [
+  {'name': 'JC Black', 'hex': '#0A0203', 'role': 'Primary · backgrounds'},
+  {'name': 'JC Gold', 'hex': '#C4B781', 'role': 'Primary · accent & emphasis'}
+] %}
+
+{% set logo_groups = [
+  {
+    'title': 'The Icon', 'note': 'Patriot head on the volleyball swirl. Our primary mark. Use the default on light or dark; use the gold-safe version on gold.',
+    'tiles': [
+      {'stage':'dark','img':'jcvb-icon.png','cap':'On Dark'},
+      {'stage':'light','img':'jcvb-icon.png','cap':'On Light'},
+      {'stage':'gold','img':'jcvb-icon-on-gold.png','cap':'On Gold'}
+    ]
+  },
+  {
+    'title': 'Primary Logo', 'note': 'Icon locked with the stacked wordmark. The go-to for headers, covers, and merch.',
+    'tiles': [
+      {'stage':'dark','img':'jcvb-logo-on-dark.png','cap':'On Dark'},
+      {'stage':'light','img':'jcvb-logo-on-light.png','cap':'On Light'},
+      {'stage':'gold','img':'jcvb-logo-on-gold.png','cap':'On Gold'}
+    ]
+  },
+  {
+    'title': 'Horizontal Logo', 'note': 'For wide, short spaces — site headers, email signatures, banners.',
+    'tiles': [
+      {'stage':'dark','img':'jcvb-logo-hz-on-dark.png','cap':'On Dark'},
+      {'stage':'light','img':'jcvb-logo-hz-on-light.png','cap':'On Light'},
+      {'stage':'gold','img':'jcvb-logo-hz-on-gold.png','cap':'On Gold'}
+    ]
+  },
+  {
+    'title': 'Wordmark', 'note': 'Type-only lockup for when the icon already appears nearby.',
+    'tiles': [
+      {'stage':'dark','img':'jcvb-wordmark-on-dark.png','cap':'On Dark'},
+      {'stage':'light','img':'jcvb-wordmark-on-light.png','cap':'On Light'}
+    ]
+  }
+] %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero__watermark">{{ brand.swirl('brandwm') }}</div>
+    <span class="eyebrow">Brand Guidelines</span>
+    <h1>The Patriots Identity Kit</h1>
+    <p>A disciplined, high-contrast system — black, gold, and a colonial patriot riding a volleyball. Use these assets consistently to build one strong, recognizable program.</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">01 · Logos</span>
+      <h2>The Logo System</h2>
+      <p>Each mark is shown on its designated background. Always give the logo room to breathe and never place it on a busy or low-contrast surface.</p>
+    </div>
+
+    {% for g in logo_groups %}
+    <div style="margin-bottom:2.6rem" data-reveal>
+      <h3 style="font-size:var(--fs-h3);margin-bottom:.4rem">{{ g.title }}</h3>
+      <p class="brand-note" style="margin-bottom:1.1rem">{{ g.note }}</p>
+      <div class="logo-tiles">
+        {% for t in g.tiles %}
+        <div class="logo-tile">
+          <div class="logo-tile__stage logo-tile__stage--{{ t.stage }}">
+            <img src="{{ base }}/assets/brand/{{ t.img }}" alt="{{ g.title }} — {{ t.cap }}" loading="lazy">
+          </div>
+          <div class="logo-tile__cap">
+            <span>{{ t.cap }}</span>
+            <a href="{{ base }}/assets/brand/{{ t.img }}" download>PNG ↓</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">02 · Color</span>
+      <h2>Palette</h2>
+      <p>Two colors carry the brand: JC Black and JC Gold.</p>
+    </div>
+    <div class="swatches" data-reveal>
+      {% for c in colors %}
+      <div class="swatch">
+        <div class="swatch__chip" style="background: {{ c.hex }};{% if c.name == 'JC Black' %} border-bottom:1px solid var(--jc-line);{% endif %}"></div>
+        <div class="swatch__meta">
+          <div class="swatch__name">{{ c.name }}</div>
+          <div class="swatch__hex">{{ c.hex }}</div>
+          <div class="swatch__hex" style="text-transform:none;letter-spacing:0">{{ c.role }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">03 · Heritage</span>
+      <h2>John Carroll Athletics Branding</h2>
+      <p>The Patriots volleyball identity is built on The John Carroll School's athletic brand — its black-and-gold school colors and classic collegiate typography.</p>
+    </div>
+
+    <div class="type-specimens" data-reveal>
+      <div class="specimen specimen--display">
+        <div class="label"><span>Display — Crete Round</span><span>Headlines · scoreboards</span></div>
+        <div class="big">Patriots Volleyball</div>
+        <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ · abcdefghijklmnopqrstuvwxyz · 0123456789</div>
+      </div>
+      <div class="specimen specimen--body">
+        <div class="label"><span>Body / UI — Franklin Gothic</span><span>Book · Medium · Demi</span></div>
+        <div class="big">Serve. Set. Spike. Repeat.</div>
+        <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ · abcdefghijklmnopqrstuvwxyz · 0123456789</div>
+      </div>
+      <div class="specimen specimen--accent">
+        <div class="label"><span>Wordmark — Quaint Gothic</span><span>The John Carroll wordmark</span></div>
+        <div class="big">John Carroll</div>
+        <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ · 0123456789</div>
+      </div>
+    </div>
+
+    <p class="brand-note" style="margin-top:1.4rem" data-reveal>
+      <strong style="color:var(--jc-white)">School colors:</strong>
+      <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#0A0203;border:1px solid var(--jc-line);vertical-align:-2px;margin:0 .15rem 0 .4rem"></span> Black
+      &amp;
+      <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#C4B781;vertical-align:-2px;margin:0 .15rem 0 .4rem"></span> Gold —
+      drawn from John Carroll Athletics.
+      <a href="https://www.johncarroll.org/athletics" target="_blank" rel="noopener" style="color:var(--jc-gold-bright);text-decoration:underline;text-underline-offset:3px">JC Athletics ↗</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

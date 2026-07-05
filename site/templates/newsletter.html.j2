@@ -1,0 +1,35 @@
+{% extends "base.html.j2" %}
+{% block title %}Newsletter · {{ n.date_long }} · {{ site.short_name }}{% endblock %}
+{% block description %}{{ n.summary }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <article class="article">
+      <a class="backlink" href="{{ base }}/newsletters/"><span aria-hidden="true">←</span> All newsletters</a>
+      <header class="article__head">
+        <div class="article__date">{{ n.weekday }} · JCVB Newsletter</div>
+        <h1>{{ n.date_long }}</h1>
+      </header>
+      <div class="article__body">
+        {{ n.html|safe }}
+      </div>
+
+      <nav class="article__nav" aria-label="More newsletters">
+        {% if older %}
+        <a class="prev" href="{{ base }}/newsletters/{{ older.slug }}/">
+          <span class="dir">← Older</span>
+          <span>{{ older.date_long }}</span>
+        </a>
+        {% endif %}
+        {% if newer %}
+        <a class="next" href="{{ base }}/newsletters/{{ newer.slug }}/">
+          <span class="dir">Newer →</span>
+          <span>{{ newer.date_long }}</span>
+        </a>
+        {% endif %}
+      </nav>
+    </article>
+  </div>
+</section>
+{% endblock %}

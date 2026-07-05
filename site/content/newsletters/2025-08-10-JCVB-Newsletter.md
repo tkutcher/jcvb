@@ -1,0 +1,18 @@
+1. 🗓️ **This Week** - We will be practicing 3:30-5:30 each of Monday-Friday in the upper gym. There are a few days where we have the lower gym available as well - but both JV & Varsity will meet together in the upper gym to start practice. Reminder that Thursday is the welcome reception at 6pm in the courtyard (more details below) and players should probably plan to go right from practice - we will keep it a lighter day generally.
+
+2. 🏐 **Try-outs Completed** - We held 3 great days of workouts/tryouts to start out last week. I have attached the current tentative roster assignments between JV and Varsity. At the reception Thursday I will be elaborating on the role of each team. I also want to shout out some of our (impressive) agility/fitness test leading numbers:
+
+| Broad Jump                 | Vertical Jump                 | 4-Cone Drill             |
+| -------------------------- | ----------------------------- | ------------------------ |
+| **🥇 Rob Gaines** - 8'8"   | **🥇 Jackson DeReamer** - 30" | **🥇 Yool Kim** - 6.88s  |
+| 🥈 Jackson DeReamer - 8'6" | 🥈 Jack Grabowski - 23"       | 🥈 Mason Proctor - 7.06s |
+| 🥉 Matt Wilson - 8'5"      | 🥈 Matt Wilson - 23"          | 🥉 Matt Wilson - 7.10s   |
+| ④ EJ Papaleo - 7'9"        | ④ EJ Papaleo - 22"            | ④ Julian Young - 7.14s   |
+
+
+3. 👕 **Gear Store - Last Week to Place Orders!** ­- This is the last week to place gear orders. Please visit https://jcboysvolleyball2025.itemorder.com/shop/home/ to view the options and place orders. The store will close **Sunday, August 17th!** Orders should arrive 2-3 weeks after that, putting us on track for gear to arrive before regular season conference matches start.
+
+4. 🎊 **Welcome Reception this Thursday - 8/14** - We will hold a welcome reception in the courtyard from 6-7:30pm this Thursday, 8/14. This is intended for all Varsity & JV players and their parents to introduce the program, welcome newcomers, and to kick off the season. We will have food, cover some announcements & details for the season, and answer any questions you may have. If you haven't already, please use this [Welcome Reception RSVP Link](https://forms.anvilor.com/687e4cb570e3e06433d9cc86) so we can have an accurate head count. Looking forward to seeing everybody!
+
+5. 📆 **Season Schedule** - The game schedule can be seen at the [jcvb-2025-schedule Spreadsheet](https://docs.google.com/spreadsheets/d/1QxRKWYYGtcN86sWf0UarQXq_8MCj9bT1Nhuf4YG-6bI/edit?usp=sharing), as well as on my [JCVB iCalendar](webcal://p151-caldav.icloud.com/published/2/ODMxNjYzNjI4NDgzMTY2MyxB8khPlofh0YA_rN2EVTq8GMTyQiDOG3U4v7z2Fqv4NLOo3IFmEnaaa29kPbhcdakGcbsd7cNJJRIYuWVo7pw) - we are planning to set up TeamSnap in the coming weeks. I have loaded the full practice schedule in to the iCalendar, and I will be keeping it up to date as things change. Currently, I am keeping JV & Varsity together in one calendar.  If the JCVB iCalendar hyperlink does not work - the link to subscribe is here: webcal://p151-caldav.icloud.com/published/2/ODMxNjYzNjI4NDgzMTY2MyxB8khPlofh0YA_rN2EVTq8GMTyQiDOG3U4v7z2Fqv4NLOo3IFmEnaaa29kPbhcdakGcbsd7cNJJRIYuWVo7pw
+6. **🗞️ Newsletter Status** - All newsletters can be found [here](https://drive.google.com/open?id=1miSkNg6bh9swA7m6j9gSECpyjp2-HfSV&usp=drive_fs). If you would like to be taken off the email list, just reply back that you wish to do so please (I will take no offense! I also believe there are some names here who did not wind up coming out for the program).

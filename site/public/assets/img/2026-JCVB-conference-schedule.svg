@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Conference Schedule</title>
+  <desc id="desc">A black and JC gold table schedule with Date, Site, Opponent/Event, JV, Varsity, and Type columns.</desc>
+  <defs>
+    <style>
+      .brand{font-family:Arial Black,Arial,Helvetica,sans-serif;font-weight:900;letter-spacing:0;}
+      .kicker{font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:900;letter-spacing:4px;fill:#D1B36A;}
+      .title{font-family:Arial Black,Arial,Helvetica,sans-serif;font-size:58px;font-weight:900;letter-spacing:0;fill:#FFFFFF;}
+      .sub{font-family:Arial,Helvetica,sans-serif;font-size:23px;font-weight:800;letter-spacing:1px;fill:#E8DFC9;}
+      .version{font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:800;fill:#D1B36A;}
+      .helper{font-family:Arial,Helvetica,sans-serif;font-size:21px;font-weight:800;fill:#F2EAD8;}
+      .thead{font-family:Arial,Helvetica,sans-serif;font-size:17px;font-weight:900;letter-spacing:1.5px;fill:#F7F3EA;}
+      .cell{font-family:Arial,Helvetica,sans-serif;font-weight:900;fill:#151515;}
+      .date{fill:#2B2418;}
+      .opponent{font-size:20px;}
+      .time{text-anchor:middle;}
+      .chip{font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:900;text-anchor:middle;letter-spacing:.7px;}
+      .status{font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:900;text-anchor:middle;letter-spacing:.6px;fill:#050505;}
+      .fine{font-family:Arial,Helvetica,sans-serif;font-size:17px;font-weight:700;fill:#D8CCB0;}
+    </style>
+  </defs>
+  <rect width="1080" height="1350" fill="#050505"/>
+  <rect x="36" y="36" width="1008" height="1278" fill="none" stroke="#B9975B" stroke-width="7"/>
+  <rect x="58" y="58" width="964" height="1234" fill="none" stroke="#342B19" stroke-width="2"/>
+
+  <g transform="translate(78 76)">
+    <rect x="0" y="0" width="126" height="126" fill="#B9975B"/>
+    <rect x="12" y="12" width="102" height="102" fill="#050505"/>
+    <text x="63" y="58" class="brand" font-size="44" fill="#FFFFFF" text-anchor="middle">JC</text>
+    <text x="63" y="92" style="font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:900;fill:#D1B36A;text-anchor:middle;letter-spacing:1px;">VB</text>
+  </g>
+  <text x="236" y="105" class="kicker">JOHN CARROLL BOYS VOLLEYBALL</text>
+  <text x="236" y="170" class="title">CONFERENCE SCHEDULE</text>
+  <text x="236" y="214" class="sub">CONFERENCE GAMES ONLY - JV FIRST, VARSITY TO FOLLOW</text>
+  <text x="806" y="105" class="version">VERSION 2026-06-24</text>
+  <rect x="74" y="258" width="932" height="42" fill="#B9975B"/>
+  <text x="540" y="286" style="font-family:Arial Black,Arial,Helvetica,sans-serif;font-size:26px;font-weight:900;fill:#050505;text-anchor:middle;letter-spacing:0;">13 MIAA REGULAR SEASON DATES</text>
+
+  <g transform="translate(74 328)">
+    <rect x="0" y="0" width="932" height="40" fill="#111111" stroke="#B9975B" stroke-width="2"/>
+    <text x="18" y="26" class="thead">DATE</text>
+    <text x="176" y="26" class="thead">SITE</text>
+    <text x="246" y="26" class="thead">OPPONENT / EVENT</text>
+    <text x="690" y="26" class="thead" text-anchor="middle">JV</text>
+    <text x="795" y="26" class="thead" text-anchor="middle">VARSITY</text>
+    <text x="887" y="26" class="thead" text-anchor="middle">TYPE</text>
+  </g>
+  <g transform="translate(74 368)">
+    <rect x="0" y="0" width="932" height="52" fill="#F7F3EA"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">WED SEP 9</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#FFFFFF" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">AWAY</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">SPALDING</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:30 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">6:00 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 420)">
+    <rect x="0" y="0" width="932" height="52" fill="#ECE5D6"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">TUE SEP 15</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#FFFFFF" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">AWAY</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">ST. PAUL'S</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:00 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 472)">
+    <rect x="0" y="0" width="932" height="52" fill="#F7F3EA"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">FRI SEP 18</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#B9975B" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">HOME</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">BOYS LATIN</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:00 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 524)">
+    <rect x="0" y="0" width="932" height="52" fill="#ECE5D6"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">TUE SEP 22</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#FFFFFF" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">AWAY</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">MT. ST. JOE</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:00 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 576)">
+    <rect x="0" y="0" width="932" height="52" fill="#F7F3EA"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">FRI SEP 25</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#FFFFFF" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">AWAY</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">CURLEY</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:00 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 628)">
+    <rect x="0" y="0" width="932" height="52" fill="#ECE5D6"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">FRI OCT 2</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#FFFFFF" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">AWAY</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">GILMAN</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:15 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 680)">
+    <rect x="0" y="0" width="932" height="52" fill="#F7F3EA"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">WED OCT 7</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#B9975B" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">HOME</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">FRIENDS</text>
+    <text x="690" y="33" class="cell time" font-size="22">-</text>
+    <text x="795" y="33" class="cell time" font-size="22">4:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 732)">
+    <rect x="0" y="0" width="932" height="52" fill="#ECE5D6"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">FRI OCT 9</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#B9975B" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">HOME</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">ST. PAUL'S</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:00 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 784)">
+    <rect x="0" y="0" width="932" height="52" fill="#F7F3EA"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">WED OCT 14</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#B9975B" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">HOME</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">LOYOLA BLAKEFIELD</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:00 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 836)">
+    <rect x="0" y="0" width="932" height="52" fill="#ECE5D6"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">FRI OCT 16</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#FFFFFF" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">AWAY</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">BOYS LATIN</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:15 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:45 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 888)">
+    <rect x="0" y="0" width="932" height="52" fill="#F7F3EA"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">WED OCT 21</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#B9975B" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">HOME</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">CURLEY</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:00 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 940)">
+    <rect x="0" y="0" width="932" height="52" fill="#ECE5D6"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">FRI OCT 23</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#B9975B" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">HOME</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">CALVERT HALL</text>
+    <text x="690" y="33" class="cell time" font-size="22">4:00 PM</text>
+    <text x="795" y="33" class="cell time" font-size="22">5:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <g transform="translate(74 992)">
+    <rect x="0" y="0" width="932" height="52" fill="#F7F3EA"/>
+    <line x1="0" y1="52" x2="932" y2="52" stroke="#CDBF9B" stroke-width="1"/>
+    <text x="18" y="33" class="cell date" font-size="22">FRI OCT 30</text>
+    <rect x="158" y="14" width="64" height="24" rx="3" fill="#FFFFFF" stroke="#B9975B" stroke-width="1.5"/>
+    <text x="190" y="31" class="chip" fill="#050505">AWAY</text>
+    <text x="246" y="33" class="cell opponent" font-size="22">FRIENDS</text>
+    <text x="690" y="33" class="cell time" font-size="22">-</text>
+    <text x="795" y="33" class="cell time" font-size="22">4:30 PM</text>
+    <rect x="858" y="14" width="58" height="24" rx="3" fill="#E0D1A9"/>
+    <text x="887" y="31" class="status">MIAA</text>
+  </g>
+  <rect x="74" y="1138" width="932" height="70" fill="#111111" stroke="#B9975B" stroke-width="2"/>
+  <text x="102" y="1178" class="helper">Conference regular season only. Scrimmage, non-conference, and playoff dates are omitted from this version.</text>
+  <text x="74" y="1260" class="fine">Draft schedule current as of 2026-06-24; subject to change. Confirm Friends varsity-only dates and away details before distribution.</text>
+</svg>
