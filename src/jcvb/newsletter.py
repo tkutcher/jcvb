@@ -1,8 +1,10 @@
+import argparse
 import csv
 import datetime
 import logging
 import os
 import pathlib
+import subprocess
 from abc import ABC, abstractmethod
 from typing import List, Tuple
 
@@ -20,6 +22,8 @@ logging.basicConfig(
 
 _NEWSLETTERS_DIR = JCVB_ROOT / "newsletter"
 _SENT_NEWSLETTERS_DIR = JCVB_PUBLIC / "newsletters"
+# Site content source — site_build.py renders the public site from these files.
+_CONTENT_NEWSLETTERS_DIR = REPO_ROOT / "site" / "content" / "newsletters"
 _NEXT_NEWSLETTER_PATH = _NEWSLETTERS_DIR / "Next-Newsletter.md"
 _DISTRIBUTION_TO_EMAIL = "tkutcher@johncarroll.org"
 
@@ -44,8 +48,49 @@ def _read_next_newsletter_html() -> str:
 
 def _file_newsletter_as_sent(date: datetime.date) -> None:
     filename = f"{date.isoformat()}-JCVB-Newsletter.md"
-    with open(_SENT_NEWSLETTERS_DIR / filename, "w") as f:
-        f.write(_read_next_newsletter_md())
+    contents = _read_next_newsletter_md()
+    # Archive a copy in the vault, and file it into the site content source so
+    # the newsletter shows up on the public site on the next build/deploy.
+    for target_dir in (_SENT_NEWSLETTERS_DIR, _CONTENT_NEWSLETTERS_DIR):
+        target_dir.mkdir(parents=True, exist_ok=True)
+        with open(target_dir / filename, "w") as f:
+            f.write(contents)
+        logging.info(f"Filed newsletter -> {target_dir / filename}")
+    _commit_content_newsletter(_CONTENT_NEWSLETTERS_DIR / filename, date)
+
+
+def _commit_content_newsletter(path: pathlib.Path, date: datetime.date) -> None:
+    """Stage and commit the filed newsletter to the repo.
+
+    Best-effort: a git failure (nothing to commit, no repo, etc.) is logged but
+    never blocks the send, which has already gone out by this point.
+    """
+    try:
+        subprocess.run(
+            ["git", "-C", str(REPO_ROOT), "add", "--", str(path)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        # If the file is unchanged (re-send), there's nothing staged to commit.
+        staged = subprocess.run(
+            ["git", "-C", str(REPO_ROOT), "diff", "--cached", "--quiet", "--", str(path)],
+        )
+        if staged.returncode == 0:
+            logging.info("No newsletter changes to commit.")
+            return
+        message = f"content: File {date.isoformat()} newsletter from distribution"
+        subprocess.run(
+            ["git", "-C", str(REPO_ROOT), "commit", "-m", message, "--", str(path)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        logging.info(f"Committed newsletter -> {message}")
+    except subprocess.CalledProcessError as exc:
+        logging.warning(
+            f"Could not commit newsletter ({exc}): {exc.stderr.strip() if exc.stderr else ''}"
+        )
 
 
 def _newsletter_subject(date: datetime.date, suffix="") -> str:
@@ -156,31 +201,53 @@ class NewsletterDistributor:
         )
 
 
-if __name__ == "__main__":
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Distribute the next JCVB newsletter.",
+    )
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        help=(
+            "Dry run: send only to the test recipient, do NOT file/commit the "
+            "newsletter into the site content. Use to preview before the real send."
+        ),
+    )
+    return parser.parse_args()
+
+
+_TEST_RECIPIENT = ("Tim", "tkutcher@outlook.com")
+
+
+def main(test: bool = False) -> None:
     load_dotenv()
-    SG_API_KEY = os.environ.get("TK_SG_API_KEY")
-    ANVILOR_SG_API_KEY = os.environ.get("ANVILOR_SG_API_KEY")
-    API_KEY = ANVILOR_SG_API_KEY
-    _DISTRIBUTION_LIST_CSV = _MAIN_DISTRIBUTION_LIST_CSV
+    api_key = os.environ.get("ANVILOR_SG_API_KEY")
 
-    file_distribution = FileDistributionList(_DISTRIBUTION_LIST_CSV)
-    distribution_list = CombinedDistributionList(
-        file_distribution,
-        CustomDistributionList([]),
-    )
-
-    _test_distribution_list = CustomDistributionList(
-        [
-            ("Tim", "tkutcher@outlook.com"),
-        ]
-    )
+    if test:
+        logging.info("TEST MODE: sending to test recipient only; not filing newsletter.")
+        distribution_list: DistributionList = CustomDistributionList([_TEST_RECIPIENT])
+        to_email = _TEST_RECIPIENT[1]
+        file_as_sent = False
+        subject = _newsletter_subject(datetime.date.today(), suffix="TEST")
+    else:
+        distribution_list = CombinedDistributionList(
+            FileDistributionList(_MAIN_DISTRIBUTION_LIST_CSV),
+            CustomDistributionList([]),
+        )
+        to_email = _DISTRIBUTION_TO_EMAIL
+        file_as_sent = True
+        subject = None
 
     distributor = NewsletterDistributor(
-        sg=sendgrid.SendGridAPIClient(api_key=API_KEY),
-        to_email=_DISTRIBUTION_TO_EMAIL,
+        sg=sendgrid.SendGridAPIClient(api_key=api_key),
+        to_email=to_email,
         distribution_list=distribution_list,
-        # distribution_list=_test_distribution_list,
     )
     distributor.distribute_newsletter(
-        file_as_sent=True,
+        file_as_sent=file_as_sent,
+        subject=subject,
     )
+
+
+if __name__ == "__main__":
+    main(test=_parse_args().test)
