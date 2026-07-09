@@ -138,6 +138,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   content: ""; position: absolute; left: 0.85rem; right: 0.85rem; bottom: 0.15rem;
   height: 2px; background: var(--grad-gold); border-radius: 2px;
 }
+.nav .nav-ig { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--jc-gold); font-weight: 600; }
+.nav .nav-ig svg { display: block; }
+.nav .nav-ig:hover { color: var(--jc-gold); background: rgba(212, 175, 55, 0.12); }
 .nav .nav-cta { color: var(--jc-black); background: var(--grad-gold); font-weight: 600; margin-left: 0.4rem; }
 .nav .nav-cta:hover { color: var(--jc-black); transform: translateY(-1px); }
 
