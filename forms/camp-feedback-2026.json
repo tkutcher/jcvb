@@ -1,0 +1,269 @@
+{
+  "anvilor_form": {
+    "title": "JC Volleyball Camp Feedback",
+    "tags": ["jcvb", "camp", "2026"],
+    "disable_anonymous_submissions": false,
+    "submission_handling_config": {
+      "on_submit": { "result_code": "success" }
+    },
+    "display_config": {
+      "web_title": "JCVB Camp Feedback",
+      "seo_description": "Thank you for joining us at JC Volleyball Camp — tell us about your week: what you loved, what we can do better, and what you'd want more of next summer.",
+      "web_favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏐</text></svg>",
+      "background_color": "linear-gradient(160deg, #0A0203 0%, #241A15 48%, #8A6A38 82%, #C4B781 100%)",
+      "theme_config": {
+        "theme_key": "light",
+        "colors": {
+          "primary": "#0A0203",
+          "accent": "#C4B781"
+        }
+      },
+      "rui_generation": {
+        "generator_kind": "raw",
+        "raw_generator_data": {
+          "root_control": {
+            "id": "camp_feedback_layout",
+            "control": "anvilor_forms:standard_layout",
+            "main_content_max_width": "760px",
+            "items": [
+              {
+                "id": "header_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "styles": { "padding": "24px" },
+                "body_controls": [
+                  {
+                    "id": "header_content",
+                    "control": "raw_content",
+                    "content": "<div style=\"text-align: center\"><img src=\"https://sites.anvilor.com/jcvb/assets/brand/jcvb-logo-hz-on-light.png\" alt=\"John Carroll Volleyball\" style=\"max-width: 360px; width: 82%; height: auto; margin: 0 auto 12px\"><h2 style=\"margin: 4px 0 8px; color: #0A0203\">Thank you for coming to camp! 🏐</h2><p style=\"margin: 0 0 10px; color: #5A5550\">We had a great time getting to know you and share our passion for the sport of volleyball. We'd love if you took 2 minutes to give us some feedback so we can continue to improve the camp in years to come!</p><p style=\"margin: 0; color: #5A5550\">Follow along with our program at <a href=\"https://sites.anvilor.com/jcvb\" style=\"color: #B9975B; font-weight: 600; text-decoration: none\">sites.anvilor.com/jcvb</a></p></div>"
+                  }
+                ]
+              },
+              {
+                "id": "overall_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "level": 2,
+                "title": "Overall",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "overall_rating_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 4px 0 8px\">How was camp overall?</div>"
+                  },
+                  {
+                    "id": "overall_rating_field",
+                    "control": "button_toggle",
+                    "field": "/overall_rating",
+                    "select_options": [
+                      { "value": "not_great", "display": "🙁 Not great" },
+                      { "value": "okay", "display": "😐 Okay" },
+                      { "value": "good", "display": "🙂 Good" },
+                      { "value": "awesome", "display": "🤩 Awesome" }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "your_week_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "level": 2,
+                "title": "Your Week",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "liked_most_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 4px 0 8px\">What did you like most about camp?</div>"
+                  },
+                  {
+                    "id": "liked_most_field",
+                    "control": "multi_line_text",
+                    "field": "/liked_most",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 3,
+                    "autosize_max_rows": 8
+                  },
+                  {
+                    "id": "liked_least_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">What did you like least — or what could we do better?</div>"
+                  },
+                  {
+                    "id": "liked_least_field",
+                    "control": "multi_line_text",
+                    "field": "/liked_least",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 3,
+                    "autosize_max_rows": 8
+                  }
+                ]
+              },
+              {
+                "id": "mix_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "level": 2,
+                "title": "Next Camp: More or Less?",
+                "description": "For each one, tell us whether you'd want less of it, about the same, or more of it at future camps.",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "mix_instruction_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 8px 0 8px\">Skill instruction &amp; drills</div>"
+                  },
+                  {
+                    "id": "mix_instruction_field",
+                    "control": "button_toggle",
+                    "field": "/mix_instruction",
+                    "select_options": [
+                      { "value": "less", "display": "Less" },
+                      { "value": "about_right", "display": "Just right" },
+                      { "value": "more", "display": "More" }
+                    ]
+                  },
+                  {
+                    "id": "mix_games_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Games &amp; competitions</div>"
+                  },
+                  {
+                    "id": "mix_games_field",
+                    "control": "button_toggle",
+                    "field": "/mix_games",
+                    "select_options": [
+                      { "value": "less", "display": "Less" },
+                      { "value": "about_right", "display": "Just right" },
+                      { "value": "more", "display": "More" }
+                    ]
+                  },
+                  {
+                    "id": "mix_non_volleyball_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Non-volleyball activities (team building, etc.)</div>"
+                  },
+                  {
+                    "id": "mix_non_volleyball_field",
+                    "control": "button_toggle",
+                    "field": "/mix_non_volleyball",
+                    "select_options": [
+                      { "value": "less", "display": "Less" },
+                      { "value": "about_right", "display": "Just right" },
+                      { "value": "more", "display": "More" }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "wishlist_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "level": 2,
+                "title": "Wish List",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "future_interests_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 4px 0 8px\">What would you want at future camps? (pick any)</div>"
+                  },
+                  {
+                    "id": "future_interests_field",
+                    "control": "multi_select_checkboxes",
+                    "field": "/future_interests",
+                    "select_options": [
+                      { "value": "position_training", "display": "Position-specific training (setters, hitters, liberos…)" },
+                      { "value": "strength_conditioning", "display": "Strength & conditioning" },
+                      { "value": "team_building", "display": "Team-building games & activities" }
+                    ]
+                  },
+                  {
+                    "id": "other_ideas_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Any other ideas or requests?</div>"
+                  },
+                  {
+                    "id": "other_ideas_field",
+                    "control": "multi_line_text",
+                    "field": "/other_ideas",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 2,
+                    "autosize_max_rows": 6
+                  },
+                  {
+                    "id": "camper_name_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Camper name (optional)</div>"
+                  },
+                  {
+                    "id": "camper_name_field",
+                    "control": "single_line_text",
+                    "field": "/camper_name",
+                    "width": "100%"
+                  },
+                  {
+                    "id": "camper_grade_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Grade (optional)</div>"
+                  },
+                  {
+                    "id": "camper_grade_field",
+                    "control": "standard_number",
+                    "field": "/camper_grade",
+                    "width": "200px"
+                  }
+                ]
+              },
+              {
+                "id": "closing_note",
+                "control": "raw_content",
+                "content": "<p style=\"text-align: center; margin: 4px 0 0; color: rgba(255,255,255,0.9)\">Thanks again for a great week!<br><b>— The JCVB coaching staff</b></p>"
+              },
+              {
+                "id": "submit_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "submit_row",
+                    "control": "flexbox",
+                    "justify_content": "center",
+                    "items": [
+                      {
+                        "control": {
+                          "id": "submit_button",
+                          "control": "anvilor_forms:submit_button",
+                          "button_label": "Send Feedback"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "post_submit": {
+              "id": "success_panel",
+              "control": "panel",
+              "presentation": "elevated",
+              "styles": { "padding": "32px" },
+              "body_controls": [
+                {
+                  "id": "success_content",
+                  "control": "raw_content",
+                  "content": "<div style=\"text-align: center\"><div style=\"font-size: 48px; line-height: 1\">🏐</div><h2 style=\"margin: 12px 0 8px; color: #0A0203\">Thank you!</h2><p style=\"margin: 0 0 16px; color: #5A5550\">Thanks for the feedback — and for being part of JC Volleyball Camp! We read every response and use it to make next summer even better. See you on the court!</p><p style=\"margin: 0\"><a href=\"https://sites.anvilor.com/jcvb\" style=\"color: #B9975B; font-weight: 600; text-decoration: none\">Keep up with the program → sites.anvilor.com/jcvb</a></p></div>"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
