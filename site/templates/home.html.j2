@@ -67,8 +67,17 @@
         <span class="go">Browse the archive <span class="arrow">→</span></span>
       </a>
 
-      <a class="hub-card" href="{{ base }}/brand/" data-reveal>
+      <a class="hub-card hub-card--ext" href="{{ links.watch }}" target="_blank" rel="noopener" data-reveal>
         <span class="hub-card__num">03</span>
+        <div>
+          <h3>Watch Live</h3>
+          <p>Home games streamed on the John Carroll YouTube channel.</p>
+        </div>
+        <span class="go">Watch the Patriots </span>
+      </a>
+
+      <a class="hub-card" href="{{ base }}/brand/" data-reveal data-reveal-delay="1">
+        <span class="hub-card__num">04</span>
         <div>
           <h3>Brand</h3>
           <p>Colors & logos — the Patriots identity kit.</p>
@@ -76,8 +85,8 @@
         <span class="go">View guidelines <span class="arrow">→</span></span>
       </a>
 
-      <a class="hub-card hub-card--ext" href="{{ links.roster }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="1">
-        <span class="hub-card__num">04</span>
+      <a class="hub-card hub-card--ext" href="{{ links.roster }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="2">
+        <span class="hub-card__num">05</span>
         <div>
           <h3>Roster & Team</h3>
           <p>Meet the squad and full team info on JC Athletics.</p>
@@ -85,8 +94,8 @@
         <span class="go">View roster </span>
       </a>
 
-      <a class="hub-card hub-card--ext" href="{{ links.store }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="2">
-        <span class="hub-card__num">05</span>
+      <a class="hub-card hub-card--ext" href="{{ links.store }}" target="_blank" rel="noopener" data-reveal>
+        <span class="hub-card__num">06</span>
         <div>
           <h3>Team Store</h3>
           <p>Rep the program. Official gear & spirit wear.</p>
@@ -94,9 +103,8 @@
         <span class="go">Shop now </span>
       </a>
 
-      <a class="hub-card hub-card--wide hub-card--ext" href="{{ links.instagram }}" target="_blank" rel="noopener" data-reveal>
-        <div class="hub-card__watermark">{{ brand.swirl('hcw3') }}</div>
-        <span class="hub-card__num">06</span>
+      <a class="hub-card hub-card--ext" href="{{ links.instagram }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="1">
+        <span class="hub-card__num">07</span>
         <div>
           <h3>Instagram</h3>
           <p>@jcboysvball — highlights, results, and behind the scenes.</p>
@@ -104,9 +112,8 @@
         <span class="go">Follow the Patriots </span>
       </a>
 
-      <a class="hub-card hub-card--wide hub-card--ext" href="{{ links.league }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="1">
-        <div class="hub-card__watermark">{{ brand.swirl('hcw4') }}</div>
-        <span class="hub-card__num">07</span>
+      <a class="hub-card hub-card--ext" href="{{ links.league }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="2">
+        <span class="hub-card__num">08</span>
         <div>
           <h3>MIAA League</h3>
           <p>Standings, brackets & conference info.</p>
@@ -156,6 +163,7 @@
     <div class="hero__actions">
       <a class="btn" href="{{ links.store }}" target="_blank" rel="noopener">Team Store <span class="arrow">→</span></a>
       <a class="btn btn--ghost" href="{{ links.roster }}" target="_blank" rel="noopener">Roster & Team</a>
+      <a class="btn btn--ghost" href="{{ links.watch }}" target="_blank" rel="noopener">Watch Live</a>
     </div>
   </div>
 </section>

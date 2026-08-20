@@ -1,0 +1,131 @@
+{
+  "anvilor_form": {
+    "title": "JCVB Welcome Reception RSVP",
+    "tags": ["jcvb", "reception", "rsvp", "2026"],
+    "disable_anonymous_submissions": false,
+    "submission_handling_config": {
+      "on_submit": { "result_code": "success" }
+    },
+    "display_config": {
+      "web_title": "JCVB Welcome Reception RSVP",
+      "seo_description": "RSVP for the JCVB Welcome Reception — Thursday, August 20, after practice. Players, families, coaches, and alumni connecting before the season gets rolling.",
+      "web_favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏐</text></svg>",
+      "background_color": "linear-gradient(160deg, #0A0203 0%, #241A15 48%, #8A6A38 82%, #C4B781 100%)",
+      "theme_config": {
+        "theme_key": "light",
+        "colors": {
+          "primary": "#0A0203",
+          "accent": "#C4B781"
+        }
+      },
+      "rui_generation": {
+        "generator_kind": "raw",
+        "raw_generator_data": {
+          "root_control": {
+            "id": "welcome_reception_rsvp_layout",
+            "control": "anvilor_forms:standard_layout",
+            "main_content_max_width": "760px",
+            "items": [
+              {
+                "id": "header_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "styles": { "padding": "24px" },
+                "body_controls": [
+                  {
+                    "id": "header_content",
+                    "control": "raw_content",
+                    "content": "<div style=\"text-align: center\"><img src=\"https://sites.anvilor.com/jcvb/assets/brand/jcvb-logo-hz-on-light.png\" alt=\"John Carroll Volleyball\" style=\"max-width: 360px; width: 82%; height: auto; margin: 0 auto 12px\"><h2 style=\"margin: 4px 0 8px; color: #0A0203\">JCVB Welcome Reception 🏐</h2><p style=\"margin: 0 0 12px; color: #5A5550\"><b>Thursday, August 20</b> &middot; after practice, approximately <b>5:45&ndash;7:30 PM</b><br>The John Carroll School &middot; Bel Air, Maryland</p><p style=\"margin: 0 0 10px; color: #5A5550\">This is our chance to get players, families, coaches, and alumni together before the season gets rolling. Let us know who's coming so we can plan food and setup &mdash; it takes about a minute.</p><p style=\"margin: 0; color: #5A5550\">Program updates always live at <a href=\"https://sites.anvilor.com/jcvb\" style=\"color: #B9975B; font-weight: 600; text-decoration: none\">sites.anvilor.com/jcvb</a></p></div>"
+                  }
+                ]
+              },
+              {
+                "id": "rsvp_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "level": 2,
+                "title": "Your RSVP",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "respondent_name_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 4px 0 8px\">Name</div>"
+                  },
+                  {
+                    "id": "respondent_name_field",
+                    "control": "single_line_text",
+                    "field": "/respondent_name",
+                    "width": "100%"
+                  },
+                  {
+                    "id": "player_name_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Player's name <span style=\"font-weight: 400; color: #8A857F\">(if applicable)</span></div>"
+                  },
+                  {
+                    "id": "player_name_field",
+                    "control": "single_line_text",
+                    "field": "/player_name",
+                    "width": "100%"
+                  },
+                  {
+                    "id": "party_size_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Total in party <span style=\"font-weight: 400; color: #8A857F\">(everyone coming, including the player)</span></div>"
+                  },
+                  {
+                    "id": "party_size_field",
+                    "control": "numeric_stepper",
+                    "field": "/party_size",
+                    "width": "200px"
+                  }
+                ]
+              },
+              {
+                "id": "closing_note",
+                "control": "raw_content",
+                "content": "<p style=\"text-align: center; margin: 4px 0 0; color: rgba(255,255,255,0.9)\">Looking forward to seeing everyone before the season starts.<br><b>&mdash; The JCVB coaching staff</b></p>"
+              },
+              {
+                "id": "submit_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "submit_row",
+                    "control": "flexbox",
+                    "justify_content": "center",
+                    "items": [
+                      {
+                        "control": {
+                          "id": "submit_button",
+                          "control": "anvilor_forms:submit_button",
+                          "button_label": "Send RSVP"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "post_submit": {
+              "id": "success_panel",
+              "control": "panel",
+              "presentation": "elevated",
+              "styles": { "padding": "32px" },
+              "body_controls": [
+                {
+                  "id": "success_content",
+                  "control": "raw_content",
+                  "content": "<div style=\"text-align: center\"><div style=\"font-size: 48px; line-height: 1\">🏐</div><h2 style=\"margin: 12px 0 8px; color: #0A0203\">RSVP received &mdash; thank you!</h2><p style=\"margin: 0 0 16px; color: #5A5550\">We've got you down for the Welcome Reception on <b>Thursday, August 20</b>, after practice from approximately <b>5:45&ndash;7:30 PM</b>. Watch the newsletter for final details, and if anything changes on your end just submit the form again.</p><p style=\"margin: 0\"><a href=\"https://sites.anvilor.com/jcvb\" style=\"color: #B9975B; font-weight: 600; text-decoration: none\">Keep up with the program → sites.anvilor.com/jcvb</a></p></div>"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

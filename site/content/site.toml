@@ -23,6 +23,8 @@ league = "https://miaasports.net/sports/mvball/index"
 give = "https://www.johncarroll.org/1964boysvolleyball"
 roster = "https://www.johncarroll.org/athletics/teams/boys-volleyball"
 instagram = "https://www.instagram.com/jcboysvball/"
+# JC Athletics livestreams every home game on the school YouTube channel.
+watch = "https://www.youtube.com/@thejohncarrollschooloffici1140/streams"
 
 [[highlights]]
 value = "2x"

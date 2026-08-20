@@ -1,0 +1,319 @@
+{
+  "anvilor_form": {
+    "title": "JCVB Media Profile",
+    "tags": ["jcvb", "media", "roster", "2026"],
+    "disable_anonymous_submissions": false,
+    "submission_handling_config": {
+      "on_submit": { "result_code": "success" }
+    },
+    "display_config": {
+      "web_title": "JCVB Media Profile",
+      "seo_description": "Tell us the story behind the jersey — a hobby nobody would guess, something you've come through, a job you're proud of. For John Carroll Boys Volleyball players.",
+      "web_favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏐</text></svg>",
+      "background_color": "linear-gradient(160deg, #0A0203 0%, #241A15 48%, #8A6A38 82%, #C4B781 100%)",
+      "theme_config": {
+        "theme_key": "light",
+        "colors": {
+          "primary": "#0A0203",
+          "accent": "#C4B781"
+        }
+      },
+      "rui_generation": {
+        "generator_kind": "raw",
+        "raw_generator_data": {
+          "root_control": {
+            "id": "media_profile_layout",
+            "control": "anvilor_forms:standard_layout",
+            "main_content_max_width": "760px",
+            "items": [
+              {
+                "id": "header_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "styles": { "padding": "24px" },
+                "body_controls": [
+                  {
+                    "id": "header_content",
+                    "control": "raw_content",
+                    "content": "<div style=\"text-align: center\"><img src=\"https://sites.anvilor.com/jcvb/assets/brand/jcvb-logo-hz-on-light.png\" alt=\"John Carroll Volleyball\" style=\"max-width: 360px; width: 82%; height: auto; margin: 0 auto 12px\"><h2 style=\"margin: 4px 0 8px; color: #0A0203\">The story behind the jersey 🏐</h2><p style=\"margin: 0 0 10px; color: #5A5550\">Every preseason, reporters ask us for the best <b>off-the-field</b> story on the team &mdash; a hobby nobody would guess, something you've come through, a job you're proud of, a family thread that runs through this program. I'd rather hear it from you than guess.</p><p style=\"margin: 0 0 10px; color: #5A5550\">Put your name at the top and answer the permission question. Everything after that is optional &mdash; answer what fits you and skip the rest.</p><p style=\"margin: 0 0 10px; color: #0A0203; font-weight: 600\">Nothing you write here goes to a reporter without me asking you and your parents first.</p><p style=\"margin: 0; color: #5A5550\">About 5 minutes. &mdash; Coach Kutcher</p></div>"
+                  }
+                ]
+              },
+              {
+                "id": "start_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "level": 2,
+                "title": "Start Here",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "player_name_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 4px 0 8px\">Your name</div>"
+                  },
+                  {
+                    "id": "player_name_field",
+                    "control": "single_line_text",
+                    "field": "/player_name",
+                    "width": "100%"
+                  },
+                  {
+                    "id": "share_permission_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">If your story is a good fit, may I pass it along to a reporter?</div>"
+                  },
+                  {
+                    "id": "share_permission_field",
+                    "control": "standard_radio_buttons",
+                    "field": "/share_permission",
+                    "select_options": [
+                      { "value": "yes", "display": "Yes" },
+                      { "value": "yes_ask_first", "display": "Yes, but talk to me first" },
+                      { "value": "no", "display": "No thanks — this is just for you, Coach" }
+                    ]
+                  },
+                  {
+                    "id": "do_not_share_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Anything here you do <b>not</b> want shared publicly?</div>"
+                  },
+                  {
+                    "id": "do_not_share_field",
+                    "control": "multi_line_text",
+                    "field": "/do_not_share",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 2,
+                    "autosize_max_rows": 6
+                  }
+                ]
+              },
+              {
+                "id": "off_court_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "level": 2,
+                "title": "Off the Court",
+                "description": "All optional. Answer the ones that fit you, leave the rest blank.",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "off_court_intro",
+                    "control": "raw_content",
+                    "content": "<p style=\"margin: 4px 0 4px; color: #5A5550; font-size: 14px\">Specifics are what get a story written. <i>\"I've rebuilt 11 vintage bikes and sell them at the farmers market\"</i> beats <i>\"I like bikes.\"</i> Two or three sentences is plenty.</p>"
+                  },
+                  {
+                    "id": "hobby_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">A hobby, skill, or project outside volleyball <span style=\"font-weight: 400; color: #8A857F\">— how long, and how deep are you in?</span></div>"
+                  },
+                  {
+                    "id": "hobby_field",
+                    "control": "multi_line_text",
+                    "field": "/hobby",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 3,
+                    "autosize_max_rows": 8
+                  },
+                  {
+                    "id": "job_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">A job, business, or side hustle</div>"
+                  },
+                  {
+                    "id": "job_field",
+                    "control": "multi_line_text",
+                    "field": "/job",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 2,
+                    "autosize_max_rows": 6
+                  },
+                  {
+                    "id": "service_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Volunteer work, service, or a cause you put real time into</div>"
+                  },
+                  {
+                    "id": "service_field",
+                    "control": "multi_line_text",
+                    "field": "/service",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 2,
+                    "autosize_max_rows": 6
+                  },
+                  {
+                    "id": "other_pursuit_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Another sport, instrument, or art you compete or perform in <span style=\"font-weight: 400; color: #8A857F\">— include the level and any results</span></div>"
+                  },
+                  {
+                    "id": "other_pursuit_field",
+                    "control": "multi_line_text",
+                    "field": "/other_pursuit",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 2,
+                    "autosize_max_rows": 6
+                  },
+                  {
+                    "id": "overcame_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Something you've come through</div><p style=\"margin: 0 0 8px; color: #5A5550; font-size: 14px\">An injury or illness, a loss, a move, arriving in a new country or language, a learning difference — anything that took something out of you to get past. Share only what you're comfortable putting on paper, and skip it entirely if you'd rather not.</p>"
+                  },
+                  {
+                    "id": "overcame_field",
+                    "control": "multi_line_text",
+                    "field": "/overcame",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 3,
+                    "autosize_max_rows": 10
+                  },
+                  {
+                    "id": "family_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Family <span style=\"font-weight: 400; color: #8A857F\">— siblings, parents, or cousins who played or coached; where your family is from; languages spoken at home; traditions that matter to you</span></div>"
+                  },
+                  {
+                    "id": "family_field",
+                    "control": "multi_line_text",
+                    "field": "/family",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 3,
+                    "autosize_max_rows": 8
+                  },
+                  {
+                    "id": "after_jc_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">What you want to do after JC <span style=\"font-weight: 400; color: #8A857F\">— college, major, career, military, trade, whatever's real right now</span></div>"
+                  },
+                  {
+                    "id": "after_jc_field",
+                    "control": "multi_line_text",
+                    "field": "/after_jc",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 2,
+                    "autosize_max_rows": 6
+                  },
+                  {
+                    "id": "hidden_fact_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Something most of your teammates don't know about you</div>"
+                  },
+                  {
+                    "id": "hidden_fact_field",
+                    "control": "multi_line_text",
+                    "field": "/hidden_fact",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 2,
+                    "autosize_max_rows": 6
+                  }
+                ]
+              },
+              {
+                "id": "teammate_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "level": 2,
+                "title": "Nominate a Teammate",
+                "description": "You all know things about each other I never will.",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "teammate_story_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 4px 0 8px\">Which teammate has a story people should hear? <span style=\"font-weight: 400; color: #8A857F\">Name, and what the story is.</span></div>"
+                  },
+                  {
+                    "id": "teammate_story_field",
+                    "control": "multi_line_text",
+                    "field": "/teammate_story",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 3,
+                    "autosize_max_rows": 8
+                  },
+                  {
+                    "id": "prior_coverage_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Been written about, filmed, or interviewed before? <span style=\"font-weight: 400; color: #8A857F\">Paste a link if you have one.</span></div>"
+                  },
+                  {
+                    "id": "prior_coverage_field",
+                    "control": "multi_line_text",
+                    "field": "/prior_coverage",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 2,
+                    "autosize_max_rows": 5
+                  },
+                  {
+                    "id": "anything_else_label",
+                    "control": "raw_content",
+                    "content": "<div style=\"font-weight: 600; color: #2A2320; font-size: 15px; margin: 18px 0 8px\">Anything else you want me to know</div>"
+                  },
+                  {
+                    "id": "anything_else_field",
+                    "control": "multi_line_text",
+                    "field": "/anything_else",
+                    "width": "100%",
+                    "autosize": true,
+                    "autosize_min_rows": 2,
+                    "autosize_max_rows": 6
+                  }
+                ]
+              },
+              {
+                "id": "closing_note",
+                "control": "raw_content",
+                "content": "<p style=\"text-align: center; margin: 4px 0 0; color: rgba(255,255,255,0.9)\">Thanks for taking the time &mdash; this is how the good stories get told.<br><b>&mdash; The JCVB coaching staff</b></p>"
+              },
+              {
+                "id": "submit_panel",
+                "control": "panel",
+                "presentation": "elevated",
+                "styles": { "padding": "20px" },
+                "body_controls": [
+                  {
+                    "id": "submit_row",
+                    "control": "flexbox",
+                    "justify_content": "center",
+                    "items": [
+                      {
+                        "control": {
+                          "id": "submit_button",
+                          "control": "anvilor_forms:submit_button",
+                          "button_label": "Send My Profile"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "post_submit": {
+              "id": "success_panel",
+              "control": "panel",
+              "presentation": "elevated",
+              "styles": { "padding": "32px" },
+              "body_controls": [
+                {
+                  "id": "success_content",
+                  "control": "raw_content",
+                  "content": "<div style=\"text-align: center\"><div style=\"font-size: 48px; line-height: 1\">🏐</div><h2 style=\"margin: 12px 0 8px; color: #0A0203\">Got it &mdash; thank you!</h2><p style=\"margin: 0 0 16px; color: #5A5550\">I read every one of these. If something in here is a fit for a reporter, I'll come find you and your parents first &mdash; nothing goes out before that. Remembered something you left off? Just submit the form again.</p><p style=\"margin: 0\"><a href=\"https://sites.anvilor.com/jcvb\" style=\"color: #B9975B; font-weight: 600; text-decoration: none\">Keep up with the program → sites.anvilor.com/jcvb</a></p></div>"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
