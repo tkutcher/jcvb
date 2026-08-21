@@ -25,6 +25,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 from jcvb._consts import REPO_ROOT
+from jcvb._markdown import BareUrlExtension
 
 # --- Paths -------------------------------------------------------------------
 SITE_DIR = REPO_ROOT / "site"
@@ -163,7 +164,7 @@ def _plain_text(markdown_text: str) -> str:
 
 def load_newsletters() -> list[Newsletter]:
     items: list[Newsletter] = []
-    md_render = md.Markdown(extensions=["extra", "sane_lists"])
+    md_render = md.Markdown(extensions=["extra", "sane_lists", BareUrlExtension()])
     for path in sorted((CONTENT_DIR / "newsletters").glob("*.md")):
         m = NEWSLETTER_RE.match(path.name)
         if not m:

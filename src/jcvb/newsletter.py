@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 
 from jcvb._consts import JCVB_PUBLIC, REPO_ROOT
 from jcvb._consts import JCVB_ROOT
+from jcvb._markdown import BareUrlExtension
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -43,7 +44,9 @@ def _read_next_newsletter_md() -> str:
 
 
 def _read_next_newsletter_html() -> str:
-    return markdown.markdown(_read_next_newsletter_md())
+    return markdown.markdown(
+        _read_next_newsletter_md(), extensions=[BareUrlExtension()]
+    )
 
 
 def _file_newsletter_as_sent(date: datetime.date) -> None:
