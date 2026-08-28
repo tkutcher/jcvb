@@ -1,6 +1,7 @@
 
 # 2026 JCVB season schedule.
 # Ported from internal/2026 JCVB Season Schedule/2026-JCVB-game-schedule.md (status: draft-review).
+# Reconciled against the school master schedule sent 2026-08-25.
 # Dates are ISO; the generator derives weekday + display formatting.
 
 [meta]
@@ -16,6 +17,17 @@ home_away = "home"
 varsity = "5:00 PM"
 jv = "3:30 PM"
 venue = "Upper Gym"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDExOTMyMw%3D%3D"
+
+[[games]]
+date = "2026-09-04"
+opponent = "Bel Air"
+designation = "scrimmage"
+home_away = "home"
+varsity = "5:00 PM"
+jv = "3:30 PM"
+venue = "Upper Gym"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDI4MDgyMA%3D%3D"
 
 [[games]]
 date = "2026-09-09"
@@ -43,6 +55,7 @@ home_away = "home"
 varsity = "5:30 PM"
 jv = "4:00 PM"
 venue = "Upper Gym"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDExOTYwNA%3D%3D"
 
 [[games]]
 date = "2026-09-21"
@@ -52,6 +65,7 @@ home_away = "home"
 varsity = "5:30 PM"
 jv = "4:00 PM"
 venue = "Upper Gym"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDExOTY0NQ%3D%3D"
 
 [[games]]
 date = "2026-09-22"
@@ -76,9 +90,11 @@ date = "2026-09-30"
 opponent = "Landon"
 designation = "non-conference"
 home_away = "home"
-varsity = "5:30 PM"
-jv = "4:00 PM"
+varsity = "6:00 PM"
+jv = "4:30 PM"
 venue = "Upper Gym"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDExOTY2OA%3D%3D"
+stream_youtube = "https://www.youtube.com/watch?v=Noyckf35PTk"
 
 [[games]]
 date = "2026-10-02"
@@ -98,6 +114,8 @@ varsity = "4:30 PM"
 jv = ""
 venue = "Upper Gym"
 note = "Varsity only"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDExOTY3Mg%3D%3D"
+stream_youtube = "https://www.youtube.com/watch?v=-A1JJ-6TAz4"
 
 [[games]]
 date = "2026-10-09"
@@ -107,6 +125,8 @@ home_away = "home"
 varsity = "5:30 PM"
 jv = "4:00 PM"
 venue = "Upper Gym"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDExOTY3NQ%3D%3D"
+stream_youtube = "https://www.youtube.com/watch?v=Et88eq9I0Tc"
 
 [[games]]
 date = "2026-10-14"
@@ -116,6 +136,8 @@ home_away = "home"
 varsity = "5:30 PM"
 jv = "4:00 PM"
 venue = "Upper Gym"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDExOTY3Nw%3D%3D"
+stream_youtube = "https://www.youtube.com/watch?v=0A7XB7oD_tw"
 
 [[games]]
 date = "2026-10-16"
@@ -134,6 +156,8 @@ home_away = "home"
 varsity = "5:30 PM"
 jv = "4:00 PM"
 venue = "Upper Gym"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDExOTY3OQ%3D%3D"
+stream_youtube = "https://www.youtube.com/watch?v=vMQLtWhZvp8"
 
 [[games]]
 date = "2026-10-26"
@@ -143,6 +167,8 @@ home_away = "home"
 varsity = "5:30 PM"
 jv = "4:00 PM"
 venue = "Upper Gym"
+stream_hudl = "https://fan.hudl.com/usa/md/bel-air/organization/23709/john-carroll-high-school/team/561631/boys-varsity-volleyball/watch?b=QnJvYWRjYXN0NDExOTY4MA%3D%3D"
+stream_youtube = "https://www.youtube.com/watch?v=ikwIEM3ZZqA"
 
 [[games]]
 date = "2026-10-30"
