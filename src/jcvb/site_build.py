@@ -476,10 +476,27 @@ def build() -> None:
         if fp.exists():
             h.update(fp.read_bytes())
     ver = h.hexdigest()[:8]
+    # Analytics: an id in site.toml (or JCVB_GA_ID) plus an explicit opt-in for
+    # this build. Both are required, so a local or staging build never reports.
+    analytics = {
+        "ga_id": os.environ.get(
+            "JCVB_GA_ID", site.get("analytics", {}).get("ga_measurement_id", "")
+        ).strip(),
+        "enabled": os.environ.get("JCVB_ANALYTICS", "") == "1",
+    }
+    analytics["active"] = bool(analytics["ga_id"]) and analytics["enabled"]
+
     site_cfg = dict(site["site"])
     if "JCVB_CANONICAL_URL" in os.environ:
         site_cfg["canonical_url"] = os.environ["JCVB_CANONICAL_URL"].rstrip("/")
-    ctx = {"site": site_cfg, "links": site["links"], "cfg": site, "ver": ver, "base": base}
+    ctx = {
+        "site": site_cfg,
+        "links": site["links"],
+        "cfg": site,
+        "ver": ver,
+        "base": base,
+        "analytics": analytics,
+    }
 
     # Home
     _write(
@@ -572,6 +589,10 @@ def build() -> None:
     render_og_image(OUT_ROOT / "assets" / "img" / "og.png")
 
     print(f"Built {2 + 2 + len(newsletters)} pages -> {OUTPUT_DIR}")
+    if analytics["active"]:
+        print(f"  analytics: ON ({analytics['ga_id']})")
+    elif analytics["ga_id"]:
+        print("  analytics: off for this build (JCVB_ANALYTICS is not 1)")
     print(f"  newsletters: {len(newsletters)} | games: {len(games)}")
 
 

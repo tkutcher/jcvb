@@ -39,6 +39,13 @@ else
   CONTAINER="jcvb"
 fi
 export JCVB_BASE_PATH="/${CONTAINER}"
+# Analytics is production-only, so staging traffic and local builds never
+# land in the numbers.
+if [[ "$TARGET" == "prod" ]]; then
+  export JCVB_ANALYTICS=1
+else
+  unset JCVB_ANALYTICS
+fi
 export JCVB_CANONICAL_URL="https://sites.anvilor.com/${CONTAINER}"
 SRC_DIR="build/${CONTAINER}"   # container root == /<container>, so upload its contents
 

@@ -20,6 +20,22 @@
   <link rel="apple-touch-icon" href="{{ base }}/assets/brand/jcvb-icon.png">
   <link rel="stylesheet" href="{{ base }}/assets/css/brand.css?v={{ ver }}">
   <link rel="stylesheet" href="{{ base }}/assets/css/site.css?v={{ ver }}">
+  {%- if analytics is defined and analytics.active %}
+  {# Google Analytics 4. Only rendered on the production build (see site.toml).
+     Google Signals and ad personalisation are off: this is a school team site
+     with minors named on it, so nothing here should feed an ad profile. #}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics.ga_id }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ analytics.ga_id }}', {
+      anonymize_ip: true,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false
+    });
+  </script>
+  {%- endif %}
 </head>
 <body class="page--{{ page }}">
   <a class="skip-link" href="#main">Skip to content</a>

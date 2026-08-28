@@ -16,6 +16,17 @@ location = "Bel Air, Maryland"
 league = "MIAA"
 season = 2026
 
+[analytics]
+# Google Analytics 4. Paste the Measurement ID from
+# Admin -> Data streams -> your web stream (looks like "G-XXXXXXXXXX").
+# Empty means no analytics at all — the tag is simply not rendered.
+ga_measurement_id = ""
+
+# Analytics only loads on the production deploy: deploy.sh exports
+# JCVB_ANALYTICS=1 for `prod` and nothing for `staging`, so local builds and
+# staging never pollute the numbers. `JCVB_ANALYTICS=1` forces it on if you
+# ever need to check the tag locally.
+
 [links]
 # External destinations surfaced across the site.
 store = "https://jc-boys-volleyball.printify.me/"
