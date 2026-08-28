@@ -1,0 +1,118 @@
+# One game = one file. Everything downstream (site result + recap page, the
+# Keys to the Game card, the school's score form) is generated from this.
+#
+#   uv run python -m jcvb.postgame summary     2026-08-26-harford-tech
+#   uv run python -m jcvb.postgame report-card 2026-08-26-harford-tech --out <vault path>
+#   uv run python -m jcvb.postgame form-url    2026-08-26-harford-tech
+
+[game]
+date = "2026-08-26"
+opponent = "Harford Tech"
+designation = "scrimmage"        # scrimmages never touch the W-L record
+home_away = "home"
+# [JC, opponent] per set, in order.
+sets = [[23, 25], [25, 22], [25, 19], [16, 25], [5, 15]]
+
+# Per-set tallies from the assistant coach's sheet, one entry per set.
+[stats]
+aces                 = [5, 11, 5, 1, 0]
+service_errors       = [4, 5, 2, 2, 4]
+kills                = [6, 5, 9, 6, 2]
+blocks               = [1, 1, 1, 0, 0]
+attack_errors        = [1, 0, 3, 3, 1]
+communication_errors = [0, 0, 0, 0, 0]
+net_violations       = [0, 0, 1, 0, 0]
+doubles_lifts        = [0, 0, 0, 0, 0]
+
+# Read off the official book: the running score at the END of each service term,
+# in order, for each team. Service terms strictly alternate, so these replay the
+# set — the diffs are the scoring runs, and interleaving them settles the race to
+# 15. `postgame` refuses to load this unless each set's last value matches the
+# set score above, which is what catches a misread digit.
+[scorebook]
+first_serve = ["opp", "jc", "opp", "jc", "opp"]
+jc = [
+  [3, 4, 6, 10, 11, 13, 14, 16, 18, 21, 22, 23],
+  [4, 5, 6, 7, 12, 13, 16, 17, 20, 21, 23, 25],
+  [2, 4, 8, 9, 13, 14, 15, 16, 19, 20, 22, 24, 25],
+  [3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16],
+  [1, 2, 3, 4, 5],
+]
+opp = [
+  [2, 5, 9, 12, 14, 15, 16, 18, 19, 22, 24, 25],
+  [2, 3, 4, 5, 6, 7, 9, 13, 14, 15, 19, 22],
+  [1, 2, 4, 5, 7, 8, 9, 13, 15, 16, 17, 19],
+  [1, 2, 4, 9, 10, 11, 13, 14, 18, 20, 24, 25],
+  [5, 6, 8, 14, 15],
+]
+
+# Libero tracking sheet (IMG_7116 in the game folder): every reception rated
+# 0-3, one digit per pass, in order, per set. The team rating for a set is the
+# mean of those digits — see jcvb.postgame.ServeReceive.
+[serve_receive]
+"T. Olivi"  = ["301211001", "033", "0330", "0231332300", "310303"]
+"Sam"       = ["1", "002", "3", "", ""]
+"Logan"     = ["13", "", "3133", "32", "3"]
+"Andrew"    = ["", "01", "", "", ""]
+"DeReamer"  = ["0", "", "2", "2", ""]
+"Peyton"    = ["1201012", "33", "1321303", "2330332", "200"]
+"Nate"      = ["", "200", "", "", ""]
+# Aces conceded, from the bottom row of the same sheet. Not the same number as
+# stats.aces, which is aces WE served.
+aces_against = [2, 3, 2, 4, 1]
+
+# The internal write-up that heads the report card. TK's words, for the Team —
+# blunt where the public recap is supportive. Never derived from [recap].
+[card]
+writeup = "Good opening look, but we were way too flat and needed more energy, confidence, and communication. Showed we can hang with some big boys, but didn't find a way to neutralize them. Lot of good defense and passes."
+
+[recap]
+headline = "Five-set scrimmage opens the season"
+body = """
+A good first look that went the distance, and everyone who stepped on the floor \
+contributed. The defense held up all afternoon, and the serve was a weapon in the \
+middle sets — 22 aces on the day, 11 of them in the second, where Greg Wisniewski \
+closed it out with an ace on set point. The passing sharpened as the match went \
+on: the Patriots served up a 2.00 team serve-receive rating across the third and \
+fourth sets, and that steadier platform turned straight into offense — 28 kills on \
+the day, led by Peyton Williams and Jackson DeReamer, with nine of them in a third \
+set John Carroll took comfortably. Harford Tech brought a very strong outside \
+hitter and setter, and their attack carried the late sets. Plenty to build on \
+before the season opener.\
+"""
+
+# Rows the tally sheet cannot answer — one mark per set (✅/❌, or a dot to
+# leave unanswered). Fill these in and re-run report-card.
+[report_card]
+rotation        = "❌✅✅✅✅"
+meet_center     = "✅✅✅✅✅"
+no_complaints   = "✅❌✅✅✅"
+energy          = "✅✅❌❌❌"   # TK's own marks off the card
+sr_rating       = "....."
+run_5           = "....."
+no_opp_run      = "....."
+defensive_play  = "✅✅✅✅✅"   # "we did well defensively" — TK's write-up (row was not on the card he filled in)
+
+# Optional per-row comments on the report card, keyed by criterion.
+[notes]
+# Cells where the skewed scan left the reading in doubt — surfaced in the vault
+# stats note so TK can settle them.
+transcription = """
+Two cells were ambiguous on the tally sheet — the scan is skewed and the circled \
+totals drift into the next column:
+- **S4 Aces** — `1` (circled one), confirmed by TK.
+- **S5 Service Errors** — circled `4`, but only one tally mark is visible. If it \
+is `1`, the day's total is 14.
+
+Every other cell is a clean match between the tally marks and the circled total, \
+and the book's set scores agree with the tally sheet's W/L row.
+"""
+service_errors = "17 SE on the day — the one thing to clean up"
+kills = "S3 - 9 kills"
+aces_over_se = "S2 - 11 aces powered the 25-22"
+sr_rating = "S3 2.00, S4 2.00 — 1.59 for the match on 80 receptions"
+race_to_15 = "Only S2 and S3 — both wins"
+run_5 = "S2 - a 5-point run inside the 11-ace set"
+no_opp_run = "S4 - they ran 5; S5 - they ran 6"
+rotation = "Confused S1 - Coach Kutch's fault mostly"
+no_complaints = "S2 - JY"
