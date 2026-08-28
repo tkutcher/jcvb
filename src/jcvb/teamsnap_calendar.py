@@ -39,7 +39,15 @@ from icalendar import Calendar
 
 from jcvb._consts import REPO_ROOT
 
-VENUE_MAP_PATH = REPO_ROOT / "teamsnap-venues.json"
+# The map has lived at the repo root and under outputs/; take whichever is
+# present so a moved file degrades to "unmapped venue" warnings, not silence.
+VENUE_MAP_CANDIDATES = (
+    REPO_ROOT / "outputs" / "teamsnap-venues.json",
+    REPO_ROOT / "teamsnap-venues.json",
+)
+VENUE_MAP_PATH = next(
+    (p for p in VENUE_MAP_CANDIDATES if p.exists()), VENUE_MAP_CANDIDATES[0]
+)
 DEFAULT_OUT_DIR = REPO_ROOT / ".outputs" / "teamsnap"
 
 DEFAULT_TEAM = "John Carroll Boys Volleyball"

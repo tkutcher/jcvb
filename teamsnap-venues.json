@@ -1,0 +1,71 @@
+{
+  "_readme": [
+    "Maps a location (or, for away games, an opponent) to a TeamSnap Venue +",
+    "Sub-Venue. TeamSnap's importer cannot create venues or sub-venues, and it",
+    "rejects any row that has a Venue with no Sub-Venue. So a location is only",
+    "written to the Venue/Sub-Venue columns when BOTH values below are filled in;",
+    "otherwise the exporter leaves them blank and names the site in Notes.",
+    "",
+    "`venues` keys match a home location: the gym codes UG/LG from the school",
+    "master, their long names from the season schedule, and the calendar feed's",
+    "LOCATION first line.",
+    "",
+    "`opponents` keys match an opponent name in site/content/schedule/<season>.toml",
+    "and supply the venue for AWAY games. Away sub-venues are \"Main Gym\" unless a site is known to name its courts;",
+    "ours are Upper Gym / Lower Gym. An entry with a venue but no sub_venue falls",
+    "back to --away-sub-venue (default \"Main Gym\"). Unmapped sites are listed",
+    "in the exporter's warnings after every run."
+  ],
+  "venues": {
+    "UG": {
+      "venue": "John Carroll High School",
+      "sub_venue": "Upper Gym"
+    },
+    "Upper Gym": {
+      "venue": "John Carroll High School",
+      "sub_venue": "Upper Gym"
+    },
+    "LG": {
+      "venue": "John Carroll High School",
+      "sub_venue": "Lower Gym"
+    },
+    "Lower Gym": {
+      "venue": "John Carroll High School",
+      "sub_venue": "Lower Gym"
+    },
+    "The John Carroll School": {
+      "venue": "John Carroll High School",
+      "sub_venue": "Upper Gym"
+    }
+  },
+  "opponents": {
+    "Spalding": {
+      "venue": "Archbishop Spalding High School",
+      "sub_venue": "Main Gym"
+    },
+    "St. Paul's": {
+      "venue": "Saint Pauls School",
+      "sub_venue": "Main Gym"
+    },
+    "Mt. St. Joe": {
+      "venue": "Mount Saint Joseph High School",
+      "sub_venue": "Main Gym"
+    },
+    "Curley": {
+      "venue": "Archbishop Curley High School",
+      "sub_venue": "Main Gym"
+    },
+    "Gilman": {
+      "venue": "Gilman School",
+      "sub_venue": "Main Gym"
+    },
+    "Boys Latin": {
+      "venue": "Boys Latin School",
+      "sub_venue": "Main Gym"
+    },
+    "Friends": {
+      "venue": "Friends School of Baltimore",
+      "sub_venue": "Main Gym"
+    }
+  }
+}
