@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>JCVB Net System Research — 2026</title>
+  <link rel="icon" href="{{ base }}/assets/brand/jcvb-icon.png">
+  <link rel="stylesheet" href="{{ base }}/assets/css/brand.css?v={{ ver }}">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--jc-cream);
+      color: var(--jc-ink);
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: 1.55;
+    }
+    .doc { max-width: 840px; margin: 0 auto; padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.1rem, 4vw, 2rem) 5rem; }
+    header.doc-head { border-bottom: 3px solid var(--jc-gold-deep); padding-bottom: 1.5rem; margin-bottom: 2.25rem; }
+    header.doc-head img { height: 44px; width: auto; margin-bottom: 1.1rem; }
+    h1 { font-family: var(--font-display); font-size: clamp(1.7rem, 4vw, 2.4rem); margin: 0 0 0.35rem; }
+    .doc-sub { color: rgba(10,2,3,0.62); font-size: 0.98rem; margin: 0; }
+    .doc-meta { color: rgba(10,2,3,0.5); font-size: 0.85rem; margin-top: 0.4rem; }
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      margin: 2.75rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(10,2,3,0.14);
+    }
+    h3 { font-family: var(--font-body); font-weight: 600; font-size: 1.05rem; margin: 1.5rem 0 0.5rem; }
+    p { margin: 0 0 0.9rem; }
+    ul, ol { margin: 0 0 1rem; padding-left: 1.3rem; }
+    li { margin-bottom: 0.45rem; }
+    .lede { font-size: 1.05rem; color: rgba(10,2,3,0.78); }
+
+    .problem-list { list-style: none; padding-left: 0; margin: 1.25rem 0 0; }
+    .problem-list li {
+      display: flex; gap: 0.85rem;
+      background: #fff;
+      border: 1px solid rgba(10,2,3,0.1);
+      border-left: 4px solid var(--jc-gold-deep);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.65rem;
+    }
+    .problem-list .num {
+      flex: none;
+      font-family: var(--font-display);
+      color: var(--jc-gold-deep);
+      font-size: 1.15rem;
+      line-height: 1.4;
+    }
+    .problem-list strong { display: block; margin-bottom: 0.15rem; }
+    .problem-list span.detail { color: rgba(10,2,3,0.68); font-size: 0.94rem; }
+
+    .callout {
+      background: #fff;
+      border: 1px solid rgba(196,183,129,0.5);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.3rem;
+      margin: 1.25rem 0;
+    }
+    .callout h3 { margin-top: 0; }
+
+    .table-scroll { overflow-x: auto; margin: 1rem 0 1.5rem; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.92rem; background: #fff; }
+    caption { text-align: left; font-size: 0.85rem; color: rgba(10,2,3,0.55); margin-bottom: 0.4rem; }
+    th, td { text-align: left; padding: 0.6rem 0.7rem; border: 1px solid rgba(10,2,3,0.12); vertical-align: top; }
+    th { background: var(--jc-cream); font-weight: 600; }
+    tr:nth-child(even) td { background: rgba(196,183,129,0.06); }
+    td.cost { font-variant-numeric: tabular-nums; }
+    th.cost, td.cost { min-width: 11rem; }
+    .prod-links { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+    .prod-links a {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--jc-gold-deep);
+      background: rgba(196,183,129,0.12);
+      border: 1px solid rgba(196,183,129,0.4);
+      border-radius: 999px;
+      padding: 0.2rem 0.6rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .prod-links a:hover { background: rgba(196,183,129,0.22); }
+    .tier-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      color: #fff;
+    }
+    .tier-fix { background: #7a8b6f; }
+    .tier-mid { background: var(--jc-gold-deep); }
+    .tier-premium { background: var(--jc-ink); }
+
+    .rec-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.25rem 0; }
+    @media (min-width: 640px) { .rec-grid { grid-template-columns: 1fr 1fr; } }
+    .rec-card {
+      background: #fff;
+      border: 1px solid rgba(10,2,3,0.1);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+    }
+    .rec-card .loc { font-family: var(--font-display); color: var(--jc-gold-deep); font-size: 0.95rem; margin: 0 0 0.4rem; }
+
+    .checklist { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+    .checklist li { padding-left: 1.6rem; position: relative; }
+    .checklist li::before {
+      content: "";
+      position: absolute; left: 0; top: 0.3rem;
+      width: 0.9rem; height: 0.9rem;
+      border: 1.5px solid var(--jc-gold-deep);
+      border-radius: 3px;
+    }
+
+    footer.doc-foot {
+      margin-top: 3rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(10,2,3,0.14);
+      font-size: 0.82rem;
+      color: rgba(10,2,3,0.5);
+    }
+    footer.doc-foot a { color: var(--jc-gold-deep); }
+    .sources { font-size: 0.82rem; color: rgba(10,2,3,0.6); }
+    .sources li { margin-bottom: 0.3rem; }
+    .sources a { color: var(--jc-gold-deep); word-break: break-all; }
+
+    @media print {
+      body { background: #fff; }
+      a { color: inherit; text-decoration: none; }
+      .callout, .rec-card, table { break-inside: avoid; }
+      h2 { break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="doc">
+    <header class="doc-head">
+      <img src="{{ base }}/assets/brand/jcvb-logo-hz-on-light.png" alt="John Carroll Volleyball">
+      <h1>Net System Research — 2026</h1>
+      <p class="doc-sub">Prepared for JC Athletics administration &middot; upper &amp; lower gym volleyball net systems</p>
+      <p class="doc-meta">Internal working document &mdash; not linked from the public site.</p>
+    </header>
+
+    <p class="lede">
+      Our current net systems are past due for replacement. Below is a summary of the
+      specific problems we're running into, what's driving them, and the range of
+      replacement options &mdash; from a quick patch to a full no-anchor system with a
+      built-in referee stand &mdash; with rough cost and quality tiers for each.
+    </p>
+
+    <h2>The problems</h2>
+    <ol class="problem-list">
+      <li>
+        <span class="num">1</span>
+        <div>
+          <strong>Can't reliably get a net to proper height and full tautness.</strong>
+          <span class="detail">Poles wobble inward toward the middle of the court under
+          tension, and depending on which of our three court configurations we're using,
+          we can't crank the net tight enough to get the top cable fully taut &mdash;
+          it sags no matter how far we take the tensioner.</span>
+        </div>
+      </li>
+      <li>
+        <span class="num">2</span>
+        <div>
+          <strong>No reliable, complete set of poles and nets we can set up cleanly.</strong>
+          <span class="detail">Years of setup/teardown across three different
+          configurations (full-gym and two perpendicular half-gym courts), with
+          individual pieces broken, mangled, or missing along the way, mean we can't
+          count on a full matched set of poles and nets going up without hunting for
+          or making do with something that's damaged.</span>
+        </div>
+      </li>
+      <li>
+        <span class="num">3</span>
+        <div>
+          <strong>Antennas keep breaking or don't fit.</strong>
+          <span class="detail">Antennas fall off mid-play or won't stay clipped, and
+          some no longer match the net we're pairing them with.</span>
+        </div>
+      </li>
+      <li>
+        <span class="num">4</span>
+        <div>
+          <strong>The nets themselves are torn along the sides.</strong>
+          <span class="detail">Side damage means the net can't be pulled and anchored
+          properly, which compounds the tautness problem above &mdash; a perfect pole
+          and tensioner still can't square up a net that's failing at the edge.</span>
+        </div>
+      </li>
+    </ol>
+
+    <div class="callout">
+      <h3>Both gyms run three configurations &mdash; upper gym uses all three more often</h3>
+      <p style="margin-bottom:0">
+        Both the upper and lower gym run <strong>three net configurations</strong>
+        &mdash; full-gym and two perpendicular half-gym courts &mdash; each with its
+        own base spacing (the exact spacing varies slightly between the two gyms).
+        The two half-gym courts need to run <strong>at the same time, not one after
+        the other</strong> &mdash; that's how we get JV and Varsity, boys and girls,
+        practicing simultaneously in one gym. So the horizontal configuration isn't
+        one net moved between two spots; it's two complete, working nets up at once.
+        That's three times the setup/teardown wear on the same pole set in either
+        gym, and it means whatever we buy needs poles and a tensioner rated for the
+        narrowest of the three spans, not just the standard full-court width, plus
+        enough complete sets to run two nets side by side. The upper gym uses all
+        three configurations more often, which is what makes it the harder problem
+        and the stronger case for the primary system. Any vendor quote should
+        confirm compatibility with all three configurations explicitly, not just
+        regulation full-court.
+      </p>
+    </div>
+
+    <h2>Patchwork options &mdash; getting through this season</h2>
+    <p>Low/no-cost stopgaps for this season while a purchase works through budget approval.</p>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Patch</th>
+          <th>What it does</th>
+          <th class="cost">Who / rough cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Facilities re-tightens/resets the sleeve collars &amp; anchor hardware</td>
+          <td>Wobble may be a loose floor sleeve, not the pole &mdash; worth checking
+            before assuming we need new hardware.</td>
+          <td class="cost">Facilities &mdash; labor only</td>
+        </tr>
+        <tr>
+          <td>Shim the pole-to-sleeve fit</td>
+          <td>Pipe-wrap tape or a rubber shim kit on the pole base so it seats
+            snugly instead of rocking in a worn sleeve.</td>
+          <td class="cost">Facilities &mdash; &lt;$30/pole</td>
+        </tr>
+        <tr>
+          <td>Raise/pack the bottom of the sleeve</td>
+          <td>A spacer block seats the pole higher, taking up vertical play in a
+            deep or worn sleeve.</td>
+          <td class="cost">Facilities &mdash; scrap wood/rubber, ~$0</td>
+        </tr>
+        <tr>
+          <td>Consolidate the best parts into one complete set</td>
+          <td>Pool the working pieces across all three configurations into one
+            matched set for the full-gym game configuration.</td>
+          <td class="cost">Coaching staff/equip. mgr &mdash; time only</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Option tiers</h2>
+    <p>Rough cost and what each tier actually fixes, cheapest to most involved.</p>
+
+    <div class="table-scroll">
+    <table>
+      <caption>Catalog list pricing pulled 2026 &mdash; confirm with vendor quotes; school/bulk pricing is typically available.</caption>
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Fixes</th>
+          <th>Doesn't fix</th>
+          <th class="cost">Rough cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="tier-badge tier-fix">Patch</span><br>Velcro antenna sets
+            <div class="prod-links">
+              <a href="https://www.marchants.com/deluxe-velcro-attachments-pr/" target="_blank" rel="noopener noreferrer">Marchants &#8599;</a>
+            </div>
+          </td>
+          <td>Antenna retention (#3) &mdash; immediately, independent of everything else</td>
+          <td>Poles, tautness, torn net sides</td>
+          <td class="cost">~$20&ndash;40/pair</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="tier-badge tier-fix">Patch</span><br>Replacement nets only
+            <div class="prod-links">
+              <a href="https://shop.jayprosports.com/Volleyball-Replacement-Net-with-Steel-Cable-25mm-Poly-Mesh-32-ftL-x-36-inH-Black_p_4398.html" target="_blank" rel="noopener noreferrer">JayPro &#8599;</a>
+            </div>
+          </td>
+          <td>Torn sides (#4), if poles/sleeves are otherwise sound</td>
+          <td>Wobble, broken/missing poles</td>
+          <td class="cost">~$150&ndash;400/net</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="tier-badge tier-mid">New system</span><br>Sleeve-mounted competition package
+            (Jaypro Featherlite / Schelde Pro T4 or Infinity)
+            <div class="prod-links">
+              <a href="https://www.anthem-sports.com/jaypro-pvb-5000-featherlite-volleyball-net-system.html" target="_blank" rel="noopener noreferrer">Jaypro Featherlite &#8599;</a>
+              <a href="https://www.anthem-sports.com/schelde-infinity-i4-4-volleyball-net-system-1.html" target="_blank" rel="noopener noreferrer">Schelde Infinity I4 &#8599;</a>
+            </div>
+          </td>
+          <td>Correct pole length &amp; complete parts (#2), proper tensioning (#1 if sleeves are sound), net condition (#4)</td>
+          <td>Wobble, if it's the floor sleeves themselves that are worn &mdash; have facilities check first</td>
+          <td class="cost">~$4,600&ndash;5,000</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="tier-mid tier-badge">New system</span><br>Sleeve-mounted, heavier-duty
+            (Jaypro Powerlite / Carbon Ultralite)
+            <div class="prod-links">
+              <a href="https://www.anthem-sports.com/jaypro-pvb-6500-7000-powerlite-international-volleyball-net-system.html" target="_blank" rel="noopener noreferrer">Jaypro Powerlite &#8599;</a>
+              <a href="https://www.anthem-sports.com/jaypro-pvb-9000-9500-carbon-ultralite-volleyball-net-system-package.html" target="_blank" rel="noopener noreferrer">Jaypro Carbon Ultralite &#8599;</a>
+            </div>
+          </td>
+          <td>Same as above, sturdier poles/tensioners &mdash; better bet if wobble is pole flex, not sleeve wear</td>
+          <td>Sleeve wear itself</td>
+          <td class="cost">~$7,000&ndash;8,450</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="tier-mid tier-badge">New system</span><br>Porter Powr Steel Competition Package Plus
+            <div class="prod-links">
+              <a href="https://www.gillporter.com/porter/powr-steel-vb-competition-package.html" target="_blank" rel="noopener noreferrer">Porter Athletic &#8599;</a>
+            </div>
+          </td>
+          <td>Same, top-of-line sleeve-mounted build</td>
+          <td>Sleeve wear itself</td>
+          <td class="cost">~$11,300</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="tier-premium tier-badge">No anchor</span><br>Freestanding system + built-in ref stand
+            (Sports Imports Portable / VolleyballUSA VB-FS-REF / Gared GoCourt)
+            <div class="prod-links">
+              <a href="https://www.sportsimports.com/product/portable-volleyball-net-system/" target="_blank" rel="noopener noreferrer">Sports Imports &#8599;</a>
+              <a href="https://www.volleyballusa.com/vb-fs-ref-freestanding-volleyball-system-with-built-in-ref-stand/" target="_blank" rel="noopener noreferrer">VolleyballUSA VB-FS-REF &#8599;</a>
+              <a href="https://www.anytimesportssupply.com/products/gared-gocourt-one-court-portable-volleyball-net-system-with-ref-stand" target="_blank" rel="noopener noreferrer">Gared GoCourt &#8599;</a>
+            </div>
+          </td>
+          <td>Wobble entirely (ballasted base, zero floor anchors), works identically across
+            all three configurations without separate sleeve sets, and includes the ref stand</td>
+          <td>Storage &mdash; needs a place to park it between uses</td>
+          <td class="cost">Quote required &mdash;
+            likely five figures for the premium (Sports Imports/NCAA-grade) tier;
+            Gared GoCourt likely more moderate</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>On the freestanding / no-anchor option</h3>
+    <p>
+      A few other schools have already moved to this style of system &mdash; a
+      self-contained, heavily ballasted base (up to ~1,100&nbsp;lb per stand in the
+      top-tier Sports Imports build) that gets bow-string-tight tension with no floor
+      sleeves, anchors, or guy wires. Several versions bundle a referee stand directly
+      into the base. It's the cleanest fix for the wobble problem specifically, since
+      there's no worn sleeve in the mix at all, and the units reposition freely for
+      any configuration without needing separate sleeve installs at each spot.
+      One caveat on quantity: since both half-gym courts run at the same time, not
+      one after the other, we'd need two full setups on hand &mdash; not one unit
+      moved back and forth &mdash; to actually run the horizontal configuration.
+      The tradeoff is storage: it stores on a cart/dolly when not in use, and needs a
+      real footprint somewhere near the upper gym &mdash; worth confirming we have that
+      space before going further down this path.
+    </p>
+
+    <p><strong>Sourcing input from other schools.</strong> Worth checking in with
+      schools already on this type of system &mdash; which vendor, what they actually
+      paid, how/where they store it, how it handles multiple court configurations,
+      and any complaints on stability or the built-in ref stand.</p>
+    <p style="margin-bottom:0">
+      Worth a direct look too: the <strong>McFaul Center</strong> (Bel Air Rec) runs a
+      system that's held up well &mdash; durable and easy to set up/maintain, by
+      reputation. Don't know the brand offhand;
+      <a href="mailto:trina@belairrec.org">Trina at Bel Air Rec</a>
+      (<a href="mailto:trina@belairrec.org">trina@belairrec.org</a>) would likely know
+      the make/model and could speak to how it's held up.
+    </p>
+
+    <h2>Suggested approach</h2>
+    <div class="rec-grid">
+      <div class="rec-card">
+        <p class="loc">Upper gym &mdash; primary system</p>
+        <p style="margin-bottom:0">
+          This is where games are played and where all three configurations get used,
+          so it should get the better system. Either a heavier-duty sleeve-mounted
+          competition package (if the existing floor sleeves check out sound), or the
+          freestanding no-anchor system if we want to eliminate the sleeve/wobble
+          question entirely and simplify going between the three court layouts.
+        </p>
+      </div>
+      <div class="rec-card">
+        <p class="loc">Lower gym &mdash; second priority</p>
+        <p style="margin-bottom:0">
+          The reported wobble here specifically points at the floor sleeves/anchors,
+          not just the poles. A mid-tier sleeve-mounted package is the budget-friendly
+          fix if facilities confirms the sleeves can be tightened or reset; otherwise
+          this is the other strong candidate for a freestanding unit, since it
+          sidesteps the sleeve problem outright.
+        </p>
+      </div>
+    </div>
+
+    <footer class="doc-foot">
+      <p>
+        Cost figures above are catalog list prices gathered from vendor/reseller sites
+        in August 2026 and are directional, not quotes &mdash; freestanding-system
+        pricing in particular needs a direct vendor quote. This page is unlisted and
+        excluded from search indexing; share the link directly rather than expecting
+        it to be findable from <a href="{{ site.canonical_url }}">{{ site.canonical_url }}</a>.
+      </p>
+      <p><strong>Sources</strong></p>
+      <ul class="sources">
+        <li><a href="https://www.sportsimports.com/blog/5-non-traditional-venues-that-rely-on-portable-volleyball-systems/">Sports Imports &mdash; portable/freestanding system overview</a></li>
+        <li><a href="https://www.volleyballusa.com/vb-fs-ref-freestanding-volleyball-system-with-built-in-ref-stand/">VolleyballUSA &mdash; VB-FS-REF freestanding system with built-in ref stand</a></li>
+        <li><a href="https://www.anytimesportssupply.com/products/gared-gocourt-one-court-portable-volleyball-net-system-with-ref-stand">Gared GoCourt &mdash; portable system w/ ref stand</a></li>
+        <li><a href="https://www.anthem-sports.com/volleyball-equipment/volleyball-net-and-post-systems/indoor/packages.html">Anthem Sports &mdash; sleeve-mounted competition package pricing (Jaypro / Schelde / Porter)</a></li>
+        <li><a href="https://www.marchants.com/deluxe-velcro-attachments-pr/">Marchants &mdash; Velcro antenna attachments</a></li>
+      </ul>
+    </footer>
+  </div>
+</body>
+</html>
