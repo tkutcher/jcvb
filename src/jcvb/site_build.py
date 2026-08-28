@@ -13,6 +13,7 @@ auto-population from the vault.
 from __future__ import annotations
 
 import hashlib
+import os
 import re
 import shutil
 import tomllib
@@ -26,6 +27,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 from jcvb._consts import REPO_ROOT
 from jcvb._markdown import BareUrlExtension
+from jcvb import postgame
 
 # --- Paths -------------------------------------------------------------------
 SITE_DIR = REPO_ROOT / "site"
@@ -110,6 +112,16 @@ class Game:
     jv: str
     venue: str
     note: str = ""
+    stream_hudl: str = ""
+    stream_youtube: str = ""
+    played: object = None          # jcvb.postgame.Game once the match is in the books
+
+    @property
+    def streams(self) -> list[tuple[str, str]]:
+        """(label, url) for every broadcast of this game, YouTube first — it is
+        the one anyone can watch without a Hudl account."""
+        pairs = (("YouTube", self.stream_youtube), ("Hudl", self.stream_hudl))
+        return [(label, url) for label, url in pairs if url]
 
     @property
     def weekday(self) -> str:
@@ -143,6 +155,15 @@ class Game:
             "scrimmage": "Scrimmage",
             "playoffs": "Playoffs",
         }.get(self.designation, self.designation.title())
+
+    @property
+    def slug(self) -> str:
+        return postgame.slugify(self.date, self.opponent)
+
+    @property
+    def streams(self) -> list[tuple[str, str]]:
+        pairs = (("YouTube", self.stream_youtube), ("Hudl", self.stream_hudl))
+        return [(label, url) for label, url in pairs if url]
 
     @property
     def filter_tokens(self) -> str:
@@ -214,6 +235,20 @@ def load_newsletters() -> list[Newsletter]:
     return items
 
 
+def load_played_games() -> dict[str, object]:
+    """Completed games, keyed by ISO date — the same files postgame.py reads.
+
+    Game files are authored in the vault, beside the scans they came from, and
+    synced here so a checkout without the vault still builds.
+    """
+    games_dir = CONTENT_DIR / "games"
+    for slug in postgame.sync_from_vault(games_dir):
+        print(f"  synced game file from the vault: {slug}")
+    if not games_dir.exists():
+        return {}
+    return {g.date.isoformat(): g for g in postgame.load_season(games_dir)}
+
+
 def load_schedule() -> tuple[dict, list[Game]]:
     data = _load_toml(CONTENT_DIR / "schedule" / "2026.toml")
     games = [
@@ -226,9 +261,14 @@ def load_schedule() -> tuple[dict, list[Game]]:
             jv=g.get("jv", ""),
             venue=g.get("venue", ""),
             note=g.get("note", ""),
+            stream_hudl=g.get("stream_hudl", ""),
+            stream_youtube=g.get("stream_youtube", ""),
         )
         for g in data["games"]
     ]
+    played = load_played_games()
+    for game in games:
+        game.played = played.get(game.date.isoformat())
     games.sort(key=lambda g: g.date)
     return data.get("meta", {}), games
 
@@ -417,7 +457,11 @@ def build() -> None:
         shutil.rmtree(OUTPUT_DIR)
 
     site = _load_toml(CONTENT_DIR / "site.toml")
-    base = site["site"].get("base_path", "").rstrip("/")  # e.g. "/jcvb"
+    # Staging is the same site under a different container/path, so the base
+    # path (baked into every link at build time) has to be overridable.
+    base = os.environ.get(
+        "JCVB_BASE_PATH", site["site"].get("base_path", "")
+    ).rstrip("/")  # e.g. "/jcvb"
     OUT_ROOT = OUTPUT_DIR / base.strip("/") if base else OUTPUT_DIR
     OUT_ROOT.mkdir(parents=True, exist_ok=True)
 
@@ -432,7 +476,10 @@ def build() -> None:
         if fp.exists():
             h.update(fp.read_bytes())
     ver = h.hexdigest()[:8]
-    ctx = {"site": site["site"], "links": site["links"], "cfg": site, "ver": ver, "base": base}
+    site_cfg = dict(site["site"])
+    if "JCVB_CANONICAL_URL" in os.environ:
+        site_cfg["canonical_url"] = os.environ["JCVB_CANONICAL_URL"].rstrip("/")
+    ctx = {"site": site_cfg, "links": site["links"], "cfg": site, "ver": ver, "base": base}
 
     # Home
     _write(
@@ -478,6 +525,39 @@ def build() -> None:
             f"newsletters/{n.slug}/index.html",
             detail_tpl.render(page="newsletters", n=n, newer=newer, older=older, **ctx),
         )
+
+    # A detail page per scheduled game — result and stats once it is played,
+    # times, venue and the stream links before then.
+    game_tpl = env.get_template("game.html.j2")
+    for i, g in enumerate(games):
+        _write(
+            f"games/{g.slug}/index.html",
+            game_tpl.render(
+                page="schedule",
+                g=g,
+                stat_keys=postgame.PUBLIC_STAT_KEYS,
+                previous=games[i - 1] if i > 0 else None,
+                following=games[i + 1] if i + 1 < len(games) else None,
+                **ctx,
+            ),
+        )
+    _write(
+        "games/index.html",
+        env.get_template("games_index.html.j2").render(
+            page="schedule",
+            played=[g for g in reversed(games) if g.played],
+            upcoming=[g for g in games if not g.played],
+            **ctx,
+        ),
+    )
+
+    # Unlisted admin page — not linked from nav, noindex'd in its own template.
+    # TODO: remove this render call + the template once the net-system decision
+    # is made; it's a temporary doc for the admin conversation, not site content.
+    _write(
+        ".jcadmin/2026-net-research/index.html",
+        env.get_template("jcadmin_net_research.html.j2").render(**ctx),
+    )
 
     copy_assets()
 

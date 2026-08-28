@@ -1,0 +1,104 @@
+{% extends "base.html.j2" %}
+{% import "partials/macros.j2" as brand %}
+{% set p = g.played %}
+{# A shared link to a played game should carry the result in the preview card,
+   not just the fixture — the score is the thing anyone is sharing. #}
+{% block title %}{% if p %}{{ 'W' if p.won else 'L' }} {{ p.jc_set_score }} {{ 'vs' if g.is_home else '@' }} {{ g.opponent }}{% else %}{{ g.date_display }} {{ 'vs' if g.is_home else '@' }} {{ g.opponent }}{% endif %} · {{ site.short_name }}{% endblock %}
+{% block description %}{% if p %}{{ 'Scrimmage' if g.designation == 'scrimmage' else 'Final' }}: {{ p.form_score }}. {{ p.public_totals()['aces'] }} aces, {{ p.public_totals()['kills'] }} kills, {{ p.public_totals()['blocks'] }} blocks. Recap and stats from {{ site.name }}.{% else %}{{ g.weekday }} {{ g.date_display }} — JV {{ g.jv or 'TBD' }}, Varsity {{ g.varsity or 'TBD' }} at {{ g.venue }}.{% endif %}{% endblock %}
+{% block og_path %}/games/{{ g.slug }}/{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero--tight">
+  <div class="container">
+    <div class="page-hero__watermark">{{ brand.swirl('gamewm') }}</div>
+    <span class="eyebrow">{{ g.date.strftime('%A, %B %-d, %Y') }} · {{ g.ha_label }} · {{ g.designation_label }}</span>
+    <h1>{{ 'vs' if g.is_home else 'at' }} {{ g.opponent }}</h1>
+    {% if p %}
+    <p class="recap-score"><span class="chip chip--{{ 'home' if p.won else 'tbd' }}">{{ 'W' if p.won else 'L' }}</span> Sets {{ p.jc_set_score }}</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    {% if p %}
+    <div class="boxscore" data-reveal>
+      <div class="boxscore__row boxscore__row--head">
+        <div class="boxscore__team">Set</div>
+        {% for jc, opp in p.sets %}<div class="boxscore__cell">{{ loop.index }}</div>{% endfor %}
+      </div>
+      <div class="boxscore__row {{ 'is-winner' if p.won }}">
+        <div class="boxscore__team">John Carroll</div>
+        {% for jc, opp in p.sets %}
+        <div class="boxscore__cell {{ 'is-win' if jc > opp }}">{{ jc }}</div>
+        {% endfor %}
+      </div>
+      <div class="boxscore__row {{ 'is-winner' if not p.won }}">
+        <div class="boxscore__team">{{ p.opponent }}</div>
+        {% for jc, opp in p.sets %}
+        <div class="boxscore__cell {{ 'is-win' if opp > jc }}">{{ opp }}</div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="gamefacts" data-reveal>
+      <div class="gamefact"><span class="k">First serve</span><span class="v">JV {{ g.jv or '—' }} · Varsity {{ g.varsity or '—' }}</span></div>
+      <div class="gamefact"><span class="k">Site</span><span class="v">{{ g.venue }}{% if g.is_home %} · Home{% elif g.home_away == 'away' %} · Away{% endif %}</span></div>
+      {% if g.note %}<div class="gamefact"><span class="k">Note</span><span class="v">{{ g.note }}</span></div>{% endif %}
+      {% if g.streams %}
+      <div class="gamefact">
+        <span class="k">Watch</span>
+        <span class="v watch">
+          {% for label, url in g.streams %}
+          <a href="{{ url }}" target="_blank" rel="noopener">{{ brand.play() }}{{ label }} ↗</a>
+          {% endfor %}
+        </span>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if p and p.recap_body %}
+    <div class="recap-body" data-reveal>
+      <span class="eyebrow">Recap</span>
+      <p>{{ p.recap_body }}</p>
+    </div>
+    {% endif %}
+
+    {% if p %}
+    {% set stats = p.public_stats() %}
+    {% set totals = p.public_totals() %}
+    <div class="section-head" style="margin-top:2.5rem" data-reveal>
+      <span class="eyebrow">By the numbers</span>
+      <h2>Match stats</h2>
+    </div>
+    <div class="table-scroll">
+      <table class="stat-table">
+        <thead>
+          <tr>
+            <th scope="col">Stat</th>
+            {% for jc, opp in p.sets %}<th scope="col">S{{ loop.index }}</th>{% endfor %}
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for key, values in stats.items() %}
+          <tr>
+            <th scope="row">{{ key|title }}</th>
+            {% for v in values %}<td>{{ v }}</td>{% endfor %}
+            <td class="stat-total">{{ totals[key] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    <div class="pager" style="margin-top:2rem">
+      {% if previous %}<a class="btn btn--ghost" href="{{ base }}/games/{{ previous.slug }}/">← {{ previous.opponent }}</a>{% else %}<span></span>{% endif %}
+      <a class="btn btn--ghost" href="{{ base }}/schedule/">Full schedule</a>
+      {% if following %}<a class="btn btn--ghost" href="{{ base }}/games/{{ following.slug }}/">{{ following.opponent }} →</a>{% else %}<span></span>{% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

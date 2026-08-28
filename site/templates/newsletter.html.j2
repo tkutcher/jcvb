@@ -1,6 +1,7 @@
 {% extends "base.html.j2" %}
 {% block title %}Newsletter · {{ n.date_long }} · {{ site.short_name }}{% endblock %}
 {% block description %}{{ n.summary }}{% endblock %}
+{% block og_path %}/newsletters/{{ n.slug }}/{% endblock %}
 
 {% block content %}
 <section class="section">

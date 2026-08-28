@@ -1,0 +1,51 @@
+{% extends "base.html.j2" %}
+{% import "partials/macros.j2" as brand %}
+{% block title %}Results &amp; Recaps · {{ site.short_name }}{% endblock %}
+{% block description %}Every {{ site.season }} John Carroll Boys Volleyball result, set by set, with match stats and recaps.{% endblock %}
+{% block og_path %}/games/{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero--tight">
+  <div class="container">
+    <div class="page-hero__watermark">{{ brand.swirl('gixwm') }}</div>
+    <span class="eyebrow">Season {{ site.season }}</span>
+    <h1>Results &amp; Recaps</h1>
+    <p>Every match played, set by set — and what's still to come.</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    {% if played %}
+    <div class="news-grid">
+      {% for g in played %}
+      {% set p = g.played %}
+      <a class="news-card" href="{{ base }}/games/{{ g.slug }}/" data-reveal data-reveal-delay="{{ loop.index0 % 3 }}">
+        <span class="date">{{ g.weekday }}, {{ g.date_display }} · {{ g.ha_label }}{% if g.designation == 'scrimmage' %} · Scrimmage{% endif %}</span>
+        <h3>{{ 'vs' if g.is_home else '@' }} {{ g.opponent }}</h3>
+        <p><b>{{ p.result }} {{ p.jc_set_score }}</b> — {{ p.set_scores }}</p>
+        <span class="go">Recap &amp; stats <span class="arrow">→</span></span>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if upcoming %}
+    <div class="section-head" style="margin-top:3rem" data-reveal>
+      <span class="eyebrow">Still to play</span>
+      <h2>Upcoming</h2>
+    </div>
+    <div class="news-grid">
+      {% for g in upcoming %}
+      <a class="news-card" href="{{ base }}/games/{{ g.slug }}/" data-reveal data-reveal-delay="{{ loop.index0 % 3 }}">
+        <span class="date">{{ g.weekday }}, {{ g.date_display }} · {{ g.ha_label }}</span>
+        <h3>{{ 'vs' if g.is_home else '@' }} {{ g.opponent }}</h3>
+        <p>JV {{ g.jv or '—' }} · Varsity {{ g.varsity or '—' }}</p>
+        <span class="go">Game details <span class="arrow">→</span></span>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

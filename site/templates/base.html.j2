@@ -11,7 +11,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.name }}">
   {% if site.canonical_url %}
-  <meta property="og:url" content="{{ site.canonical_url }}/">
+  <meta property="og:url" content="{{ site.canonical_url }}{% block og_path %}/{% endblock %}">
   <meta property="og:image" content="{{ site.canonical_url }}/assets/img/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{{ site.canonical_url }}/assets/img/og.png">

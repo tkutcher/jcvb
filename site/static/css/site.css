@@ -407,6 +407,11 @@ body.nav-open .nav-toggle span::after { transform: rotate(-45deg) translateY(-1p
 .chip--away { background: transparent; color: var(--jc-text); border: 1px solid var(--jc-line-strong); }
 .chip--tbd { background: rgba(242, 237, 225, 0.08); color: var(--jc-muted); }
 
+.sched-watch a { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--jc-gold); font-size: 0.82rem; font-weight: 600; white-space: nowrap; }
+.sched-watch a + a { margin-left: 0.7rem; }
+.sched-watch a:hover { text-decoration: underline; }
+.play-glyph { flex: 0 0 auto; }
+
 .sched-cards { display: none; }
 .sched-card {
   display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center;
@@ -420,6 +425,8 @@ body.nav-open .nav-toggle span::after { transform: rotate(-45deg) translateY(-1p
 .sched-card .mid .opp { font-size: 1.1rem; font-weight: 500; }
 .sched-card .mid .times { color: var(--jc-muted); font-size: 0.84rem; margin-top: 0.3rem; }
 .sched-card .mid .times b { color: var(--jc-text); font-weight: 600; }
+.sched-card .mid .watch { margin-top: 0.45rem; display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; }
+.sched-card .mid .watch a { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--jc-gold); font-size: 0.8rem; font-weight: 600; }
 
 .playoffs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .playoff-card { border: 1px dashed var(--jc-line-strong); border-radius: var(--radius); padding: 1.4rem; background: linear-gradient(160deg, var(--jc-surface-2), var(--jc-surface)); text-align: center; }
@@ -517,3 +524,65 @@ body.nav-open .nav-toggle span::after { transform: rotate(-45deg) translateY(-1p
   [data-reveal] { opacity: 1; transform: none; }
   .swirl-spin, .hero__logo { animation: none; }
 }
+
+
+/* ---- Results & recaps ---- */
+.page-hero--tight { padding-bottom: clamp(1.2rem, 3vw, 2rem); }
+.recap-score { font-size: 1.25rem; margin-top: 0.8rem; display: flex; align-items: center; gap: 0.7rem; }
+.sched-result a { display: inline-block; }
+/* Box score — teams down the side, sets across, like a scoreboard. */
+.boxscore { border: 1px solid var(--jc-line); border-radius: var(--radius-lg); overflow: hidden; background: var(--jc-surface); }
+.boxscore__row { display: grid; grid-template-columns: minmax(120px, 1.6fr) repeat(auto-fit, minmax(48px, 1fr)); align-items: center; border-bottom: 1px solid var(--jc-line); }
+.boxscore__row:last-child { border-bottom: 0; }
+.boxscore__row--head { background: var(--jc-surface-2); }
+.boxscore__row--head .boxscore__team,
+.boxscore__row--head .boxscore__cell { color: var(--jc-gold); font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.7rem 0.5rem; }
+.boxscore__team { padding: 0.9rem 1.1rem; font-weight: 500; }
+.boxscore__cell { text-align: center; padding: 0.9rem 0.5rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--jc-muted); border-left: 1px solid var(--jc-line); }
+.boxscore__row--head .boxscore__cell { font-family: var(--font-body); font-size: 0.7rem; }
+.boxscore__cell.is-win { color: var(--jc-text); }
+.boxscore__row.is-winner .boxscore__team { color: var(--jc-gold); }
+.boxscore__row.is-winner .boxscore__cell.is-win { background: rgba(196, 183, 129, 0.1); }
+@media (max-width: 620px) {
+  .boxscore__team { padding: 0.7rem; font-size: 0.85rem; }
+  .boxscore__cell { padding: 0.7rem 0.3rem; font-size: 1.15rem; }
+}
+
+/* Game facts strip */
+.gamefacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; margin-top: 1.6rem; }
+.gamefact { border: 1px solid var(--jc-line); border-radius: var(--radius); padding: 0.9rem 1.1rem; background: var(--jc-surface); }
+.gamefact .k { display: block; color: var(--jc-gold); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.gamefact .v { display: block; margin-top: 0.3rem; }
+.gamefact .v.watch a { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--jc-gold); font-weight: 600; font-size: 0.9rem; }
+.gamefact .v.watch a + a { margin-left: 0.8rem; }
+.setline-mini { margin-top: 0.35rem; font-size: 0.8rem; }
+.setline-mini a { color: var(--jc-gold); }
+.recap-body { margin-top: 1.6rem; max-width: 62ch; color: var(--jc-text); font-size: 1.05rem; line-height: 1.7; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Match stats. Deliberately NOT .sched-table: that one is display:none below
+   760px so the schedule can swap in cards, which silently took the stats with
+   it. This table shows at every width and scrolls inside .table-scroll if the
+   set columns outgrow the screen. */
+.stat-table { width: 100%; min-width: 320px; border-collapse: collapse; border: 1px solid var(--jc-line); border-radius: var(--radius); overflow: hidden; }
+.stat-table thead th { text-align: center; font-family: var(--font-body); font-weight: 600; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--jc-gold); padding: 0.8rem 0.6rem; background: var(--jc-surface-2); border-bottom: 1px solid var(--jc-line); }
+.stat-table thead th:first-child { text-align: left; }
+.stat-table tbody th { text-align: left; font-weight: 500; font-size: 0.95rem; padding: 0.85rem 0.9rem; border-bottom: 1px solid var(--jc-line); white-space: nowrap; }
+.stat-table tbody td { text-align: center; padding: 0.85rem 0.6rem; border-bottom: 1px solid var(--jc-line); color: var(--jc-muted); font-variant-numeric: tabular-nums; }
+.stat-table tbody tr:last-child th, .stat-table tbody tr:last-child td { border-bottom: 0; }
+.stat-table .stat-total { color: var(--jc-text); font-weight: 700; background: rgba(196, 183, 129, 0.07); }
+@media (max-width: 620px) {
+  .stat-table tbody th { font-size: 0.85rem; padding: 0.7rem 0.6rem; }
+  .stat-table tbody td { padding: 0.7rem 0.35rem; font-size: 0.9rem; }
+  .stat-table thead th { padding: 0.6rem 0.35rem; }
+}
+.pager { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+
+/* Clickable schedule rows */
+.sched-table tbody tr[data-href] { cursor: pointer; }
+.sched-link { color: inherit; }
+.sched-table tbody tr[data-href]:hover .sched-link { color: var(--jc-gold); }
+.sched-card[data-href] { cursor: pointer; transition: border-color 0.3s, transform 0.3s var(--ease); }
+.sched-card[data-href]:hover { border-color: var(--jc-line-strong); transform: translateY(-2px); }
+.sched-card .sched-link { color: inherit; text-decoration: none; }
+.sched-card[data-href]:hover .sched-link { color: var(--jc-gold); }

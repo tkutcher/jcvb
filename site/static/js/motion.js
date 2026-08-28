@@ -75,4 +75,16 @@
       });
     });
   }
+
+  // Schedule rows and cards behave like links. The matchup cell holds a real
+  // anchor for keyboard and assistive tech; this widens the hit area to the
+  // whole row. It cannot be an outer <a> — these contain stream links, and
+  // nested anchors are invalid HTML that browsers split apart.
+  document.querySelectorAll("[data-href]").forEach(function (row) {
+    row.addEventListener("click", function (event) {
+      if (event.target.closest("a")) return;
+      if (window.getSelection && String(window.getSelection())) return;
+      window.location.href = row.getAttribute("data-href");
+    });
+  });
 })();

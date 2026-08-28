@@ -2,6 +2,7 @@
 {% import "partials/macros.j2" as brand %}
 {% block title %}2026 Season Schedule · {{ site.short_name }}{% endblock %}
 {% block description %}The 2026 John Carroll Boys Volleyball schedule — JV & Varsity match times, home and away.{% endblock %}
+{% block og_path %}/schedule/{% endblock %}
 
 {% block content %}
 <section class="page-hero page-hero--photo">
@@ -24,6 +25,7 @@
       </div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap">
         <a class="btn btn--ghost" href="{{ base }}/assets/img/2026-JCVB-schedule.svg" download>Download graphic <span class="arrow">↓</span></a>
+        <a class="btn btn--ghost" href="{{ base }}/games/">Results &amp; recaps</a>
         <a class="btn btn--ghost" href="{{ links.watch }}" target="_blank" rel="noopener">Watch live ↗</a>
         <a class="btn btn--ghost" href="{{ links.league }}" target="_blank" rel="noopener">MIAA standings ↗</a>
       </div>
@@ -35,21 +37,35 @@
         <tr>
           <th scope="col">Date</th>
           <th scope="col">Matchup</th>
+          <th scope="col">Result</th>
           <th scope="col">Site</th>
           <th scope="col">JV</th>
           <th scope="col">Varsity</th>
           <th scope="col">Venue</th>
+          <th scope="col">Watch</th>
         </tr>
       </thead>
       <tbody>
         {% for g in games %}
-        <tr data-game="{{ g.filter_tokens }}">
+        <tr data-game="{{ g.filter_tokens }}" data-href="{{ base }}/games/{{ g.slug }}/">
           <td class="sched-date"><span class="dow">{{ g.weekday }}</span><br><span class="dnum">{{ g.date_display }}</span></td>
-          <td class="sched-opp">{{ g.opponent }}<span class="desc">{{ g.designation_label }}{% if g.note %} · {{ g.note }}{% endif %}</span></td>
+          <td class="sched-opp"><a class="sched-link" href="{{ base }}/games/{{ g.slug }}/">{{ g.opponent }}</a><span class="desc">{{ g.designation_label }}{% if g.note %} · {{ g.note }}{% endif %}</span></td>
+          <td class="sched-result">
+            {% if g.played %}
+            <span class="chip chip--{{ 'home' if g.played.won else 'tbd' }}">{{ g.played.result }} {{ g.played.jc_set_score }}</span>
+            {% else %}<span class="na">—</span>{% endif %}
+          </td>
           <td><span class="chip chip--{{ g.home_away }}">{{ g.ha_label }}</span></td>
           <td class="sched-time">{% if g.jv %}{{ g.jv }}{% else %}<span class="na">—</span>{% endif %}</td>
           <td class="sched-time">{% if g.varsity %}{{ g.varsity }}{% else %}<span class="na">—</span>{% endif %}</td>
           <td class="sched-time">{{ g.venue }}</td>
+          <td class="sched-watch">
+            {% for label, url in g.streams %}
+            <a href="{{ url }}" target="_blank" rel="noopener">{{ brand.play() }}{{ label }}</a>
+            {% else %}
+            <span class="na">—</span>
+            {% endfor %}
+          </td>
         </tr>
         {% endfor %}
       </tbody>
@@ -58,18 +74,26 @@
     <!-- Mobile cards -->
     <div class="sched-cards">
       {% for g in games %}
-      <div class="sched-card" data-game="{{ g.filter_tokens }}">
+      <div class="sched-card" data-href="{{ base }}/games/{{ g.slug }}/" data-game="{{ g.filter_tokens }}">
         <div class="cal">
           <div class="m">{{ g.month[:3] }}</div>
           <div class="d">{{ g.date.day }}</div>
           <div class="dow">{{ g.weekday }}</div>
         </div>
         <div class="mid">
-          <div class="opp">{{ g.opponent }}</div>
+          <div class="opp"><a class="sched-link" href="{{ base }}/games/{{ g.slug }}/">{{ g.opponent }}</a>{% if g.played %} <span class="chip chip--{{ 'home' if g.played.won else 'tbd' }}">{{ g.played.result }} {{ g.played.jc_set_score }}</span>{% endif %}</div>
+          {% if g.played %}<div class="setline-mini">{{ g.played.set_scores }} · recap →</div>{% endif %}
           <div class="times">
             <span class="chip chip--{{ g.home_away }}" style="margin-right:.4rem">{{ g.ha_label }}</span>
             {% if g.jv %}JV <b>{{ g.jv }}</b> · {% endif %}V <b>{{ g.varsity }}</b>
           </div>
+          {% if g.streams %}
+          <div class="watch">
+            {% for label, url in g.streams %}
+            <a href="{{ url }}" target="_blank" rel="noopener">{{ brand.play() }}Watch on {{ label }}</a>
+            {% endfor %}
+          </div>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
