@@ -63,6 +63,18 @@ aces_against = [2, 3, 2, 4, 1]
 
 # The internal write-up that heads the report card. TK's words, for the Team —
 # blunt where the public recap is supportive. Never derived from [recap].
+# Official Hudl Assist match totals — the authoritative public numbers. The
+# per-set [stats] above are the live tally sheet, counted in the gym; these are
+# counted off the film. They disagree on aces (tally 22, official 19), and the
+# official count is what the site publishes.
+[official]
+source = "2026-08-26--vs-Harford-Tech-Hudl-Match-Totals.csv"
+aces = 19
+kills = 34
+blocks = 4
+assists = 33
+digs = 31
+
 [card]
 writeup = "Good opening look, but we were way too flat and needed more energy, confidence, and communication. Showed we can hang with some big boys, but didn't find a way to neutralize them. Lot of good defense and passes."
 
@@ -71,8 +83,8 @@ headline = "Five-set scrimmage opens the season"
 body = """
 A good first look that went the distance, and everyone who stepped on the floor \
 contributed. The defense held up all afternoon, and the serve was a weapon in the \
-middle sets — 22 aces on the day, 11 of them in the second, where Greg Wisniewski \
-closed it out with an ace on set point. The passing sharpened as the match went \
+middle sets — 19 aces on the day, with the second set closed out by a Greg \
+Wisniewski ace on set point. The passing sharpened as the match went \
 on: the Patriots served up a 2.00 team serve-receive rating across the third and \
 fourth sets, and that steadier platform turned straight into offense — 28 kills on \
 the day, led by Peyton Williams and Jackson DeReamer, with nine of them in a third \

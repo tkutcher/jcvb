@@ -124,6 +124,7 @@ class Game:
     manual_marks: dict[str, str] = field(default_factory=dict)
     scorebook: object = None
     serve_receive: object = None
+    official: dict = field(default_factory=dict)   # Hudl Assist match totals
 
     # --- derived ------------------------------------------------------------
     @property
@@ -195,8 +196,20 @@ class Game:
     def totals(self) -> dict[str, int]:
         return {key: sum(values) for key, values in self.stats.items()}
 
+    @property
+    def has_official(self) -> bool:
+        return bool(self.official)
+
     def public_stats(self) -> dict[str, list[int]]:
-        """Only the objective stats, for anything public-facing."""
+        """Per-set splits for the public table — the live tally sheet.
+
+        Empty once official totals exist: the tally is counted in the gym and
+        the official book off the film, and they do not always agree. Publishing
+        set columns that sum to a different number than the published total is
+        worse than publishing no split at all.
+        """
+        if self.has_official:
+            return {}
         return {
             key: self.stats[key]
             for key in PUBLIC_STAT_KEYS
@@ -204,7 +217,18 @@ class Game:
         }
 
     def public_totals(self) -> dict[str, int]:
-        return {key: sum(values) for key, values in self.public_stats().items()}
+        """Official totals when we have them, otherwise the tally sheet's."""
+        if self.has_official:
+            return {
+                key: self.official[key]
+                for key in PUBLIC_STAT_KEYS
+                if key in self.official
+            }
+        return {
+            key: sum(values)
+            for key, values in self.stats.items()
+            if key in PUBLIC_STAT_KEYS and values
+        }
 
     def stat(self, key: str, set_index: int) -> int:
         return self.stats[key][set_index]
@@ -283,6 +307,7 @@ def parse_game(data: dict, slug: str) -> Game:
         recap_headline=data.get("recap", {}).get("headline", ""),
         recap_body=data.get("recap", {}).get("body", "").strip(),
         card_writeup=data.get("card", {}).get("writeup", "").strip(),
+        official={k: v for k, v in data.get("official", {}).items() if k != "source"},
         notes=data.get("notes", {}),
         manual_marks=data.get("report_card", {}),
     )

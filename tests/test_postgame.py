@@ -553,3 +553,31 @@ def test_writeup_survives_a_full_round_trip(tmp_path):
         vault_root=tmp_path / "no-vault",
     )
     assert f'writeup = "{INTERNAL}"' in path.read_text(encoding="utf-8")
+
+
+# --- official totals win over the live tally -----------------------------------
+
+WITH_OFFICIAL = {**FIVE_SET_LOSS, "official": {
+    "source": "x.csv", "aces": 19, "kills": 34, "blocks": 4, "digs": 31}}
+
+
+def test_official_totals_replace_the_tally_sheet_for_the_public_table():
+    """The tally is counted in the gym, Hudl off the film. Hudl is what we
+    publish."""
+    g = game(WITH_OFFICIAL)
+    assert g.public_totals() == {"aces": 19, "kills": 34, "blocks": 4}
+    assert g.totals()["aces"] == 21          # the tally is untouched internally
+
+
+def test_per_set_splits_are_withheld_once_official_totals_exist():
+    """Set columns summing to 21 under a published total of 19 would be worse
+    than no split at all."""
+    assert game(WITH_OFFICIAL).public_stats() == {}
+    assert game().public_stats()             # without official, splits publish
+
+
+def test_official_never_leaks_a_stat_that_is_not_public():
+    g = game({**WITH_OFFICIAL, "official": {**WITH_OFFICIAL["official"],
+                                            "service_errors": 13}})
+    assert "service_errors" not in g.public_totals()
+    assert "digs" not in g.public_totals()

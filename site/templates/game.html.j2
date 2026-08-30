@@ -77,16 +77,16 @@
         <thead>
           <tr>
             <th scope="col">Stat</th>
-            {% for jc, opp in p.sets %}<th scope="col">S{{ loop.index }}</th>{% endfor %}
-            <th scope="col">Total</th>
+            {% if stats %}{% for jc, opp in p.sets %}<th scope="col">S{{ loop.index }}</th>{% endfor %}{% endif %}
+            <th scope="col">{{ 'Match' if p.has_official else 'Total' }}</th>
           </tr>
         </thead>
         <tbody>
-          {% for key, values in stats.items() %}
+          {% for key, total in totals.items() %}
           <tr>
             <th scope="row">{{ key|title }}</th>
-            {% for v in values %}<td>{{ v }}</td>{% endfor %}
-            <td class="stat-total">{{ totals[key] }}</td>
+            {% if stats %}{% for v in stats[key] %}<td>{{ v }}</td>{% endfor %}{% endif %}
+            <td class="stat-total">{{ total }}</td>
           </tr>
           {% endfor %}
         </tbody>
