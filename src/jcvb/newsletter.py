@@ -228,7 +228,10 @@ def main(test: bool = False) -> None:
 
     if test:
         logging.info("TEST MODE: sending to test recipient only; not filing newsletter.")
-        distribution_list: DistributionList = CustomDistributionList([_TEST_RECIPIENT])
+        # SendGrid rejects an address that appears in both `to` and `bcc`, so a
+        # test send goes to the test recipient with no bcc list at all —
+        # otherwise the dry run 400s while the real send is perfectly fine.
+        distribution_list: DistributionList = CustomDistributionList([])
         to_email = _TEST_RECIPIENT[1]
         file_as_sent = False
         subject = _newsletter_subject(datetime.date.today(), suffix="TEST")
