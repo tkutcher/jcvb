@@ -68,6 +68,34 @@ in `ServeReceive`, and it settles the SR row on the card. That sheet's bottom ro
 is **aces conceded**, not aces served; keep it in `aces_against` and never mix it
 with `stats.aces`.
 
+### Official stats (Hudl Assist), a day or two later
+
+Hudl Assist returns the authoritative box score after the match. Name the export
+so a season of them sorts and parses:
+
+    <YYYY-MM-DD>--vs-<Opponent>-Hudl-<Scope>.csv
+
+matching the scorebook and tally scans. `<Scope>` is the cut it covers —
+`Match-Totals`, `Set-1`, `Serve-Receive`. Hudl's own filenames ("JCS vs HTHS —
+All Athletes — Whole Match — Averages.csv") collide across a season.
+
+```bash
+uv run python -m jcvb.hudl note <csv> --out "<game folder>/<date>--vs-<Opponent>-Official-Stats.md"
+uv run python -m jcvb.hudl board          # season + trending S% on the serving board
+uv run python -m jcvb.hudl list
+```
+
+**These files never go to the site.** They carry every player's error counts, so
+they are Coaches-level: read them for highlights and season aggregates, publish
+nothing from them but kills, aces and blocks.
+
+Official numbers win over the in-game tally sheet for anything public — the
+tallies are counted live, Hudl is counted off the film. When they disagree, say
+so rather than picking silently.
+
+The serving board's lights are TK's coaching judgement; `hudl board` fills only
+the Season and Trending S% columns and must never touch them.
+
 ## Step 3 — Publish result + recap
 
 Every scheduled game already has a detail page at `/games/<slug>/` — times,
