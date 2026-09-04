@@ -47,11 +47,30 @@ Read all of these before drafting:
 
 ## 3. Draft the plan
 
-Match the structure of the recent plans exactly (see `2026-08-27.JCVB.md` and
-`2026-09-01.JCVB.md`; the full anatomy is in the repo's `CLAUDE.md`):
+Match the structure of the recent plans exactly — `2026-08-27.JCVB.md` and
+`2026-09-01.JCVB.md` are the mature form. Anatomy, in order:
 
-frontmatter → HTML header table with the theme word + logo → `[[JCVB]] <date>`
-→ reference link row → absentees table → *Upcoming* → *Plan* → footer link row.
+1. Frontmatter: `created`, `aliases: []`, `tags:`
+2. HTML header table — the weekly **theme word** in caps with an emoji,
+   left/center; `_gfx/jcvb-logo-hz-on-white.png` right
+3. `[[JCVB]] YYYY-MM-DD`, then a reference link row
+   (`[[JCVB-Playbook]] | [[JCVB Progressions]] | [[2026 JCVB Serving Status]]`)
+4. **Absentees** table (Player / Est. Return), carried forward and updated
+5. ***Upcoming*** — next game(s) with times
+6. ***Plan*** — timed blocks, `**3:30-3:45**` style, opening with 🧠 Classroom
+   and closing with a wrap-up block
+7. Footer link row:
+   `[[JCVB-Playbook]] | [[Basic-Volleyball-Knowledge]] | [[Things-To-Teach]]`
+
+Conventions that matter:
+- Practice window is **3:30–5:30** in season (tryouts/preseason varied).
+- Classroom is 15 min and mixes logistics, a volleyball concept, and a mental-
+  skills item (breathing, visualization, journal).
+- Emoji prefixes recur: 🧠 classroom, 📋 logistics/debrief,
+  🎥 visualization, 🫁 breathing, 📝 journal, 🏐 volleyball concept.
+- Wrap-up commonly includes net takedown for time, prehab, stretch — and the
+  2025 lesson in `Things-To-Teach.md` was “do some team building after every
+  practice.”
 
 Rules for the content:
 - **Theme word**: carry forward the current week's word. If the target date
