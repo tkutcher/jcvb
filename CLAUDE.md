@@ -58,6 +58,10 @@ uv run python -m jcvb.qr_flyer
 # TeamSnap schedule export (three CSVs → .outputs/teamsnap/)
 uv run python -m jcvb.teamsnap_calendar
 sh scripts/teamsnap-export.sh ~/Desktop          # cron-safe wrapper
+
+# TeamSnap import with JV and Varsity split apart (four CSVs → outputs/)
+uv run python -m jcvb.teamsnap_schedule
+uv run python -m jcvb.teamsnap_schedule --master ~/Desktop/master.csv --json
 ```
 
 Secrets live in the gitignored `.env` (see `.env.example`). `jcvb.forms`

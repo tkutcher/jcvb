@@ -1,0 +1,63 @@
+/* JCVB — Obsidian snippet
+ *
+ * Lives in the jcvb repo and is symlinked into the vault:
+ *   ln -sfn ~/TK/github/jcvb/obsidian/jcvb.css \
+ *           ~/TK/tk-vault/.obsidian/snippets/jcvb.css
+ * then enable "jcvb" under Settings → Appearance → CSS snippets.
+ *
+ * Scoped by `cssclasses` in each generated note's frontmatter, so nothing here
+ * touches the rest of the vault.
+ */
+
+/* ---- Report card ---------------------------------------------------------
+ * The marks column is one ✅/❌ per set. A five-setter wraps to a second line
+ * in a normal table cell, which makes the row unreadable — the marks stop
+ * lining up with the sets. Keep that column on one line, always, and let the
+ * criterion column give up width instead.
+ */
+.jcvb-report-card table td:nth-child(2),
+.jcvb-report-card table th:nth-child(2) {
+  white-space: nowrap;
+  text-align: center;
+  width: 1%;                 /* shrink-to-fit: the content decides the width */
+  font-size: 0.9em;          /* emoji render large; this keeps 5 marks compact */
+  letter-spacing: 0.12em;    /* separates the marks without a wrap risk */
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+}
+
+/* The criterion column is the one that should wrap when space is tight. */
+.jcvb-report-card table td:nth-child(1) {
+  white-space: normal;
+  min-width: 14em;
+}
+
+/* Notes column: readable, never the reason the row grows tall. */
+.jcvb-report-card table td:nth-child(3) {
+  font-size: 0.88em;
+  color: var(--text-muted);
+}
+
+/* Section rows ("**Avoiding Free Points**") read as headings, not data. */
+.jcvb-report-card table td strong {
+  color: var(--text-accent);
+}
+
+/* ---- Stats note ----------------------------------------------------------
+ * Per-set stat and serve-receive tables: numbers centred and compact so the
+ * set columns line up under their headers.
+ */
+.jcvb-stats-note table td:not(:first-child),
+.jcvb-stats-note table th:not(:first-child) {
+  text-align: center;
+  white-space: nowrap;
+  width: 1%;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Both ---------------------------------------------------------------- */
+.jcvb-report-card table,
+.jcvb-stats-note table {
+  width: 100%;
+  table-layout: auto;
+}
