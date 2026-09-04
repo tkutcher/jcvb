@@ -1,15 +1,39 @@
-# CLAUDE.md
+# CLAUDE.md — JC Volleyball (JCVB)
 
-Guidance for Claude Code when working in this repository.
+Guidance for Claude Code working on anything "JC Volleyball."
 
-## What this is
+## What JCVB Is
 
-Utilities for John Carroll Boys Volleyball (JCVB) program management:
-newsletter distribution (SendGrid), the public static site
-(sites.anvilor.com/jcvb, Azure blob container `jcvb`), Anvilor Forms
-managed from the command line, and the TeamSnap schedule export.
+John Carroll School (Bel Air, MD) **Boys Volleyball** program — MIAA conference.
+Tim Kutcher ("Coach Kutch", TK) is head coach. Work spans two locations:
 
-## Commands
+| Location | What lives there |
+| --- | --- |
+| `/Users/tkutcher/TK/git-repos/jcvb` (this repo) | Code: static site generator + newsletter distribution |
+| `~/TK/tk-vault/orgs/JCVB` (Obsidian vault) | Coaching + program ops: practice plans, scouting, roster, strategy, admin |
+
+The vault is **synced via Obsidian Sync, not git** — edits there are live, so
+never bulk-rewrite vault files. The repo is git; commit only when asked.
+
+## This Repo
+
+Python (uv/`pyproject.toml`, package at `src/jcvb`). Two jobs:
+
+1. **Static site** → `sites.anvilor.com/jcvb`
+   - `uv run python -m jcvb.site_build` (or `scripts/build.sh`) → `/build/jcvb/`
+   - `scripts/dev.sh` builds + serves at `http://localhost:4173/jcvb`
+   - `scripts/deploy.sh` pushes to Azure Blob (service-principal creds in `.env`)
+   - Content: `site/content/site.toml`, `site/content/schedule/2026.toml`,
+     `site/content/newsletters/*.md`. See `site/README.md` for the full layout.
+2. **Newsletter distribution** — `scripts/distribute_newsletter.sh [--test]`
+   sends `Next-Newsletter.md` via SendGrid, files it into
+   `site/content/newsletters/`, commits, then builds + deploys.
+   Always run `--test` first.
+
+Secrets (SendGrid, Azure SP) live in `.env`, which is git-ignored. Never write
+real credentials into files — use `REPLACE_ME` placeholders
+
+### Commands
 
 ```bash
 uv sync
@@ -41,7 +65,7 @@ needs `ANVILOR_API_KEY` + `ANVILOR_ORG_OID` for the JCVB Anvilor org.
 `jcvb.teamsnap_calendar` needs `JCVB_CALENDAR_URL` — the published iCloud
 feed URL, which is itself a bearer token, so it never goes in source.
 
-## TeamSnap schedule export
+### TeamSnap schedule export
 
 `src/jcvb/teamsnap_calendar.py` reads the published calendar and writes one
 CSV per TeamSnap importer — Games, Practices, Other Events. They are three
@@ -49,80 +73,74 @@ separate templates with different required columns; a practice put in the
 Games template is rejected ("Team 2 Type is required, Team 1 and Team 2
 cannot be the same"), which is what sank the first hand-built attempt.
 
-Classification runs on the emoji-stripped SUMMARY:
 
-- Game — `JC vs. <opponent>` → Home, `JC @ <opponent>` → Away, or a
-  championship/semi-final/playoff title → opponent `TBD` with both sides
-  blank (the importer reads blank as TBD).
-- Practice — matches `practice|tryout|workout|lift|training|weightroom`.
-- Other — everything else (Media Day, the Welcome Reception, …).
 
-Times, durations, and recurrence come straight from the feed; RRULEs and
-their per-occurrence overrides are expanded by `recurring-ical-events`.
-All-day entries are skipped by default — in this calendar they shadow a
-timed event on the same day — and listed in the run summary.
+## The Vault Side (`orgs/JCVB`)
 
-One gotcha lives entirely in the wizard, not the file: its team-mapping
-step lists each distinct team value and defaults unmatched ones to *Skip*.
-Leaving `John Carroll Boys Volleyball (Varsity)` on Skip drops every row,
-and the report blames "All rows with a value of ... were selected to be
-skipped" — which reads like a validation error but isn't. Set that
-dropdown to the real team before continuing.
+| Path | Purpose |
+| --- | --- |
+| `JCVB.md` | Hub note — links to everything, external forms/spreadsheets |
+| `coach/daily-plans/` | **Practice & game-day plans**, `YYYY-MM-DD.JCVB.md` |
+| `coach/notes/` | Progressions, warm-up routine, serving status, stat definitions |
+| `coach/strategy/` | `playbook/JCVB-Playbook.md`, `Things-To-Teach.md`, `Basic-Volleyball-Knowledge.md` |
+| `coach/roster/`, `coach/admin/` | Rosters, MIAA paperwork, receipts, governance |
+| `internal/2026 JCVB Season Schedule/` | `2026-JCVB-game-schedule.md` — the authoritative game table |
+| `newsletter/Next-Newsletter.md` | Draft staged for the next send |
+| `public/newsletters/` | Sent newsletters (source of the repo's `site/content/newsletters/`) |
+| `_archives/2025-JCVB-Archives/` | Last season — good style reference, do not edit |
 
-Venues are the other importer trap: it cannot create venues or sub-venues,
-and it rejects a Venue with no Sub-Venue. Calendar locations are postal
-addresses that match nothing in TeamSnap, so a location is only emitted
-when `teamsnap-venues.json` maps it to a real Venue **and** Sub-Venue.
-Otherwise both stay blank and the address goes into Notes, which always
-imports. Unmapped locations are named in the warnings after every run.
+## Practice Plans
 
-## Creating a new Anvilor form
+The core recurring artifact. One note per team day in `coach/daily-plans/`,
+named `YYYY-MM-DD.JCVB.md`. Game days get a folder of the same stem holding the
+plan, lineups, report card, and scorebook images.
 
-1. Add `forms/<slug>.json` — the document stored on the `anvilor_forms`
-   collection. Copy the shape from `forms/camp-feedback-2026.json`:
-   `{"anvilor_form": {title, tags, disable_anonymous_submissions,
-   submission_handling_config, display_config}}` with the visual config at
-   `display_config.rui_config` (ngx-rui v1: `{rui_version: "v1", model, form}`).
-   - `model` is a JSON Schema (draft 2020-12): every bound field needs a
-     property (titles become default labels; `required` drives validation).
-   - `form` is the control tree. Field pointers like `/liked_most` must match
-     model properties.
-2. `uv run python -m jcvb.forms validate <slug>` — mirrors the platform's
-   vocabulary + model/form consistency checks.
-3. `uv run python -m jcvb.forms publish <slug>` — creates the document,
-   records its OID in `forms/registry.json` (commit it), and publishes live
-   at `https://forms.anvilor.com/<oid>`. Re-running updates + republishes.
+Anatomy of a practice plan (see `2026-08-27`, `2026-09-01` for the mature form):
 
-### ngx-rui v1 control vocabulary
+1. Frontmatter: `created`, `aliases: []`, `tags:`
+2. HTML header table — weekly **theme word** in caps with an emoji, left/center;
+   `_gfx/jcvb-logo-hz-on-white.png` right
+3. `[[JCVB]] YYYY-MM-DD`, then a reference link row
+   (`[[JCVB-Playbook]] | [[JCVB Progressions]] | [[2026 JCVB Serving Status]]`)
+4. **Absentees** table (Player / Est. Return), carried forward and updated
+5. ***Upcoming*** — next game(s) with times
+6. ***Plan*** — timed blocks, `**3:30-3:45**` style, opening with
+   🧠 Classroom and closing with a wrap-up block
+7. Footer link row: `[[JCVB-Playbook]] | [[Basic-Volleyball-Knowledge]] | [[Things-To-Teach]]`
 
-- Layout: `vbox`, `hbox`, `panel` (label), `tabs` — children in `items`.
-- Inputs: `single_line_text`, `multi_line_text` (`autosize`,
-  `autosize_min_rows`/`_max_rows`), `standard_number`, `numeric_stepper`,
-  `standard_us_phone`, `standard_date`, `standard_datetime`,
-  `standard_checkbox`, `standard_file_upload`, `standard_address`.
-- Selects (require `select_options: [{value, display}]`):
-  `standard_radio_buttons` (≤5 options), `single_select_dropdown`,
-  `multi_select_dropdown`, `multi_select_checkboxes` (binds array),
-  `button_toggle` (2–4 short options), `likert` (`rows: [{field, label}]`
-  + `scale` instead of select_options; binds an object).
-- Display: `raw_content` (`content`: HTML string or EEL expression), `button`.
-- Common node props: `control`, `field` (RFC 6901 pointer), `id`, `label`,
-  `visible`/`disabled` (bool or EEL, e.g.
-  `{"#field_value": {"path": "/x"}}`).
+Conventions that matter:
+- Practice window is **3:30–5:30** in season (tryouts/preseason varied).
+- Classroom is 15 min and mixes logistics, a volleyball concept, and a mental-
+  skills item (breathing, visualization, journal) — see `coach/JCVB Classroom Topics.md`.
+- Drill blocks link to the canonical notes rather than restating them:
+  `[[JCVB Warm Up Routine]]`, `[[JCVB Passing Progressions]]`, `[[JCVB Progressions]]`,
+  `[[2026 JCVB Serving Status]]`.
+- Emoji prefixes recur: 🧠 classroom, 📋 logistics/debrief, 🎥 visualization,
+  🫁 breathing, 📝 journal, 🏐 volleyball concept.
+- The day after a match, the classroom block opens with a game debrief that
+  cites the `--Report-Card` note and names 2–3 things to fix and things to keep.
+- Wrap-up commonly includes net takedown for time, prehab, stretch — the 2025
+  lesson in `Things-To-Teach.md` was "do some team building after every practice."
 
-Authoritative reference (local platform checkout):
-`~/DICORP/gitlab/anvilor/anvilor-platform/src/anvilor/platform/cxs/anvilor_forms/ai/data/rui_v1_controls.json`.
+Use `/practice-plan` to draft the next one.
 
-## Rules
+## Working Style Here
 
-1. The Anvilor API is plain REST (`anvilor-api-key`/`anvilor-org-oid`
-   headers) — keep `src/jcvb/forms.py` dependency-light; do not add the
-   private DICORP `anvilor-client` package to this personal repo.
-2. Eel-operator calls (`publish_live`) take BSON extended JSON — ObjectIds
-   travel as `{"$oid": "..."}`.
-3. `forms/registry.json` maps slug → published form OID. Never hand-edit
-   OIDs; publishing writes them back. Commit registry updates.
-4. Public-facing surveys set `disable_anonymous_submissions: false`.
-5. Brand: JC black `#0A0203`, JC gold `#C4B781` (deep gold `#B9975B`).
-   Assets in `site/_assets/jcvb-brand/`. Tagline: "One Program. One
-   Standard. Patriots Volleyball."
+- Practice plans and newsletters are **drafts for TK to edit**, not final word.
+  Make real coaching calls informed by the recent record; don't leave blanks.
+- Prefer linking to existing vault notes over duplicating their content.
+- Roster names, absences, and injuries are real minors' info — keep them in the
+  vault, never in the public site or a newsletter without TK's say-so.
+- When a schedule fact is needed, `2026-JCVB-game-schedule.md` wins over the
+  prose schedule note.
+
+## Obsidian Links
+
+Vault name is `tk-vault`. To hand TK a clickable link that opens the app:
+
+```
+obsidian://open?vault=tk-vault&file=<vault-relative path, URL-encoded, no .md>
+```
+
+e.g. `obsidian://open?vault=tk-vault&file=orgs%2FJCVB%2Fcoach%2Fdaily-plans%2F2026-09-02.JCVB`
+
