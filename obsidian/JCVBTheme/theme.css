@@ -1,0 +1,83 @@
+/* JCVBTheme — Obsidian theme for tk-vault
+ *
+ * Lives in the jcvb repo and is symlinked into the vault:
+ *   ln -sfn ~/TK/git-repos/jcvb/obsidian/JCVBTheme \
+ *           ~/TK/tk-vault/.obsidian/themes/JCVBTheme
+ * then select "JCVBTheme" under Settings → Appearance → Theme.
+ *
+ * This is an alternate, opt-in theme for presenting JCVB material — TKTheme
+ * stays the default (set in .obsidian/appearance.json's "cssTheme"). Switch
+ * back to TKTheme from the same Theme dropdown when you're done presenting.
+ */
+
+/* Fonts embedded from site/public/assets/fonts (self-hosted brand fonts,
+ * already cleared for JCVB use — see site/static/css/brand.css). Quaint
+ * Gothic (the third brand accent font) is skipped here: it's a large
+ * decorative face the site uses sparingly, not worth the extra weight in an
+ * Obsidian theme where headings/body are the only things that show. */
+@font-face {
+	font-family: "Crete Round";
+	src: url("fonts/crete-round.otf") format("opentype");
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Franklin Gothic";
+	src: url("fonts/franklin-book.otf") format("opentype");
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Franklin Gothic";
+	src: url("fonts/franklin-med.otf") format("opentype");
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Franklin Gothic";
+	src: url("fonts/franklin-demi.otf") format("opentype");
+	font-weight: 600;
+	font-style: normal;
+}
+
+:root,
+.theme-dark,
+.theme-light {
+	--font-interface-theme: "Franklin Gothic", "Helvetica Neue", Arial, sans-serif;
+	--font-text-theme: "Franklin Gothic", "Helvetica Neue", Arial, sans-serif;
+	--h1-font: "Crete Round", Georgia, serif;
+	--h2-font: "Crete Round", Georgia, serif;
+	--h3-font: "Crete Round", Georgia, serif;
+}
+
+/* Colors ported from site/static/css/brand.css (the JCVB site's design
+ * tokens): JC Black #0a0203, JC Gold #c4b781. accent-h/s/l below is that gold
+ * converted to HSL, which is what Obsidian actually themes with (links,
+ * active states, checkboxes) rather than a flat background-accent color.
+ *
+ * brand.css is dark-first and defines no light-mode tokens at all, so the
+ * light variant below is derived, not lifted: jc-cream/jc-gold-bright stand
+ * in for a paper ground, and the accent switches to jc-gold-deep for
+ * contrast on a light background — the same move TKTheme makes for its own
+ * light mode.
+ */
+:root,
+.theme-dark {
+	--background-primary: #0a0203;   /* --jc-black */
+	--background-secondary: #14100b; /* --jc-surface */
+	--code-background: #1d1811;      /* --jc-surface-2 */
+	--text-normal: #f2ede1;          /* --jc-text */
+	--text-muted: rgba(242, 237, 225, 0.64);
+	--accent-h: 48;   /* --jc-gold #c4b781 */
+	--accent-s: 36%;
+	--accent-l: 64%;
+}
+
+.theme-light {
+	--background-primary: #f5f1e6;   /* --jc-cream */
+	--background-secondary: #ece4d1; /* derived — one shade down from cream */
+	--text-normal: #0a0203;          /* --jc-black */
+	--accent-h: 38;   /* --jc-gold-deep #b9975b — more contrast on light */
+	--accent-s: 40%;
+	--accent-l: 54%;
+}
