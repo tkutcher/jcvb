@@ -4,12 +4,6 @@
 #   uv run python -m jcvb.postgame summary     2026-09-04-bel-air
 #   uv run python -m jcvb.postgame report-card 2026-09-04-bel-air --out <vault path>
 #   uv run python -m jcvb.postgame form-url    2026-09-04-bel-air
-#
-# NOTE (2026-09-05): the original 9/4 game file was missing from both the vault
-# folder and site/content/games — only the rendered stats note and report card
-# survived. This file was rebuilt from those two artifacts (set scores, tallies,
-# recap) plus a fresh transcription of the scorebook scans and the Hudl Assist
-# export. See [notes] transcription.
 
 [game]
 date = "2026-09-04"
@@ -31,88 +25,113 @@ net_violations       = [1, 0, 1]
 doubles_lifts        = [0, 0, 0]
 
 # Read off the official book: the running score at the END of each service term,
-# in order, for each team. Transcribed 2026-09-05 from
-# 2026-09-04--vs-Bel-Air-Scorebook-p1.jpg (sets 1-2) and -p2.jpg (set 3).
+# in order, for each team. Service terms strictly alternate, so these replay the
+# set — the diffs are the scoring runs, and interleaving them settles the race to
+# 15. `postgame` refuses to load this unless each set's last value matches the
+# set score above, which is what catches a misread digit.
+#
+# first_serve is TK's account: received S1 and S3, served S2. See [notes].first_serve
+# for the one place that required adding a term the book did not record.
 [scorebook]
-first_serve = ["jc", "opp", "jc"]
+first_serve = ["opp", "jc", "opp"]
 jc = [
   [4, 6, 10, 13, 18, 21, 23, 25],
-  [2, 3, 6, 9, 13, 14, 16, 21, 25],
+  [0, 2, 3, 6, 9, 13, 13, 16, 21, 25],
   [8, 9, 12, 17, 19, 20, 21, 22, 24, 25],
 ]
 opp = [
-  [1, 2, 4, 5, 7, 9, 10],
+  [1, 2, 4, 5, 7, 9, 10, 10],
   [4, 7, 8, 9, 10, 11, 12, 16, 19],
-  [1, 2, 3, 5, 6, 7, 8, 11, 12],
+  [0, 1, 2, 3, 5, 6, 7, 8, 11, 12],
 ]
 
-# No [serve_receive] block: the 9/4 passing sheet is a whole-match tally grid
-# (names x 3/2/1/0), not the per-set libero tracking sheet, so per-set digits do
-# not exist for this match. Team rating off that grid is 2.5 on 19 tracked
-# receptions; Hudl rated the full 33 receptions at 1.76. See [notes] sr_rating.
+# [serve_receive] is deliberately absent — see [notes].serve_receive. The sheet
+# that came back for this match is a single aggregated 3/2/1/0 tally per player
+# with no per-set split and no aces-conceded row, so it cannot be transcribed
+# into the per-set digit strings this table expects. Do not guess it.
 
-# Official Hudl Assist match totals — the authoritative public numbers. The
-# per-set [stats] above are the live tally sheet, counted in the gym; these are
-# counted off the film. They disagree on aces (tally 14, official 12), kills
-# (tally 28, official 32) and blocks (tally 1, official 0); the official count
-# is what the site publishes.
-[official]
-source = "2026-09-04--vs-Bel-Air-Hudl-Match-Totals.csv"
-aces = 12
-kills = 32
-blocks = 0
-assists = 30
-digs = 18
+[card]
+writeup = "(write-up to come)"
 
 [recap]
-headline = "Home opener: 3-0 scrimmage win over Bel Air"
+headline = "Patriots sweep Bel Air in home scrimmage"
 body = """
-John Carroll closed the preseason with a 3-0 scrimmage win over Bel Air, \
-25-10, 25-19, 25-12, splitting the two tune-up matches after a five-set opener \
-against Harford Tech. The afternoon belonged to the whole roster — every player \
-who came off the bench found a way into the result. Jackson DeReamer had \
-an outstanding day on the outside, 14 of the team's 32 kills, and Peyton \
-Williams added five more alongside three apiece from Julian Young and Luke \
-Boyle. Mason Proctor ran the offense for 18 assists, with Gregg Wisniewski and \
-Boyle sharing the rest, and Proctor also led the day at the service line with \
-four of John Carroll's 12 aces. The passing gave the offense that platform: a \
-1.76 team serve-receive rating across the match, with Andrew Hall (2.50) and \
-Tyler Olivi (2.14) steadiest in the back court and Logan Sosnowski right behind \
-them. Bel Air pushed hardest in the second, answering an early John Carroll \
-lead and trading runs into the twenties before the Patriots closed it out on a \
-four-point run. Defensively Williams led with six digs and Proctor added four. \
-A complete team performance to build on before the conference opener at \
-Spalding.\
+John Carroll opened the home slate with a 3-0 scrimmage win over Bel Air, \
+25-10, 25-19, 25-12, and the afternoon belonged to the whole roster — every \
+player who came off the bench found a way into the result. It started with the \
+passing: a 2.5 team serve-receive rating, up nearly a full point on the season \
+opener, with Nathan Magness, Tyler Olivi, Logan Sosnowki and Andrew Hall all \
+excellent in the back court. That platform let the Patriots run their whole \
+offense, and three different setters — Mason Proctor, Gregg Wisniewski and Luke \
+Boyle — shared the assists. It turned into 28 kills across the three sets, led \
+by an outstanding day from Peyton Williams on the outside, twelve of them in a \
+first set John Carroll controlled from the opening whistle. The serve did real \
+damage too: 14 aces on the day, six in the first set and six more in the third. \
+Bel Air pushed hardest in the second, answering an early John Carroll lead and \
+trading runs into the twenties before the Patriots closed it out. A complete \
+team performance to build on.\
 """
 
 # Rows the tally sheet cannot answer — one mark per set (✅/❌, or a dot to
-# leave unanswered).
+# leave unanswered). Fill these in and re-run report-card.
 [report_card]
-rotation        = "✅✅✅"   # TK 9/5: nothing to note
-meet_center     = "✅✅✅"   # TK 9/5: nothing to note
-no_complaints   = "✅✅✅"   # TK 9/5: nothing to note
-energy          = "✅✅✅"
-sr_rating       = "✅✅✅"   # off the 9/4 passing grid (2.5 match); see notes
-defensive_play  = "✅✅✅"
+rotation        = "..."
+meet_center     = "..."
+no_complaints   = "..."
+energy          = "✅✅✅"   # TK: "a dominating day for the Patriots where everyone contributed"
+sr_rating       = "✅✅✅"   # 2.5 team rating, confirmed by TK — match figure, no per-set split
+run_5           = "..."
+no_opp_run      = "..."
+defensive_play  = "✅✅✅"   # TK: "the entire defense ... had stellar serve receive"
 
 # Optional per-row comments on the report card, keyed by criterion.
 [notes]
 transcription = """
-The 9/4 game file itself was lost — this one was rebuilt on 2026-09-05 from the \
-rendered stats note and report card (set scores, per-set tallies, recap) plus a \
-fresh transcription of the scorebook scans. Two things to settle:
+The tally sheet skews on the clipboard, so every circled total was cross-checked \
+against its tally marks. All eight rows agree except one cell:
 
-- **Set 2, JC second rotation** — the book has a crossed-out entry in position I \
-that was re-written into position II. Reading it as a one-point term (JC 14) is \
-what makes the two teams' service terms alternate and land on 25-19; every other \
-term in the set reads cleanly. The run and race-to-15 rows come out the same \
-either way.
-- **Communication errors, S2** — the tally sheet records 2, which is what marks \
-that row ❌. TK's 9/5 note was that there were no communication issues, so this \
-may be a tally-sheet miscount rather than a real pair of errors.
+- **S2 Service Errors** — the tally marks read `卌 II` (7) and the circled total \
+reads as either `7` or `9`. **7, confirmed by TK.**
+
+Everything else is a clean match, and the book's set scores agree with the tally \
+sheet's W/W/W result row.
 """
-sr_rating = "Two sheets disagree: the 9/4 passing grid (whole-match tally, 19 receptions tracked) rates the team 2.5; Hudl rated all 33 receptions at 1.76. Marks follow the passing grid."
-service_errors = "14 SE, level with the tally's 14 aces — the S2 spike (7) is where the set got close"
-blocks = "Tally sheet had 1 (S3); Hudl's official box score credits none"
-kills = "32 kills officially — S1 12, S2 10, S3 6 on the live tally"
+
+first_serve = """
+Settled by TK: **received S1 and S3, served S2.** Neither the lineup sheet's S/R \
+boxes (R/R/S) nor a naive read of the book matches that on its own.
+
+S2 and S3 fall straight out of the book. S1 did not: the book records eight John \
+Carroll service terms to Bel Air's seven, which alternates only if JC served \
+first. Receiving requires an eighth Bel Air term, and there is exactly one place \
+it can go — a zero-point term between JC's 23rd and 24th points, where Bel Air \
+won serve back and lost the rally immediately. The scorer did not write that bare \
+end-of-serve mark down. It is added here as the trailing repeated `10`.
+
+The lineup sheet's S/R box was wrong for S2 and S3 either way. Worth a look at \
+how that box gets filled in before it drives starting zones on a card that counts.
+"""
+
+serve_receive = """
+**Team rating 2.5 — confirmed by TK, but not reconstructable per set.**
+
+The sheet that came back is a hand-drawn grid on the back of the Bel Air \
+scouting report: one row per player, columns 3/2/1/0, tallied for the whole \
+match. No per-set split and no aces-conceded row, so it cannot go into the \
+[serve_receive] table, and `aces_against` is unknown for this match.
+
+Read as marked: Olivi 3×4/1×1/0×1, Williams 3×4/2×1, Hall 3×2/2×1/1×1, \
+Magness 3×2, Sosnowki 3×2 — 48 points over 19 receptions = **2.53**. Butler, \
+DeReamer, Gostomski and Young have no marks.
+
+Nineteen receptions is light for three sets; Bel Air missing a good number of \
+serves accounts for some of it. TK confirmed 2.5 as the right number, so the \
+SR row is marked off it — but it is a match figure applied to all three sets, \
+not three measured sets.
+"""
+
+kills = "28 kills — S1 12, S2 10, S3 6"
 aces_over_se = "S1 6-3 and S3 6-4; S2 went the other way at 2-7"
+service_errors = "14 SE, level with our 14 aces — the S2 spike (7) is where the set got close"
+blocks = "1 block in three sets (S3). Same row we failed against Harford Tech"
+setters = "Proctor, Wisniewski and Boyle all tallied assists (TK) — the book and tally sheet do not record assists"

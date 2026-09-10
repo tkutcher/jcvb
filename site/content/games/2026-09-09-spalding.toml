@@ -1,0 +1,139 @@
+# One game = one file. Everything downstream (site result + recap page, the
+# Keys to the Game card, the school's score form) is generated from this.
+#
+#   uv run python -m jcvb.postgame summary     2026-09-09-spalding
+#   uv run python -m jcvb.postgame report-card 2026-09-09-spalding --out <vault path>
+#   uv run python -m jcvb.postgame form-url    2026-09-09-spalding
+
+[game]
+date = "2026-09-09"
+opponent = "Spalding"
+designation = "conference"
+home_away = "away"
+# [JC, opponent] per set, in order.
+sets = [[22, 25], [25, 20], [16, 25], [24, 26]]
+
+# Per-set tallies from the assistant coach's sheet, one entry per set.
+[stats]
+aces                 = [2, 1, 2, 2]
+service_errors       = [5, 1, 5, 1]
+kills                = [9, 8, 4, 11]
+blocks               = [2, 1, 0, 1]
+attack_errors        = [4, 2, 1, 2]
+communication_errors = [1, 1, 2, 1]
+net_violations       = [0, 0, 1, 0]
+doubles_lifts        = [0, 0, 0, 3]
+
+# Read off the official book: the running score at the END of each service term,
+# in order, for each team. Service terms strictly alternate, so these replay the
+# set — the diffs are the scoring runs, and interleaving them settles the race to
+# 15. `postgame` refuses to load this unless each set's last value matches the
+# set score above, which is what catches a misread digit.
+#
+# first_serve comes off the book's FIRST SERVE checkmark, which the scorer
+# marked in every set, and each one is corroborated by the service-term parity.
+[scorebook]
+first_serve = ["jc", "opp", "jc", "opp"]
+jc = [
+  [0, 1, 4, 5, 7, 7, 8, 9, 11, 12, 13, 14, 16, 19, 22],
+  [2, 6, 7, 8, 10, 11, 13, 14, 20, 21, 24, 25],
+  [1, 2, 3, 5, 6, 7, 9, 10, 14, 15, 16],
+  [2, 4, 6, 7, 8, 9, 10, 12, 15, 16, 17, 18, 22, 24],
+]
+opp = [
+  [2, 3, 4, 7, 8, 10, 11, 12, 13, 16, 18, 19, 23, 24, 25],
+  [0, 6, 7, 8, 9, 10, 11, 14, 17, 18, 19, 20],
+  [3, 4, 6, 8, 11, 14, 17, 19, 21, 24, 25],
+  [0, 3, 4, 5, 6, 7, 8, 14, 16, 18, 21, 22, 23, 24, 26],
+]
+
+# [serve_receive] is absent again — see [notes].serve_receive. The passing sheet
+# is the same whole-match 3/2/1/0 grid as Bel Air, with no per-set split and no
+# aces-conceded row, so it cannot be transcribed into the per-set digit strings
+# this table expects. Do not guess it.
+
+[card]
+writeup = """
+Drafted from TK's post-match notes — edit freely. Very good match against a \
+solid A-Conference team, and we were competitive in all four. Three things to \
+clean up: too many service errors, communication errors throughout, and the \
+general level of energy and vocals — we only really turned it up later in the \
+match. Take the fourth set as the lesson: 24-26 is one or two possessions.\
+"""
+
+[recap]
+headline = "Patriots push Spalding to four in conference opener"
+body = """
+John Carroll opened the conference slate on the road against a strong Spalding \
+side and made a real match of it, falling 3-1 — 22-25, 25-20, 16-25, 24-26 — \
+with the fourth set going all the way to 26-24. The Patriots answered a tight \
+opener by taking the second set 25-20, and were level with Spalding deep into \
+the fourth before the hosts closed it out. Jackson DeReamer, Peyton Williams \
+and Luke Boyle led an attack that put down 32 kills across the four sets, \
+eleven of them in that fourth set alone. Tyler Olivi was outstanding in the \
+back court, digging ball after ball to keep long rallies alive against as much \
+offensive pressure as the Patriots have seen this season — Spalding's two \
+outside hitters attacked relentlessly all evening, and John Carroll answered \
+with a disciplined block and steady defense, four stuffs on the night. A \
+competitive, high-intensity night against a quality opponent, and plenty to \
+carry into the rest of the conference slate.\
+"""
+
+# Rows the tally sheet cannot answer — one mark per set (✅/❌, or a dot to
+# leave unanswered). Fill these in and re-run report-card.
+[report_card]
+rotation        = "...."
+meet_center     = "...."
+no_complaints   = "✅✅❌✅"   # S3: ref told one of ours not to make the call on an opponent foot fault; TK counted it
+energy          = "❌✅✅✅"   # TK's marks
+sr_rating       = "❌❌❌❌"   # 1.49 team rating for the match — see [notes].serve_receive
+run_5           = "...."
+no_opp_run      = "...."
+defensive_play  = "✅✅✅✅"   # TK: "Tyler Olivi was stellar defensively ... keeping a lot of long rallies going"
+
+# Optional per-row comments on the report card, keyed by criterion.
+[notes]
+transcription = """
+Two cells needed a decision:
+
+- **Set 4 ends 26-24, not 25-24.** The book stops at Spalding 25 with the point \
+circled, but 25-24 is not a legal finish and the term-by-term replay has the \
+set tied 24-24 before that. The 26th point was never written down. TK's own \
+recollection was 24-26. Recorded as 26.
+- **Set 1, JC position VI** has a `8` struck through before the end-of-serve \
+mark. Read as a scorer correction and dropped — JC's points 1-22 then run \
+consecutively with no gaps or repeats, which they do not if the 8 is kept.
+
+Everything else reconciles: all four sets' service terms alternate cleanly and \
+each side's last term-end equals the set score, and the tally sheet's L/W/L/L \
+result row agrees with the book.
+"""
+
+serve_receive = """
+**Team rating ≈ 1.49 for the match**, and it is not reconstructable per set.
+
+Same hand-drawn whole-match grid as Bel Air — one row per player, columns for \
+each pass rating, no per-set split and no aces-conceded row — so it cannot go \
+into the [serve_receive] table and `aces_against` is unknown again.
+
+Read as marked (70 receptions, 104 points):
+
+| Player | 3 | 2 | 1 | 0 | Rec | Rating |
+| --- | :-: | :-: | :-: | :-: | :-: | :-: |
+| Olivi | 4 | 5 | 6 | 3 | 18 | 1.56 |
+| Butler | 1 | 3 | 9 | 2 | 15 | 1.20 |
+| Williams | 4 | 6 | 5 | 5 | 20 | 1.45 |
+| DeReamer | 3 | 0 | 0 | 1 | 4 | 2.25 |
+| Sosnowski | 4 | 2 | 4 | 3 | 13 | 1.54 |
+
+The sheet's first column header is scribbled out; **TK confirmed it is `1`**, \
+so the columns run 1-2-3-0 (not high-to-low the way the Bel Air sheet was laid \
+out). 1.49 is the settled number.
+"""
+
+digs = "No digs tally came back, though the game note assigned SR Rating & Digs to Coach Pietro. Olivi's digs are described in the recap but not counted."
+kills = "32 kills — S1 9, S2 8, S3 4, S4 11"
+service_errors = "12 SE, and 10 of them landed in the two sets we lost worst (S1 5, S3 5)"
+communication_errors = "5 across four sets — TK flagged these as a clean-up item"
+blocks = "4 blocks — best of the season, and S1's 2 is the first time this row has passed all year"
+doubles_lifts = "3, all in S4"
