@@ -83,14 +83,23 @@ def test_stats_must_match_the_number_of_sets():
 # --- records -------------------------------------------------------------------
 
 
-def test_scrimmages_never_touch_the_record():
+def test_scrimmages_count_toward_the_overall_record_but_not_the_conference_one():
+    # Harford Tech is a scrimmage loss, Boys Latin a B-Conference win.
     season = [game(), game(SWEEP_WIN, "2026-09-18-boys-latin")]
-    assert pg.records(season) == {"overall": "1-0", "conference": "1-0"}
+    assert pg.records(season) == {"overall": "1-1", "conference": "1-0"}
 
 
 def test_record_is_as_of_the_game_being_reported():
     season = [game(), game(SWEEP_WIN, "2026-09-18-boys-latin")]
-    assert pg.records(season, through=game().date)["overall"] == "0-0"
+    assert pg.records(season, through=game().date)["overall"] == "0-1"
+
+
+def test_conference_record_is_b_conference_opponents_only():
+    # The schedule labels every MIAA opponent `conference`, but Curley is
+    # A-Conference: it moves the overall record and not the conference one.
+    curley = {**SWEEP_WIN, "game": {**SWEEP_WIN["game"], "opponent": "Curley"}}
+    season = [game(curley, "2026-09-25-curley")]
+    assert pg.records(season) == {"overall": "1-0", "conference": "0-0"}
 
 
 # --- report card ---------------------------------------------------------------

@@ -66,6 +66,12 @@ FORM_FIELDS = {
 
 SITE_BASE = "https://sites.anvilor.com/jcvb"
 
+# MIAA B-Conference opponents. JC boys volleyball plays a schedule full of MIAA
+# schools, but only these three are in our conference, so only games against
+# them move the conference record. Must match the opponent strings in
+# site/content/schedule/2026.toml exactly.
+B_CONFERENCE = frozenset({"St. Paul's", "Friends", "Boys Latin"})
+
 def slugify(date_value: date, opponent: str) -> str:
     """`2026-08-26-harford-tech` — the id a game file and its site page share."""
     cleaned = "".join(
@@ -182,12 +188,17 @@ class Game:
 
     @property
     def is_conference(self) -> bool:
-        return self.designation == "conference"
+        """Conference record is B-Conference opponents only — see B_CONFERENCE.
+
+        The schedule labels every MIAA opponent `conference`, which is what the
+        site displays, but most of them are A-Conference and do not count here.
+        """
+        return self.designation == "conference" and self.opponent in B_CONFERENCE
 
     @property
     def counts_toward_record(self) -> bool:
-        """Scrimmages are not results — they never touch a record."""
-        return self.designation != "scrimmage"
+        """Everything played counts toward the overall record, scrimmages included."""
+        return True
 
     @property
     def recap_url(self) -> str:
@@ -326,7 +337,8 @@ def load_season(games_dir: Path = GAMES_DIR, season: int | None = None) -> list[
 
 
 def records(games: list[Game], through: date | None = None) -> dict[str, str]:
-    """Overall and conference records, scrimmages excluded."""
+    """Overall record (everything played, scrimmages included) and the
+    B-Conference-only conference record."""
     played = [g for g in games if g.counts_toward_record]
     if through is not None:
         played = [g for g in played if g.date <= through]
