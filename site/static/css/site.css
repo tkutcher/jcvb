@@ -379,6 +379,31 @@ body.nav-open .nav-toggle span::after { transform: rotate(-45deg) translateY(-1p
 .dodont li::before { content: "›"; position: absolute; left: 0; color: var(--jc-gold); }
 @media (max-width: 620px) { .dodont { grid-template-columns: 1fr; } }
 
+/* ---- Asset exporter (brand-export.js injects the dialog; the button in each
+   tile caption starts hidden so nothing shows if the script can't run) ---- */
+.logo-tile__cap button { background: none; border: 0; padding: 0; font: inherit; color: var(--jc-gold); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.export-dlg { width: min(880px, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); border: 1px solid var(--jc-line-strong); border-radius: var(--radius); background: var(--jc-surface); color: var(--jc-text); padding: clamp(1.1rem, 3vw, 1.8rem); }
+.export-dlg::backdrop { background: rgba(0, 0, 0, 0.72); }
+.export-dlg__close-form { float: right; margin: -0.4rem -0.4rem 0 0; }
+.export-dlg__x { background: none; border: 0; color: var(--jc-muted); font-size: 1.6rem; line-height: 1; cursor: pointer; }
+.export-dlg__title { font-size: var(--fs-h3); margin-bottom: 1rem; }
+.export-dlg__body { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr); gap: 1.4rem; align-items: start; }
+.export-preview { border: 1px solid var(--jc-line); border-radius: var(--radius-sm); padding: 0.9rem; display: grid; place-items: center; min-height: 200px; background: var(--jc-surface-2); }
+/* Checkerboard only when the export has no background, so "transparent" reads
+   as transparent rather than as whatever the dialog happens to sit on. */
+.export-preview.is-transparent { background-color: #fff; background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0; }
+.export-preview canvas { max-width: 100%; max-height: 320px; height: auto; width: auto; }
+.export-controls { display: grid; gap: 0.85rem; }
+.export-controls label { display: grid; gap: 0.3rem; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--jc-gold); font-weight: 600; }
+.export-controls select, .export-controls input[type="number"] { background: var(--jc-surface-2); color: var(--jc-text); border: 1px solid var(--jc-line); border-radius: var(--radius-sm); padding: 0.5rem 0.6rem; font: inherit; font-size: 0.92rem; text-transform: none; letter-spacing: 0; }
+.export-controls input[type="color"] { background: var(--jc-surface-2); border: 1px solid var(--jc-line); border-radius: var(--radius-sm); height: 2.4rem; padding: 0.2rem; }
+.export-controls input[type="range"] { accent-color: var(--jc-gold); }
+.export-hint { color: var(--jc-muted); font-weight: 400; letter-spacing: 0; text-transform: none; }
+.export-note { margin-top: 0.9rem; color: var(--jc-gold-bright); font-size: 0.88rem; border-left: 2px solid var(--jc-gold); padding-left: 0.8rem; }
+.export-dlg__foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--jc-line); }
+.export-filename { color: var(--jc-muted); font-size: 0.82rem; word-break: break-all; }
+@media (max-width: 700px) { .export-dlg__body { grid-template-columns: 1fr; } }
+
 /* ==========================================================================
    SCHEDULE
    ========================================================================== */

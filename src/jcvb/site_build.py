@@ -471,7 +471,7 @@ def build() -> None:
     env = build_env()
     # Content-hash for cache-busting CSS/JS (also helps real deploys).
     h = hashlib.md5()
-    for f in ("css/brand.css", "css/site.css", "js/motion.js"):
+    for f in ("css/brand.css", "css/site.css", "js/motion.js", "js/brand-export.js"):
         fp = STATIC_DIR / f
         if fp.exists():
             h.update(fp.read_bytes())

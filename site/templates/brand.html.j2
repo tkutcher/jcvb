@@ -73,7 +73,13 @@
           </div>
           <div class="logo-tile__cap">
             <span>{{ t.cap }}</span>
-            <a href="{{ base }}/assets/brand/{{ t.img }}" download>PNG ↓</a>
+            <span>
+              <a href="{{ base }}/assets/brand/{{ t.img }}" download>PNG ↓</a>
+              <button type="button" hidden
+                      data-export-src="{{ base }}/assets/brand/{{ t.img }}"
+                      data-export-name="{{ t.img.rsplit('.', 1)[0] }}"
+                      data-export-label="{{ g.title }} — {{ t.cap }}">Export…</button>
+            </span>
           </div>
         </div>
         {% endfor %}
@@ -141,4 +147,8 @@
     </p>
   </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ base }}/assets/js/brand-export.js?v={{ ver }}" defer></script>
 {% endblock %}
